@@ -1,16 +1,17 @@
 import { deleteProduct } from '../utils/firebase'
 
-type Props = { products: { [key: string]: any }, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: {} }>> }
-function ProductTable({ products, setProducts }: Props)
+type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, products: { [key: string]: any }, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: {} }>>, setEditingProduct: React.Dispatch<React.SetStateAction<{ [key: string]: any }>> }
+function ProductTable({ setShow, products, setProducts, setEditingProduct }: Props)
 {
     function handleEditProduct(id: string)
     {
-        console.log('Edit', id)
+        setEditingProduct({ ...products[id], id })
+        setShow(true)
     }
 
     async function handleDeleteProduct(id: string)
     {
-        await deleteProduct(id)
+        await deleteProduct(id, products[id].images.length)
         setProducts(products =>
         {
             const newProducts = { ...products }
@@ -41,7 +42,7 @@ function ProductTable({ products, setProducts }: Props)
                         <td className='border px-4 py-2'>{product.usage.join(', ')}</td>
                         <td className='border px-4 py-2 text-right'>{product.price}</td>
                         <td className='border px-4 py-2 text-right'>{product.stock}</td>
-                        <td className='border max-w-20'><img src={product.image} alt={product.name} className='object-contain' /></td>
+                        <td className='border max-w-20'><img src={product.images[0]} alt={product.name} className='object-contain' /></td>
                         <td className='pl-4 py-2'>
                             <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => handleEditProduct(id)}>
                                 Edit

@@ -1,9 +1,34 @@
-import { DocumentData } from 'firebase/firestore'
-import { addProduct } from '../utils/firebase'
+import { useEffect } from 'react'
+import { addProduct, editProduct } from '../utils/firebase'
 
-type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: DocumentData }>>, tags: { [key: string]: string[] } }
-function ProductModal({ setShow, setProducts, tags }: Props)
+type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>, tags: { [key: string]: string[] }, editingProduct: { [key: string]: any } }
+function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
 {
+    function editing(): boolean
+    {
+        return Object.keys(editingProduct).length > 0
+    }
+
+    useEffect(() =>
+    {
+        const form = document.querySelector('form')
+        form?.reset()
+        if (editing())
+        {
+            if (form)
+            {
+                (form.name as any).value = editingProduct.name
+                form.description.value = editingProduct.description
+                form.price.value = editingProduct.price
+                form.stock.value = editingProduct.stock
+                const category = Array.from(form.category)
+                category.forEach((tag: any) => tag.checked = editingProduct.category.includes(tag.value))
+                const usage = Array.from(form.usage)
+                usage.forEach((tag: any) => tag.checked = editingProduct.usage.includes(tag.value))
+            }
+        }
+    }, [editingProduct])
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>)
     {
         e.preventDefault()
@@ -14,17 +39,27 @@ function ProductModal({ setShow, setProducts, tags }: Props)
         const usage = Array.from(form.usage).filter((tag: any) => tag.checked).map((tag: any) => tag.value)
         const price = parseFloat(form.price.value)
         const stock = parseInt(form.stock.value)
-        const image = form.image.files?.[0]
+        const images = form.image.files
 
-        const id = await addProduct(name, description, category, usage, price, stock, image)
-        setProducts(products => ({ ...products, [id]: { name, description, category, usage, price, stock, image: URL.createObjectURL(image) } }))
+        if (editing())
+            var id = await editProduct(editingProduct.id, name, description, category, usage, price, stock, images, editingProduct.images.length)
+        else
+            var id = await addProduct(name, description, category, usage, price, stock, images)
+
+        if (images.length > 0)
+        {
+            const imageObjects = Array.from(images).map((image: any) => URL.createObjectURL(image))
+            setProducts(products => ({ ...products, [id]: { name, description, category, usage, price, stock, images: imageObjects } }))
+        }
+        else
+            setProducts(products => ({ ...products, [id]: { name, description, category, usage, price, stock, images: editingProduct.images } }))
         setShow(false)
     }
 
     return (
         <div className='w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
             <h1 className='ml-2 pb-1 text-3xl font-bold underline'>
-                New Product
+                {editing() ? 'Edit' : 'Add'} Product
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='flex items-center m-4'>
@@ -71,10 +106,10 @@ function ProductModal({ setShow, setProducts, tags }: Props)
                 </div>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3' htmlFor='image'>Image</label>
-                    <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' required />
+                    <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple {...(editing() && { required: true })} />
                 </div>
                 <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit'>
-                    Add Product
+                    {editing() ? 'Edit' : 'Add'}
                 </button>
             </form>
         </div >

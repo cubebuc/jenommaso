@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 // import { getAuth } from 'firebase/auth'
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -17,6 +17,7 @@ const app = initializeApp(firebaseConfig)
 const firestore = getFirestore(app)
 const storage = getStorage(app)
 
+// Get all products from Firestore
 export async function getProducts(): Promise<{ [key: string]: any }>
 {
     const querySnapshot = await getDocs(collection(firestore, 'products'))
@@ -25,22 +26,58 @@ export async function getProducts(): Promise<{ [key: string]: any }>
     return products
 }
 
-export async function addProduct(name: string, description: string, category: string[], usage: string[], price: number, stock: number, image: File): Promise<string>
+// Add a new product to Firestore
+export async function addProduct(name: string, description: string, category: string[], usage: string[], price: number, stock: number, images: FileList): Promise<string>
 {
     const docRef = doc(collection(firestore, 'products'))
-    const imageRef = ref(storage, `images/${docRef.id}`)
-    await uploadBytes(imageRef, image)
-    await setDoc(docRef, { name, description, category, usage, price, stock, image: await getDownloadURL(imageRef) })
+    const imageURLs = await Promise.all(Array.from(images).map(async (image, index) =>
+    {
+        const imageRef = ref(storage, `images/${docRef.id}-${index}`)
+        await uploadBytes(imageRef, image)
+        return await getDownloadURL(imageRef)
+    }))
+    await setDoc(docRef, { name, description, category, usage, price, stock, images: imageURLs })
     return docRef.id
 }
 
-export async function deleteProduct(id: string)
+// Edit an existing product in Firestore - if images are provided, delete the old images and upload the new ones, otherwise just update the product details
+export async function editProduct(id: string, name: string, description: string, category: string[], usage: string[], price: number, stock: number, images: FileList, imageCount: number): Promise<string>
 {
-    const imageRef = ref(storage, `images/${id}`)
-    await deleteObject(imageRef)
+    if (images.length === 0)
+    {
+        await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, usage, price, stock })
+        return id
+    }
+
+    for (let i = 0; i < imageCount; i++)
+    {
+        const imageRef = ref(storage, `images/${id}-${i}`)
+        await deleteObject(imageRef)
+    }
+
+    const imageURLs = await Promise.all(Array.from(images).map(async (image, index) =>
+    {
+        const imageRef = ref(storage, `images/${id}-${index}`)
+        await uploadBytes(imageRef, image)
+        return await getDownloadURL(imageRef)
+    }))
+    console.log(id)
+    await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, usage, price, stock, images: imageURLs })
+    return id
+}
+
+// Delete a product from Firestore - delete all images associated with the product
+export async function deleteProduct(id: string, imageCount: number)
+{
+    for (let i = 0; i < imageCount; i++)
+    {
+        const imageRef = ref(storage, `images/${id}-${i}`)
+        await deleteObject(imageRef)
+    }
     await deleteDoc(doc(collection(firestore, 'products'), id))
 }
 
+// Get all tags from Firestore
 export async function getTags(): Promise<{ [key: string]: string[] }>
 {
     const docRef = doc(firestore, 'misc', 'tags')
@@ -48,14 +85,16 @@ export async function getTags(): Promise<{ [key: string]: string[] }>
     return docSnap.data() as { [key: string]: string[] }
 }
 
+// Add a new tag to Firestore
 export async function addTag(type: string, tag: string)
 {
     const docRef = doc(firestore, 'misc', 'tags')
-    await setDoc(docRef, { [type]: arrayUnion(tag) }, { merge: true })
+    await updateDoc(docRef, { [type]: arrayUnion(tag) })
 }
 
+// Delete a tag from Firestore
 export async function deleteTag(type: string, tag: string)
 {
     const docRef = doc(firestore, 'misc', 'tags')
-    await setDoc(docRef, { [type]: arrayRemove(tag) }, { merge: true })
+    await updateDoc(docRef, { [type]: arrayRemove(tag) })
 }
