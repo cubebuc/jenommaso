@@ -43,7 +43,7 @@ function AdminPage({ }: Props)
                 Tags
             </button>
             <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showTagModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowTagModal(false)}>
-                <TagModal setShow={setShowTagModal} setTags={setTags} tags={tags} />
+                <TagModal setShow={setShowTagModal} setTags={setTags} tags={tags} products={products} />
             </div>
 
 

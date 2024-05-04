@@ -1,7 +1,7 @@
 import { addTag, deleteTag } from "../utils/firebase"
 
-type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setTags: React.Dispatch<React.SetStateAction<{ [key: string]: string[] }>>, tags: { [key: string]: string[] } }
-function TagModal({ setShow, setTags, tags }: Props)
+type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setTags: React.Dispatch<React.SetStateAction<{ [key: string]: string[] }>>, tags: { [key: string]: string[] }, products: { [key: string]: any } }
+function TagModal({ setShow, setTags, tags, products }: Props)
 {
     async function handleAddTag(type: string, tag: string)
     {
@@ -36,6 +36,8 @@ function TagModal({ setShow, setTags, tags }: Props)
 
     async function handleDeleteTag(type: string, tag: string)
     {
+        if (Object.values(products).some(product => product[type].includes(tag))) return
+
         await deleteTag(type, tag)
         setTags(tags =>
         {
