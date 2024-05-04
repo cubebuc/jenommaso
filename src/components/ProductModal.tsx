@@ -28,16 +28,8 @@ function ProductModal({ setShow, setProducts, tags }: Props)
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='name'>Name</label>
-                    <input className='grow border px-4 py-2' type='text' id='name' name='name' placeholder='Good Product' required />
-                </div>
-                <div className='flex m-4'>
-                    <label className='w-24 shrink-0 mr-3 mt-2' htmlFor='description'>Description</label>
-                    <textarea className='grow border px-4 py-2' id='description' name='description' placeholder='This is a good product' required />
-                </div>
-                <div className='flex items-center m-4 my-5'>
                     <label className='w-24 shrink-0 mr-3' htmlFor='options'>Category</label>
-                    <div className='flex flex-wrap px-4'>
+                    <div className='flex flex-wrap px-2'>
                         {
                             tags?.category?.map((category, index) => (
                                 <label key={index} className='mr-4'>
@@ -48,9 +40,17 @@ function ProductModal({ setShow, setProducts, tags }: Props)
                         }
                     </div>
                 </div>
-                <div className='flex items-center m-4 mb-5'>
+                <div className='flex items-center m-4'>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='name'>Name</label>
+                    <input className='grow border px-4 py-2' type='text' id='name' name='name' placeholder='Good Product' required />
+                </div>
+                <div className='flex m-4'>
+                    <label className='w-24 shrink-0 mr-3 mt-2' htmlFor='description'>Description</label>
+                    <textarea className='grow border px-4 py-2' id='description' name='description' placeholder='This is a good product' required />
+                </div>
+                <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3' htmlFor='options'>Usage</label>
-                    <div className='flex flex-wrap px-4'>
+                    <div className='flex flex-wrap px-2'>
                         {
                             tags?.usage?.map((usage, index) => (
                                 <label key={index} className='mr-4'>
