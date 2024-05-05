@@ -5,9 +5,9 @@ type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setProduc
 function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
 {
     const [unit, setUnit] = useState('kg')
-    const [packageSize, setPackageSize] = useState(0)
-    const [pricePerUnit, setPricePerUnit] = useState(0)
-    const [packagePrice, setPackagePrice] = useState(0)
+    const [packageSize, setPackageSize] = useState('')
+    const [pricePerUnit, setPricePerUnit] = useState('')
+    const [packagePrice, setPackagePrice] = useState('')
 
     function editing(): boolean
     {
@@ -20,11 +20,14 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
         form?.reset()
         if (editing())
         {
+            setPackageSize(editingProduct.size.toString())
+            setPricePerUnit(editingProduct.pricePerUnit.toString())
+            setPackagePrice(editingProduct.packagePrice.toString())
             if (form)
             {
                 (form.name as any).value = editingProduct.name
                 form.description.value = editingProduct.description
-                form.price.value = editingProduct.price
+                form.unit.value = editingProduct.unit
                 form.stock.value = editingProduct.stock
                 const category = Array.from(form.category)
                 category.forEach((tag: any) => tag.checked = editingProduct.category.includes(tag.value))
@@ -36,30 +39,24 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
 
     function handlePackageSizeChange(e: React.ChangeEvent<HTMLInputElement>)
     {
-        if (e.currentTarget.value)
-        {
-            setPackageSize(parseFloat(e.currentTarget.value))
-            setPackagePrice(Math.floor(parseFloat(e.currentTarget.value) * pricePerUnit))
-        }
+        setPackageSize(e.currentTarget.value)
+        if (e.currentTarget.value.length > 0 && pricePerUnit.length > 0)
+            setPackagePrice((parseFloat(e.currentTarget.value) * parseFloat(pricePerUnit)).toString())
+
     }
 
     function handlePricePerUnitChange(e: React.ChangeEvent<HTMLInputElement>)
     {
-        if (e.currentTarget.value)
-        {
-            setPricePerUnit(parseFloat(e.currentTarget.value))
-            setPackagePrice(Math.floor(parseFloat(e.currentTarget.value) * packageSize))
-        }
+        setPricePerUnit(e.currentTarget.value)
+        if (e.currentTarget.value.length > 0 && packageSize.length > 0)
+            setPackagePrice((parseFloat(e.currentTarget.value) * parseFloat(packageSize)).toString())
     }
 
     function handlePackagePriceChange(e: React.ChangeEvent<HTMLInputElement>)
     {
-        if (e.currentTarget.value)
-        {
-            setPackagePrice(parseFloat(e.currentTarget.value))
-            if (packageSize > 0)
-                setPricePerUnit(Math.floor(parseFloat(e.currentTarget.value) / packageSize))
-        }
+        setPackagePrice(e.currentTarget.value)
+        if (e.currentTarget.value.length > 0 && packageSize.length > 0)
+            setPricePerUnit((parseFloat(e.currentTarget.value) / parseFloat(packageSize)).toString())
     }
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>)
@@ -70,22 +67,25 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
         const description = form.description.value
         const category = Array.from(form.category).filter((tag: any) => tag.checked).map((tag: any) => tag.value)
         const usage = Array.from(form.usage).filter((tag: any) => tag.checked).map((tag: any) => tag.value)
-        const price = parseFloat(form.price.value)
+        const size = parseFloat(form.size.value)
+        const unit = form.unit.value
+        const pricePerUnit = parseFloat(form.pricePerUnit.value)
+        const packagePrice = parseFloat(form.packagePrice.value)
         const stock = parseInt(form.stock.value)
         const images = form.image.files
 
         if (editing())
-            var id = await editProduct(editingProduct.id, name, description, category, usage, price, stock, images, editingProduct.images.length)
+            var id = await editProduct(editingProduct.id, name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images, editingProduct.images.length)
         else
-            var id = await addProduct(name, description, category, usage, price, stock, images)
+            var id = await addProduct(name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images)
 
         if (images.length > 0)
         {
             const imageObjects = Array.from(images).map((image: any) => URL.createObjectURL(image))
-            setProducts(products => ({ ...products, [id]: { name, description, category, usage, price, stock, images: imageObjects } }))
+            setProducts(products => ({ ...products, [id]: { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageObjects } }))
         }
         else
-            setProducts(products => ({ ...products, [id]: { name, description, category, usage, price, stock, images: editingProduct.images } }))
+            setProducts(products => ({ ...products, [id]: { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
         setShow(false)
     }
 
@@ -130,7 +130,7 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                     </div>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Package size</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='size'>Package size</label>
                     <input className='grow border px-4 py-2' type='number' id='size' name='size' placeholder='9.99' value={packageSize} required onChange={handlePackageSizeChange} />
                     <select className='border px-3 py-2' id='unit' name='unit' required onChange={e => setUnit(e.currentTarget.value)}>
                         <option value='kg'>kg</option>
@@ -139,12 +139,12 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                     </select>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Price / {unit}</label>
-                    <input className='grow border px-4 py-2' type='number' id='price' name='price' placeholder='9.99' value={pricePerUnit} required onChange={handlePricePerUnitChange} />
+                    <label className='w-24 shrink-0 mr-3' htmlFor='pricePerUnit'>Price / {unit}</label>
+                    <input className='grow border px-4 py-2' type='number' id='pricePerUnit' name='pricePerUnit' placeholder='9.99' value={pricePerUnit} required onChange={handlePricePerUnitChange} />
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Package price</label>
-                    <input className='grow border px-4 py-2' type='number' id='size' name='size' placeholder='9.99' value={packagePrice} required onChange={handlePackagePriceChange} />
+                    <label className='w-24 shrink-0 mr-3' htmlFor='packagePrice'>Package price</label>
+                    <input className='grow border px-4 py-2' type='number' id='packagePrice' name='packagePrice' placeholder='9.99' value={packagePrice} required onChange={handlePackagePriceChange} />
                 </div>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3' htmlFor='stock'>Stock</label>

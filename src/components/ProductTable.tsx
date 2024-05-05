@@ -28,7 +28,9 @@ function ProductTable({ setShow, products, setProducts, setEditingProduct }: Pro
                     <th className='border px-4 py-2'>Description</th>
                     <th className='border px-4 py-2'>Category</th>
                     <th className='border px-4 py-2'>Usage</th>
-                    <th className='border px-4 py-2'>Price</th>
+                    <th className='border px-4 py-2'>Size</th>
+                    <th className='border px-4 py-2'>Price/unit</th>
+                    <th className='border px-4 py-2'>Package Price</th>
                     <th className='border px-4 py-2'>Stock</th>
                     <th className='border px-4 py-2'>Image</th>
                 </tr>
@@ -40,7 +42,9 @@ function ProductTable({ setShow, products, setProducts, setEditingProduct }: Pro
                         <td className='border px-4 py-2'>{product.description}</td>
                         <td className='border px-4 py-2'>{product.category.join(', ')}</td>
                         <td className='border px-4 py-2'>{product.usage.join(', ')}</td>
-                        <td className='border px-4 py-2 text-right'>{product.price}</td>
+                        <td className='border px-4 py-2 text-right'>{product.size} {product.unit}</td>
+                        <td className='border px-4 py-2 text-right'>{product.pricePerUnit}</td>
+                        <td className='border px-4 py-2 text-right'>{product.packagePrice}</td>
                         <td className='border px-4 py-2 text-right'>{product.stock}</td>
                         <td className='border max-w-20'><img src={product.images[0]} alt={product.name} className='object-contain' /></td>
                         <td className='pl-4 py-2'>
