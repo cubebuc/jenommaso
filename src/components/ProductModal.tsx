@@ -1,9 +1,14 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { addProduct, editProduct } from '../utils/firebase'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>, tags: { [key: string]: string[] }, editingProduct: { [key: string]: any } }
 function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
 {
+    const [unit, setUnit] = useState('kg')
+    const [packageSize, setPackageSize] = useState(0)
+    const [pricePerUnit, setPricePerUnit] = useState(0)
+    const [packagePrice, setPackagePrice] = useState(0)
+
     function editing(): boolean
     {
         return Object.keys(editingProduct).length > 0
@@ -28,6 +33,34 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
             }
         }
     }, [editingProduct])
+
+    function handlePackageSizeChange(e: React.ChangeEvent<HTMLInputElement>)
+    {
+        if (e.currentTarget.value)
+        {
+            setPackageSize(parseFloat(e.currentTarget.value))
+            setPackagePrice(Math.floor(parseFloat(e.currentTarget.value) * pricePerUnit))
+        }
+    }
+
+    function handlePricePerUnitChange(e: React.ChangeEvent<HTMLInputElement>)
+    {
+        if (e.currentTarget.value)
+        {
+            setPricePerUnit(parseFloat(e.currentTarget.value))
+            setPackagePrice(Math.floor(parseFloat(e.currentTarget.value) * packageSize))
+        }
+    }
+
+    function handlePackagePriceChange(e: React.ChangeEvent<HTMLInputElement>)
+    {
+        if (e.currentTarget.value)
+        {
+            setPackagePrice(parseFloat(e.currentTarget.value))
+            if (packageSize > 0)
+                setPricePerUnit(Math.floor(parseFloat(e.currentTarget.value) / packageSize))
+        }
+    }
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>)
     {
@@ -97,8 +130,21 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                     </div>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Price</label>
-                    <input className='grow border px-4 py-2' type='number' id='price' name='price' placeholder='9.99' required />
+                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Package size</label>
+                    <input className='grow border px-4 py-2' type='number' id='size' name='size' placeholder='9.99' value={packageSize} required onChange={handlePackageSizeChange} />
+                    <select className='border px-3 py-2' id='unit' name='unit' required onChange={e => setUnit(e.currentTarget.value)}>
+                        <option value='kg'>kg</option>
+                        <option value='l'>l</option>
+                        <option value='pcs'>pcs</option>
+                    </select>
+                </div>
+                <div className='flex items-center m-4'>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Price / {unit}</label>
+                    <input className='grow border px-4 py-2' type='number' id='price' name='price' placeholder='9.99' value={pricePerUnit} required onChange={handlePricePerUnitChange} />
+                </div>
+                <div className='flex items-center m-4'>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='price'>Package price</label>
+                    <input className='grow border px-4 py-2' type='number' id='size' name='size' placeholder='9.99' value={packagePrice} required onChange={handlePackagePriceChange} />
                 </div>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3' htmlFor='stock'>Stock</label>
