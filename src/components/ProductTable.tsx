@@ -38,14 +38,14 @@ function ProductTable({ setShow, products, setProducts, setEditingProduct }: Pro
             <tbody>
                 {Object.entries(products).map(([id, product]) =>
                     <tr key={id}>
-                        <td className='border px-4 py-2'>{product.name}</td>
-                        <td className='border px-4 py-2'>{product.description}</td>
-                        <td className='border px-4 py-2'>{product.category.join(', ')}</td>
-                        <td className='border px-4 py-2'>{product.usage.join(', ')}</td>
-                        <td className='border px-4 py-2 text-right'>{product.size} {product.unit}</td>
-                        <td className='border px-4 py-2 text-right'>{product.pricePerUnit}</td>
-                        <td className='border px-4 py-2 text-right'>{product.packagePrice}</td>
-                        <td className='border px-4 py-2 text-right'>{product.stock}</td>
+                        <td className='border px-4 py-1 max-w-40 truncate'>{product.name}</td>
+                        <td className='border px-4 py-1 max-w-40 truncate'>{product.description}</td>
+                        <td className='border px-4 py-1 max-w-40 truncate'>{product.category.join(', ')}</td>
+                        <td className='border px-4 py-1 max-w-40 truncate'>{product.usage.join(', ')}</td>
+                        <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.size.toFixed(2)} {product.unit}</td>
+                        <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.pricePerUnit.toFixed(2)}</td>
+                        <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.packagePrice.toFixed(2)}</td>
+                        <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.stock}</td>
                         <td className='border max-w-20'><img src={product.images[0]} alt={product.name} className='object-contain' /></td>
                         <td className='pl-4 py-2'>
                             <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => handleEditProduct(id)}>
