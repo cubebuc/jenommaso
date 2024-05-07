@@ -3,8 +3,13 @@ import { addTag, deleteTag } from "../utils/firebase"
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setTags: React.Dispatch<React.SetStateAction<{ [key: string]: string[] }>>, tags: { [key: string]: string[] }, products: { [key: string]: any } }
 function TagModal({ setShow, setTags, tags, products }: Props)
 {
-    async function handleAddTag(type: string, tag: string)
+    async function handleAddTag(e: React.FormEvent<HTMLFormElement>, type: string)
     {
+        e.preventDefault()
+        const form = e.currentTarget
+        const tag = (form[0] as any).value
+        form.reset()
+
         if (tags[type].includes(tag)) return
 
         await addTag(type, tag)
@@ -14,24 +19,6 @@ function TagModal({ setShow, setTags, tags, products }: Props)
             newTags[type] = [...tags[type], tag]
             return newTags
         })
-    }
-
-    function handleAddCategory(e: React.FormEvent<HTMLFormElement>)
-    {
-        e.preventDefault()
-        const form = e.currentTarget
-        const category = (form[0] as any).value
-        form.reset()
-        handleAddTag('category', category)
-    }
-
-    function handleAddUsage(e: React.FormEvent<HTMLFormElement>)
-    {
-        e.preventDefault()
-        const form = e.currentTarget
-        const usage = (form[0] as any).value
-        form.reset()
-        handleAddTag('usage', usage)
     }
 
     async function handleDeleteTag(type: string, tag: string)
@@ -56,7 +43,7 @@ function TagModal({ setShow, setTags, tags, products }: Props)
                 <h2 className='mb-3 text-xl'>
                     Category
                 </h2>
-                <form className='flex items-center mb-3' onSubmit={handleAddCategory}>
+                <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'category')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Category' />
                     <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
                         Add
@@ -79,7 +66,7 @@ function TagModal({ setShow, setTags, tags, products }: Props)
                 <h2 className='mb-2 text-xl'>
                     Category
                 </h2>
-                <form className='flex items-center mb-3' onSubmit={handleAddUsage}>
+                <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'usage')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Usage' />
                     <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
                         Add
