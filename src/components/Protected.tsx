@@ -1,6 +1,6 @@
-import { useContext } from "react"
-import { Navigate } from "react-router-dom"
-import { Context } from "../contexts/AuthContext"
+import { useContext } from 'react'
+import { Navigate } from 'react-router-dom'
+import { Context } from '../contexts/AuthContext'
 
 type Props = {
     children: React.ReactNode

@@ -1,4 +1,4 @@
-import { addTag, deleteTag } from "../utils/firebase"
+import { addTag, deleteTag } from '../utils/firebase'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setTags: React.Dispatch<React.SetStateAction<{ [key: string]: string[] }>>, tags: { [key: string]: string[] }, products: { [key: string]: any } }
 function TagModal({ setShow, setTags, tags, products }: Props)

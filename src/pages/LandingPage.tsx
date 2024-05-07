@@ -1,10 +1,13 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
+import { Context } from '../contexts/AuthContext'
 import { signIn } from '../utils/firebase'
 
 type Props = {}
 function LandingPage({ }: Props)
 {
+    const { verified, admin } = useContext(Context)
+
     const [loginFailed, setLoginFailed] = useState(false)
     const navigate = useNavigate()
 
@@ -19,6 +22,8 @@ function LandingPage({ }: Props)
             navigate('/home')
     }
 
+    if (verified || admin)
+        return <Navigate to='/home' replace />
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
             <h1 className='mb-5 text-5xl'>Welcome</h1>

@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, documentId } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -23,7 +23,7 @@ export async function signUp(email: string, password: string, name: string, phon
 {
     await createUserWithEmailAndPassword(auth, email, password)
     const user = auth.currentUser as User
-    await setDoc(doc(firestore, 'users', user.uid), { name, phone, address })
+    await setDoc(doc(firestore, 'users', user.uid), { name, email, phone, address })
 }
 
 // Try to sign in with an email and password - allow only verified
@@ -84,6 +84,36 @@ export async function isAdmin(): Promise<boolean>
     {
         return false
     }
+}
+
+// Get all users with their rights from Firestore
+export async function getUsersWithRights(): Promise<{ [key: string]: any }>
+{
+    const querySnapshotUsers = await getDocs(collection(firestore, 'users'))
+    const users: { [key: string]: DocumentData } = {}
+    querySnapshotUsers.forEach(async document =>
+    {
+        const docRef = doc(firestore, 'users', document.id, 'private', 'rights')
+        const docSnap = await getDoc(docRef)
+
+        users[document.id] = { ...document.data(), ...docSnap.data() }
+    })
+
+    return users
+}
+
+// Set a user as verified or unverified
+export async function setUserVerified(id: string, verified: boolean): Promise<boolean>
+{
+    try
+    {
+        await updateDoc(doc(firestore, 'users', id, 'private', 'rights'), { verified })
+    }
+    catch
+    {
+        return false
+    }
+    return true
 }
 
 // Get all products from Firestore

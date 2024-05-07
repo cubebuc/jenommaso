@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect } from "react"
-import { onAuthStateChanged } from "firebase/auth"
-import { auth, isVerified, isAdmin } from "../utils/firebase"
+import { createContext, useState, useEffect } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth, isVerified, isAdmin } from '../utils/firebase'
 
 export const Context = createContext<{ verified: boolean, admin: boolean }>({ verified: false, admin: false })
 

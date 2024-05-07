@@ -94,14 +94,14 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
     }
 
     return (
-        <div className='w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
+        <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
             <h1 className='ml-2 pb-1 text-3xl font-bold underline'>
                 {editing() ? 'Edit' : 'Add'} Product
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3'>Category</label>
-                    <div className='flex flex-wrap px-2'>
+                    <div className='grow flex flex-wrap px-3 py-2 border'>
                         {
                             tags?.category?.map((category, index) => (
                                 <label key={index} className='mr-4'>
@@ -114,7 +114,7 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                 </div>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3'>Treatment</label>
-                    <div className='flex flex-wrap px-2'>
+                    <div className='grow flex flex-wrap px-3 py-2 border'>
                         {
                             tags?.treatment?.map((treatment, index) => (
                                 <label key={index} className='mr-4'>
@@ -131,11 +131,11 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                 </div>
                 <div className='flex m-4'>
                     <label className='w-24 shrink-0 mr-3 mt-2' htmlFor='description'>Description</label>
-                    <textarea className='grow border px-4 py-2' id='description' name='description' placeholder='This is a good product' required />
+                    <textarea className='grow border px-4 py-2 h-24' id='description' name='description' placeholder='This is a good product' required />
                 </div>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3'>Usage</label>
-                    <div className='flex flex-wrap px-2'>
+                    <div className='grow flex flex-wrap px-3 py-2 border'>
                         {
                             tags?.usage?.map((usage, index) => (
                                 <label key={index} className='mr-4'>
@@ -173,6 +173,9 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                 </div>
                 <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit'>
                     {editing() ? 'Edit' : 'Add'}
+                </button>
+                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='button' onClick={() => setShow(false)}>
+                    Close
                 </button>
             </form>
         </div >
