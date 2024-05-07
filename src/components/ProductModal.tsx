@@ -31,6 +31,8 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                 form.stock.value = editingProduct.stock
                 const category = Array.from(form.category)
                 category.forEach((tag: any) => tag.checked = editingProduct.category.includes(tag.value))
+                const treatment = Array.from(form.treatment)
+                treatment.forEach((tag: any) => tag.checked = editingProduct.treatment.includes(tag.value))
                 const usage = Array.from(form.usage)
                 usage.forEach((tag: any) => tag.checked = editingProduct.usage.includes(tag.value))
             }
@@ -65,8 +67,10 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
         const form = e.currentTarget
         const name = (form.name as any).value
         const description = form.description.value
-        const category = Array.from(form.category).filter((tag: any) => tag.checked).map((tag: any) => tag.value)
-        const usage = Array.from(form.usage).filter((tag: any) => tag.checked).map((tag: any) => tag.value)
+        // array or empty
+        const category = form.category ? Array.from(form.category).filter((tag: any) => tag.checked).map((tag: any) => tag.value) : []
+        const treatment = form.treatment ? Array.from(form.treatment).filter((tag: any) => tag.checked).map((tag: any) => tag.value) : []
+        const usage = form.usage ? Array.from(form.usage).filter((tag: any) => tag.checked).map((tag: any) => tag.value) : []
         const size = parseFloat(form.size.value)
         const unit = form.unit.value
         const pricePerUnit = parseFloat(form.pricePerUnit.value)
@@ -75,17 +79,17 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
         const images = form.image.files
 
         if (editing())
-            var id = await editProduct(editingProduct.id, name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images, editingProduct.images.length)
+            var id = await editProduct(editingProduct.id, name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images, editingProduct.images.length)
         else
-            var id = await addProduct(name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images)
+            var id = await addProduct(name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images)
 
         if (images.length > 0)
         {
             const imageObjects = Array.from(images).map((image: any) => URL.createObjectURL(image))
-            setProducts(products => ({ ...products, [id]: { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageObjects } }))
+            setProducts(products => ({ ...products, [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageObjects } }))
         }
         else
-            setProducts(products => ({ ...products, [id]: { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
+            setProducts(products => ({ ...products, [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
         setShow(false)
     }
 
@@ -96,13 +100,26 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='options'>Category</label>
+                    <label className='w-24 shrink-0 mr-3'>Category</label>
                     <div className='flex flex-wrap px-2'>
                         {
                             tags?.category?.map((category, index) => (
                                 <label key={index} className='mr-4'>
                                     <input type='checkbox' name='category' value={category} />
                                     <span className='ml-1'>{category}</span>
+                                </label>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className='flex items-center m-4'>
+                    <label className='w-24 shrink-0 mr-3'>Treatment</label>
+                    <div className='flex flex-wrap px-2'>
+                        {
+                            tags?.treatment?.map((treatment, index) => (
+                                <label key={index} className='mr-4'>
+                                    <input type='checkbox' name='treatment' value={treatment} />
+                                    <span className='ml-1'>{treatment}</span>
                                 </label>
                             ))
                         }
@@ -117,7 +134,7 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
                     <textarea className='grow border px-4 py-2' id='description' name='description' placeholder='This is a good product' required />
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='options'>Usage</label>
+                    <label className='w-24 shrink-0 mr-3'>Usage</label>
                     <div className='flex flex-wrap px-2'>
                         {
                             tags?.usage?.map((usage, index) => (

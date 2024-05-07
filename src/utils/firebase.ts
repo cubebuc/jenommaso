@@ -78,7 +78,6 @@ export async function isAdmin(): Promise<boolean>
         const user = auth.currentUser as User
         const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
         const docSnap = await getDoc(docRef)
-        console.log("Done")
         return docSnap.exists() && docSnap.data().admin
     }
     catch (e)
@@ -97,7 +96,7 @@ export async function getProducts(): Promise<{ [key: string]: any }>
 }
 
 // Add a new product to Firestore
-export async function addProduct(name: string, description: string, category: string[], usage: string[], size: number, unit: number, pricePerUnit: number, packagePrice: number, stock: number, images: FileList): Promise<string>
+export async function addProduct(name: string, description: string, category: string[], treatment: string[], usage: string[], size: number, unit: number, pricePerUnit: number, packagePrice: number, stock: number, images: FileList): Promise<string>
 {
     const docRef = doc(collection(firestore, 'products'))
     const imageURLs = await Promise.all(Array.from(images).map(async (image, index) =>
@@ -106,16 +105,16 @@ export async function addProduct(name: string, description: string, category: st
         await uploadBytes(imageRef, image)
         return await getDownloadURL(imageRef)
     }))
-    await setDoc(docRef, { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs })
+    await setDoc(docRef, { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs })
     return docRef.id
 }
 
 // Edit an existing product in Firestore - if images are provided, delete the old images and upload the new ones, otherwise just update the product details
-export async function editProduct(id: string, name: string, description: string, category: string[], usage: string[], size: number, unit: number, pricePerUnit: number, packagePrice: number, stock: number, images: FileList, imageCount: number): Promise<string>
+export async function editProduct(id: string, name: string, description: string, category: string[], treatment: string[], usage: string[], size: number, unit: number, pricePerUnit: number, packagePrice: number, stock: number, images: FileList, imageCount: number): Promise<string>
 {
     if (images.length === 0)
     {
-        await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock })
+        await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock })
         return id
     }
 
@@ -132,7 +131,7 @@ export async function editProduct(id: string, name: string, description: string,
         return await getDownloadURL(imageRef)
     }))
     console.log(id)
-    await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs })
+    await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs })
     return id
 }
 

@@ -27,6 +27,7 @@ function ProductTable({ setShow, products, setProducts, setEditingProduct }: Pro
                     <th className='border px-4 py-2'>Name</th>
                     <th className='border px-4 py-2'>Description</th>
                     <th className='border px-4 py-2'>Category</th>
+                    <th className='border px-4 py-2'>Treatment</th>
                     <th className='border px-4 py-2'>Usage</th>
                     <th className='border px-4 py-2'>Size</th>
                     <th className='border px-4 py-2'>Price/unit</th>
@@ -41,6 +42,7 @@ function ProductTable({ setShow, products, setProducts, setEditingProduct }: Pro
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.name}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.description}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.category.join(', ')}</td>
+                        <td className='border px-4 py-1 max-w-40 truncate'>{product.treatment.join(', ')}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.usage.join(', ')}</td>
                         <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.size.toFixed(2)} {product.unit}</td>
                         <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.pricePerUnit.toFixed(2)}</td>

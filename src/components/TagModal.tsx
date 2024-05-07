@@ -64,7 +64,30 @@ function TagModal({ setShow, setTags, tags, products }: Props)
             </div>
             <div className='mt-4'>
                 <h2 className='mb-2 text-xl'>
-                    Category
+                    Treatment
+                </h2>
+                <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'treatment')}>
+                    <input className='border px-4 py-2' type='text' placeholder='Add Treatment' />
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
+                        Add
+                    </button>
+                </form>
+                <div className='flex flex-wrap gap-1'>
+                    {
+                        tags.treatment?.map((treatment, index) => (
+                            <div key={index} className='px-3 py-0.5 border rounded-full'>
+                                {treatment}
+                                <button className='pl-2 text-gray-600' onClick={() => handleDeleteTag('treatment', treatment)}>
+                                    ×
+                                </button>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+            <div className='mt-4'>
+                <h2 className='mb-2 text-xl'>
+                    Usage
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'usage')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Usage' />
