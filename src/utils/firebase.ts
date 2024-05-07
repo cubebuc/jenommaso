@@ -13,8 +13,9 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
-const firestore = getFirestore(app)
+
+export const auth = getAuth(app)
+export const firestore = getFirestore(app)
 const storage = getStorage(app)
 
 // Create a new user account - default to unverified
@@ -26,7 +27,7 @@ export async function signUp(email: string, password: string, name: string, phon
 }
 
 // Try to sign in with an email and password - allow only verified
-export async function signIn(email: string, password: string)
+export async function signIn(email: string, password: string): Promise<boolean>
 {
     try
     {
@@ -45,6 +46,45 @@ export async function signIn(email: string, password: string)
         return false
     }
     return true
+}
+
+// Sign out the current user
+export async function signOut()
+{
+    await auth.signOut()
+}
+
+// Check if the current user is verified
+export async function isVerified(): Promise<boolean>
+{
+    try
+    {
+        const user = auth.currentUser as User
+        const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
+        const docSnap = await getDoc(docRef)
+        return docSnap.exists() && docSnap.data().verified
+    }
+    catch
+    {
+        return false
+    }
+}
+
+// Check if the current user is an admin
+export async function isAdmin(): Promise<boolean>
+{
+    try
+    {
+        const user = auth.currentUser as User
+        const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
+        const docSnap = await getDoc(docRef)
+        console.log("Done")
+        return docSnap.exists() && docSnap.data().admin
+    }
+    catch (e)
+    {
+        return false
+    }
 }
 
 // Get all products from Firestore

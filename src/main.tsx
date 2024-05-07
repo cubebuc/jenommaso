@@ -5,6 +5,8 @@ import LandingPage from './pages/LandingPage.tsx'
 import HomePage from './pages/HomePage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
 import AdminPage from './pages/AdminPage.tsx'
+import Protected from './components/Protected.tsx'
+import AuthContext from './contexts/AuthContext.tsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -14,7 +16,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/home',
-        element: <HomePage />
+        element: <Protected verifiedRequired><HomePage /></Protected>
     },
     {
         path: '/register',
@@ -22,12 +24,14 @@ const router = createBrowserRouter([
     },
     {
         path: '/admin',
-        element: <AdminPage />
+        element: <Protected adminRequired><AdminPage /></Protected>
     }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <AuthContext>
+            <RouterProvider router={router} />
+        </AuthContext>
     </React.StrictMode>
 )

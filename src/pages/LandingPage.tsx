@@ -30,7 +30,7 @@ function LandingPage({ }: Props)
                     <Link className='border border-gray-400 p-2' to='/register'>Register</Link>
                 </div>
             </form>
-            {loginFailed && <p className='text-red-500'>Login failed</p>}
+            {loginFailed && <p className='mt-3 text-red-500'>Login failed</p>}
         </div>
     )
 }
