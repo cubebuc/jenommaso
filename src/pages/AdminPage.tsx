@@ -32,18 +32,20 @@ function AdminPage({ }: Props)
                 Admin Page
             </h1>
 
-            <button className='m-8 px-4 py-2 bg-blue-500 text-white rounded' onClick={handleAddProduct}>
-                Add Product
-            </button>
-            <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showProductModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowProductModal(false)}>
-                <ProductModal setShow={setShowProductModal} setProducts={setProducts} tags={tags} editingProduct={editingProduct} />
-            </div>
+            <div className='flex justify-center gap-10'>
+                <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={handleAddProduct}>
+                    Add Product
+                </button>
+                <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showProductModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowProductModal(false)}>
+                    <ProductModal setShow={setShowProductModal} setProducts={setProducts} tags={tags} editingProduct={editingProduct} />
+                </div>
 
-            <button className='m-8 px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShowTagModal(true)}>
-                Tags
-            </button>
-            <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showTagModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowTagModal(false)}>
-                <TagModal setShow={setShowTagModal} setTags={setTags} tags={tags} products={products} />
+                <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShowTagModal(true)}>
+                    Edit Tags
+                </button>
+                <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showTagModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowTagModal(false)}>
+                    <TagModal setShow={setShowTagModal} setTags={setTags} tags={tags} products={products} />
+                </div>
             </div>
 
 

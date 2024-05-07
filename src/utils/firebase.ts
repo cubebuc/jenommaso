@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-// import { getAuth } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 
@@ -13,9 +13,39 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-// const auth = getAuth(app)
+const auth = getAuth(app)
 const firestore = getFirestore(app)
 const storage = getStorage(app)
+
+// Create a new user account - default to unverified
+export async function signUp(email: string, password: string, name: string, phone: string, address: string)
+{
+    await createUserWithEmailAndPassword(auth, email, password)
+    const user = auth.currentUser as User
+    await setDoc(doc(firestore, 'users', user.uid), { name, phone, address })
+}
+
+// Try to sign in with an email and password - allow only verified
+export async function signIn(email: string, password: string)
+{
+    try
+    {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        const user = userCredential.user
+        const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
+        const docSnap = await getDoc(docRef)
+        if (!docSnap.exists() || !docSnap.data().verified)
+        {
+            await auth.signOut()
+            return false
+        }
+    }
+    catch
+    {
+        return false
+    }
+    return true
+}
 
 // Get all products from Firestore
 export async function getProducts(): Promise<{ [key: string]: any }>
