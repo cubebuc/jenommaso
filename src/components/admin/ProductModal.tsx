@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { addProduct, editProduct } from '../utils/firebase'
+import { addProduct, editProduct } from '../../utils/firebase'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>, tags: { [key: string]: string[] }, editingProduct: { [key: string]: any } }
 function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)

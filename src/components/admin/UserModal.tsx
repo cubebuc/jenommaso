@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getUsersWithRights, setUserVerified } from '../utils/firebase'
+import { getUsersWithRights, setUserVerified } from '../../utils/firebase'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
 function UserModal({ setShow }: Props)

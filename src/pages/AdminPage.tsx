@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import ProductModal from '../components/ProductModal'
-import TagModal from '../components/TagModal'
-import UserModal from '../components/UserModal'
-import ProductTable from '../components/ProductTable'
+import MainLayout from '../layouts/MainLayout'
+import ProductModal from '../components/admin/ProductModal'
+import TagModal from '../components/admin/TagModal'
+import UserModal from '../components/admin/UserModal'
+import ProductTable from '../components/admin/ProductTable'
 import { getProducts, getTags } from '../utils/firebase'
 
 type Props = {}
@@ -29,7 +30,7 @@ function AdminPage({ }: Props)
     }
 
     return (
-        <>
+        <MainLayout>
             <h1 className='m-8 text-3xl text-center'>
                 Admin Page
             </h1>
@@ -62,7 +63,7 @@ function AdminPage({ }: Props)
                 Products
             </h1>
             <ProductTable setShow={setShowProductModal} products={products} setProducts={setProducts} setEditingProduct={setEditingProduct} />
-        </>
+        </MainLayout>
     )
 }
 export default AdminPage

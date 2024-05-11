@@ -1,4 +1,4 @@
-import { deleteProduct } from '../utils/firebase'
+import { deleteProduct } from '../../utils/firebase'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, products: { [key: string]: any }, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: {} }>>, setEditingProduct: React.Dispatch<React.SetStateAction<{ [key: string]: any }>> }
 function ProductTable({ setShow, products, setProducts, setEditingProduct }: Props)
