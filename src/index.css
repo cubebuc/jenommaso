@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Playfair Display';
+        src: url('./assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf')
+    }
+
+    @font-face {
+        font-family: 'Cinzel';
+        src: url('./assets/fonts/Cinzel/static/Cinzel-Regular.ttf')
+    }
+
+    @font-face {
+        font-family: 'Avenir Light';
+        src: url('./assets/fonts/Avenir-Light.ttf')
+    }
+}
