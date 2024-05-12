@@ -31,7 +31,7 @@ function AdminPage({ }: Props)
 
     return (
         <MainLayout>
-            <h1 className='m-8 text-3xl text-center'>
+            <h1 className='mt-24 mb-8 text-3xl text-center'>
                 Admin Page
             </h1>
 

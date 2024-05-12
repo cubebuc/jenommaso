@@ -5,6 +5,8 @@ import LandingPage from './pages/LandingPage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
 import HomePage from './pages/HomePage.tsx'
 import ShopPage from './pages/ShopPage.tsx'
+import ProfilePage from './pages/ProfilePage.tsx'
+import CartPage from './pages/CartPage.tsx'
 import AdminPage from './pages/AdminPage.tsx'
 import Protected from './components/Protected.tsx'
 import AuthContext from './contexts/AuthContext.tsx'
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
     {
         path: '/shop',
         element: <Protected verifiedRequired><ShopPage /></Protected>
+    },
+    {
+        path: '/profile',
+        element: <Protected verifiedRequired><ProfilePage /></Protected>
+    },
+    {
+        path: '/cart',
+        element: <Protected verifiedRequired><CartPage /></Protected>
     },
     {
         path: '/admin',
