@@ -9,7 +9,7 @@ import ProfilePage from './pages/ProfilePage.tsx'
 import CartPage from './pages/CartPage.tsx'
 import AdminPage from './pages/AdminPage.tsx'
 import Protected from './components/Protected.tsx'
-import AuthContext from './contexts/AuthContext.tsx'
+import GlobalContext from './contexts/GlobalContext.tsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <AuthContext>
+        <GlobalContext>
             <RouterProvider router={router} />
-        </AuthContext>
+        </GlobalContext>
     </React.StrictMode>
 )

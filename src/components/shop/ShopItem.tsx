@@ -1,5 +1,5 @@
-type Props = { product: { [key: string]: any } }
-function ShopItem({ product }: Props)
+type Props = { id: string, product: { [key: string]: any } }
+function ShopItem({ id, product }: Props)
 {
     return (
         <div className='w-fit m-1 p-3 text-sm flex flex-col items-center justify-center transition-all hover:shadow-xl'>

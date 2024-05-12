@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { signOut } from '../utils/firebase'
-import { Context } from '../contexts/AuthContext'
+import { Context } from '../contexts/GlobalContext'
 
 type Props = {}
 function Navbar({ }: Props)

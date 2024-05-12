@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Context } from '../contexts/AuthContext'
+import { useGlobal } from '../contexts/GlobalContext'
 
 type Props = {
     children: React.ReactNode
@@ -13,7 +12,7 @@ type Props = {
 
 function ProtectedVerified({ children, verifiedRequired, adminRequired }: Props)
 {
-    const { verified, admin } = useContext(Context)
+    const { verified, admin } = useGlobal()
 
     if ((verifiedRequired && !verified) || (adminRequired && !admin))
         return <Navigate to='/' replace />

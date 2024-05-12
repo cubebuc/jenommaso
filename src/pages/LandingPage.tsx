@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import { Link, useNavigate, Navigate } from 'react-router-dom'
-import { Context } from '../contexts/AuthContext'
+import { Context } from '../contexts/GlobalContext'
 import { signIn } from '../utils/firebase'
 
 type Props = {}
