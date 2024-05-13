@@ -1,6 +1,6 @@
-import { getUsersWithRights, setUserVerified } from '../../utils/firebase'
+import { setUserVerified as setUserVerifiedFirebase } from '../../utils/firebase'
 import { useGlobal } from '../../contexts/GlobalContext'
-import { setUsersWithRights } from '../../contexts/Actions'
+import { setUserVerified as setUserVerifiedAction } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
 function UserModal({ setShow }: Props)
@@ -10,12 +10,9 @@ function UserModal({ setShow }: Props)
 
     async function handleSetVerified(id: string, verified: boolean)
     {
-        const success = await setUserVerified(id, verified)
+        const success = await setUserVerifiedFirebase(id, verified)
         if (success)
-        {
-            const updatedUsers = { ...users, [id]: { ...users[id], verified } }
-            dispatch(setUsersWithRights(updatedUsers))
-        }
+            dispatch(setUserVerifiedAction(id, verified))
     }
 
     return (

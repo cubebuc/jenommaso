@@ -9,7 +9,8 @@ type State = {
     admin: boolean,
     products: { [key: string]: any },
     tags: { [key: string]: string[] },
-    usersWithRights: { [key: string]: any }
+    usersWithRights: { [key: string]: any },
+    cart: { [key: string]: number }
 }
 
 const initialState: State =
@@ -19,7 +20,8 @@ const initialState: State =
     admin: false,
     products: {},
     tags: {},
-    usersWithRights: {}
+    usersWithRights: {},
+    cart: {}
 }
 
 const reducer = (state: State, action: { type: string, payload?: any }): State =>
@@ -54,6 +56,24 @@ const reducer = (state: State, action: { type: string, payload?: any }): State =
             return { ...state, tags: newTags2 }
         case ActionTypes.SET_USERS_WITH_RIGHTS:
             return { ...state, usersWithRights: action.payload }
+        case ActionTypes.SET_USER_VERIFIED:
+            const updatedUsers = { ...state.usersWithRights, [action.payload.id]: { ...state.usersWithRights[action.payload.id], verified: action.payload.verified } }
+            return { ...state, usersWithRights: updatedUsers }
+        case ActionTypes.SET_CART:
+            return { ...state, cart: action.payload }
+        case ActionTypes.ADD_TO_CART:
+            const newCart = { ...state.cart }
+            newCart[action.payload] = newCart[action.payload] ? newCart[action.payload] + 1 : 1
+            return { ...state, cart: newCart }
+        case ActionTypes.REMOVE_FROM_CART:
+            const updatedCart1 = { ...state.cart }
+            delete updatedCart1[action.payload]
+            return { ...state, cart: updatedCart1 }
+        case ActionTypes.CLEAR_CART:
+            return { ...state, cart: {} }
+        case ActionTypes.SET_CART_ITEM:
+            const updatedCart2 = { ...state.cart, [action.payload.id]: action.payload.amount }
+            return { ...state, cart: updatedCart2 }
         default:
             return state
     }
@@ -78,11 +98,18 @@ export default function GlobalContext({ children }: Props)
                 const admin = await isAdmin()
                 const products = await getProducts()
                 const tags = await getTags()
+                const cart = localStorage.getItem('cart')
 
                 dispatch({ type: ActionTypes.SET_VERIFIED, payload: verified })
                 dispatch({ type: ActionTypes.SET_ADMIN, payload: admin })
                 dispatch({ type: ActionTypes.SET_PRODUCTS, payload: products })
                 dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
+
+                if (cart)
+                {
+                    const parsedCart = JSON.parse(cart)
+                    dispatch({ type: ActionTypes.SET_CART, payload: parsedCart })
+                }
 
                 if (admin)
                 {

@@ -1,19 +1,11 @@
-import { useState, useEffect } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import ShopItem from '../components/shop/ShopItem'
-import { getProducts } from '../utils/firebase'
+import { useGlobal } from '../contexts/GlobalContext'
 
 type Props = {}
 function ShopPage({ }: Props)
 {
-    const [products, setProducts] = useState<{ [key: string]: any }>({})
-    //const [tags, setTags] = useState<{ [key: string]: any }>({})
-
-    useEffect(() =>
-    {
-        getProducts().then(setProducts)
-        //getTags().then(setTags)
-    }, [])
+    const { products } = useGlobal().state
 
     return (
         <MainLayout>
