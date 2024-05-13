@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage.tsx'
 import ShopPage from './pages/ShopPage.tsx'
 import ProfilePage from './pages/ProfilePage.tsx'
 import CartPage from './pages/CartPage.tsx'
+import OrderPage from './pages/OrderPage.tsx'
 import AdminPage from './pages/AdminPage.tsx'
 import Protected from './components/Protected.tsx'
 import GlobalContext from './contexts/GlobalContext.tsx'
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     {
         path: '/cart',
         element: <Protected verifiedRequired><CartPage /></Protected>
+    },
+    {
+        path: '/order',
+        element: <Protected verifiedRequired><OrderPage /></Protected>
     },
     {
         path: '/admin',
