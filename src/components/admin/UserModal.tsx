@@ -12,7 +12,10 @@ function UserModal({ setShow }: Props)
     {
         const success = await setUserVerified(id, verified)
         if (success)
-            (setUsersWithRights(await getUsersWithRights()))
+        {
+            const updatedUsers = { ...users, [id]: { ...users[id], verified } }
+            dispatch(setUsersWithRights(updatedUsers))
+        }
     }
 
     return (
