@@ -1,12 +1,11 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { signOut } from '../utils/firebase'
-import { Context } from '../contexts/GlobalContext'
+import { useGlobal } from '../contexts/GlobalContext'
 
 type Props = {}
 function Navbar({ }: Props)
 {
-    const { admin } = useContext(Context)
+    const { admin } = useGlobal().state
 
     return (
         <header className='fixed top-0 w-full z-30 flex flex-row items-center p-3 bg-stone-600 text-white'>

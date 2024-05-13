@@ -1,12 +1,12 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate, Navigate } from 'react-router-dom'
-import { Context } from '../contexts/GlobalContext'
+import { useGlobal } from '../contexts/GlobalContext'
 import { signIn } from '../utils/firebase'
 
 type Props = {}
 function LandingPage({ }: Props)
 {
-    const { verified, admin } = useContext(Context)
+    const { verified, admin } = useGlobal().state
 
     const [loginFailed, setLoginFailed] = useState(false)
     const navigate = useNavigate()

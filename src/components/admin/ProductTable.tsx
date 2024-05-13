@@ -1,8 +1,13 @@
 import { deleteProduct } from '../../utils/firebase'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { removeProduct } from '../../contexts/Actions'
 
-type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, products: { [key: string]: any }, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: {} }>>, setEditingProduct: React.Dispatch<React.SetStateAction<{ [key: string]: any }>> }
-function ProductTable({ setShow, products, setProducts, setEditingProduct }: Props)
+type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setEditingProduct: React.Dispatch<React.SetStateAction<{ [key: string]: any }>> }
+function ProductTable({ setShow, setEditingProduct }: Props)
 {
+    const { state, dispatch } = useGlobal()
+    const { products } = state
+
     function handleEditProduct(id: string)
     {
         setEditingProduct({ ...products[id], id })
@@ -12,12 +17,7 @@ function ProductTable({ setShow, products, setProducts, setEditingProduct }: Pro
     async function handleDeleteProduct(id: string)
     {
         await deleteProduct(id, products[id].images.length)
-        setProducts(products =>
-        {
-            const newProducts = { ...products }
-            delete newProducts[id]
-            return newProducts
-        })
+        dispatch(removeProduct(id))
     }
 
     return (

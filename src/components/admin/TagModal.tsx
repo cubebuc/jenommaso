@@ -1,8 +1,13 @@
-import { addTag, deleteTag } from '../../utils/firebase'
+import { addTag as addTagFirebase, deleteTag } from '../../utils/firebase'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { addTag as addTagAction, removeTag } from '../../contexts/Actions'
 
-type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setTags: React.Dispatch<React.SetStateAction<{ [key: string]: string[] }>>, tags: { [key: string]: string[] }, products: { [key: string]: any } }
-function TagModal({ setShow, setTags, tags, products }: Props)
+type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
+function TagModal({ setShow }: Props)
 {
+    const { state, dispatch } = useGlobal()
+    const { tags, products } = state
+
     async function handleAddTag(e: React.FormEvent<HTMLFormElement>, type: string)
     {
         e.preventDefault()
@@ -12,13 +17,8 @@ function TagModal({ setShow, setTags, tags, products }: Props)
 
         if (tags[type].includes(tag)) return
 
-        await addTag(type, tag)
-        setTags(tags =>
-        {
-            const newTags = { ...tags }
-            newTags[type] = [...tags[type], tag]
-            return newTags
-        })
+        await addTagFirebase(type, tag)
+        dispatch(addTagAction(type, tag))
     }
 
     async function handleDeleteTag(type: string, tag: string)
@@ -26,12 +26,7 @@ function TagModal({ setShow, setTags, tags, products }: Props)
         if (Object.values(products).some(product => product[type].includes(tag))) return
 
         await deleteTag(type, tag)
-        setTags(tags =>
-        {
-            const newTags = { ...tags }
-            newTags[type] = tags[type].filter(t => t !== tag)
-            return newTags
-        })
+        dispatch(removeTag(type, tag))
     }
 
     return (

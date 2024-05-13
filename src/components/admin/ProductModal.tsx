@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react'
 import { addProduct, editProduct } from '../../utils/firebase'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { setProduct } from '../../contexts/Actions'
 
-type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setProducts: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>, tags: { [key: string]: string[] }, editingProduct: { [key: string]: any } }
-function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
+type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, editingProduct: { [key: string]: any } }
+function ProductModal({ setShow, editingProduct }: Props)
 {
+    const { state, dispatch } = useGlobal()
+    const { tags } = state
+
     const [unit, setUnit] = useState('kg')
     const [packageSize, setPackageSize] = useState('')
     const [pricePerUnit, setPricePerUnit] = useState('')
@@ -86,10 +91,10 @@ function ProductModal({ setShow, setProducts, tags, editingProduct }: Props)
         if (images.length > 0)
         {
             const imageObjects = Array.from(images).map((image: any) => URL.createObjectURL(image))
-            setProducts(products => ({ ...products, [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageObjects } }))
+            dispatch(setProduct({ [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageObjects } }))
         }
         else
-            setProducts(products => ({ ...products, [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
+            dispatch(setProduct({ [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
         setShow(false)
     }
 

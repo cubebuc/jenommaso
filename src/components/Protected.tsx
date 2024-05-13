@@ -12,7 +12,7 @@ type Props = {
 
 function ProtectedVerified({ children, verifiedRequired, adminRequired }: Props)
 {
-    const { verified, admin } = useGlobal()
+    const { verified, admin } = useGlobal().state
 
     if ((verifiedRequired && !verified) || (adminRequired && !admin))
         return <Navigate to='/' replace />
