@@ -1,21 +1,18 @@
-import { useState, useEffect } from 'react'
 import { getUsersWithRights, setUserVerified } from '../../utils/firebase'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { setUsersWithRights } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
 function UserModal({ setShow }: Props)
 {
-    const [users, setUsers] = useState<{ [key: string]: any }>({})
-
-    useEffect(() =>
-    {
-        getUsersWithRights().then(setUsers)
-    }, [])
+    const { state, dispatch } = useGlobal()
+    const users = state.usersWithRights
 
     async function handleSetVerified(id: string, verified: boolean)
     {
         const success = await setUserVerified(id, verified)
         if (success)
-            setUsers({ ...users, [id]: { ...users[id], verified } })
+            (setUsersWithRights(await getUsersWithRights()))
     }
 
     return (
@@ -30,7 +27,7 @@ function UserModal({ setShow }: Props)
                         <p className='ml-1'>{user.name}</p>
                         <div className='flex pl-2 mr-1'>
                             <p className='mr-2'>Verified:</p>
-                            <input className='w-5' type='checkbox' checked={user.verified} onChange={e => handleSetVerified(id, e.target.checked)} />
+                            <input className='w-5' type='checkbox' defaultChecked={user.verified} onChange={e => handleSetVerified(id, e.target.checked)} />
                         </div>
                     </div>
                 )}
