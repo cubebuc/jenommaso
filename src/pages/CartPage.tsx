@@ -1,19 +1,15 @@
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import CartItem from '../components/cart/CartItem'
+import ConfirmModal from '../components/cart/ConfirmModal'
 import { useGlobal } from '../contexts/GlobalContext'
 
 type Props = {}
 function CartPage({ }: Props)
 {
-    const navigate = useNavigate()
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
 
     const { cart, products } = useGlobal().state
-
-    function handleOrder()
-    {
-        alert('Jupí! Bude maso!')
-    }
 
     return (
         <MainLayout>
@@ -37,9 +33,13 @@ function CartPage({ }: Props)
                         <span className='text-xl'>Celkem</span>
                         <span className='text-xl'>{Object.entries(cart).reduce((acc, [id, quantity]) => acc + products[id].packagePrice * quantity, 0)} Kč</span>
                     </p>
-                    <button className='w-full py-2 mt-5 text-white bg-amber-500 rounded-lg' onClick={handleOrder}>
+                    <button className='w-full py-2 mt-5 text-white bg-amber-500 rounded-lg' onClick={() => Object.keys(cart).length > 0 && setShowConfirmModal(true)}>
                         Objednat
                     </button>
+
+                    <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showConfirmModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowConfirmModal(false)}>
+                        <ConfirmModal setShow={setShowConfirmModal} />
+                    </div>
                 </div>
             </div>
         </MainLayout >

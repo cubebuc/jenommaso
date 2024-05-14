@@ -6,7 +6,9 @@ function OrderPage({ }: Props)
     return (
         <MainLayout>
             <div className="flex justify-center items-center h-screen">
-                <h1 className="text-4xl">Order Page</h1>
+                <div className='w-96 h-96 flex justify-center items-center bg-amber-500 rounded-full'>
+                    <h1 className="text-4xl">Objednávka přijata</h1>
+                </div>
             </div>
         </MainLayout>
     )
