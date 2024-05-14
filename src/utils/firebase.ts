@@ -24,6 +24,7 @@ export async function signUp(email: string, password: string, name: string, phon
     await createUserWithEmailAndPassword(auth, email, password)
     const user = auth.currentUser as User
     await setDoc(doc(firestore, 'users', user.uid), { name, email, phone, address })
+    await setDoc(doc(firestore, 'users', user.uid, 'private', 'rights'), { verified: false, admin: false })
 }
 
 // Try to sign in with an email and password - allow only verified

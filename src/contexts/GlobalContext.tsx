@@ -96,14 +96,18 @@ export default function GlobalContext({ children }: Props)
             {
                 const verified = await isVerified()
                 const admin = await isAdmin()
-                const products = await getProducts()
-                const tags = await getTags()
                 const cart = localStorage.getItem('cart')
 
                 dispatch({ type: ActionTypes.SET_VERIFIED, payload: verified })
                 dispatch({ type: ActionTypes.SET_ADMIN, payload: admin })
-                dispatch({ type: ActionTypes.SET_PRODUCTS, payload: products })
-                dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
+
+                if (verified)
+                {
+                    const products = await getProducts()
+                    const tags = await getTags()
+                    dispatch({ type: ActionTypes.SET_PRODUCTS, payload: products })
+                    dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
+                }
 
                 if (cart)
                 {
