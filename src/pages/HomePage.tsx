@@ -20,7 +20,7 @@ function HomePage({ }: Props)
                     </Link>
                 </div>
             </div>
-            <img className='h-screen w-full' src={chicken} alt='roasted chicken' />
+            <img className='h-screen w-full object-cover' src={chicken} alt='roasted chicken' />
         </MainLayout>
     )
 }

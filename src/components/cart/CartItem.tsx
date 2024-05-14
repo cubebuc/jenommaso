@@ -73,13 +73,15 @@ function CartItem({ id }: Props)
     }
 
     return (
-        <div className='py-1 flex items-center justify-center'>
-            <img className='w-32 h-32 me-5 object-contain border border-stone-300' src={product.images[0]} alt={product.name} />
-            <div className='w-56 h-full py-2 flex flex-col'>
-                <h3 className='mb-2'>{product.name}</h3>
-                <p>{product.packagePrice} Kč</p>
+        <div className='py-1 flex flex-col md:flex-row items-center justify-center'>
+            <div className='h-full flex'>
+                <img className='w-20 h-20 md:w-32 md:h-32 me-5 object-contain border border-stone-300' src={product.images[0]} alt={product.name} />
+                <div className='w-60 md:w-56 h-full py-1 md:py-2 flex flex-col'>
+                    <h3 className='mb-1 md:mb-2'>{product.name}</h3>
+                    <p>{product.packagePrice} Kč</p>
+                </div>
             </div>
-            <div className='h-full py-2 flex items-start'>
+            <div className='w-full md:w-auto h-full py-2 md:mt-0 flex justify-between items-start'>
                 <div className='flex items-center justify-center border-2 border-stone-500'>
                     <button className='ps-0.5 py-0.5 text-stone-400' onClick={() => handleMinus(id)}>
                         <svg viewBox='0 0 24 24' width='24' height='24'>
