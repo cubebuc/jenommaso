@@ -3,11 +3,15 @@ import MainLayout from '../layouts/MainLayout'
 import ProductModal from '../components/admin/ProductModal'
 import TagModal from '../components/admin/TagModal'
 import UserModal from '../components/admin/UserModal'
+import OrderTable from '../components/admin/OrderTable'
 import ProductTable from '../components/admin/ProductTable'
 
 type Props = {}
 function AdminPage({ }: Props)
 {
+    const [shrinkOrders, setShrinkOrders] = useState(false)
+    const [shrinkProducts, setShrinkProducts] = useState(false)
+
     const [showProductModal, setShowProductModal] = useState(false)
     const [showTagModal, setShowTagModal] = useState(false)
     const [showUserModal, setShowUserModal] = useState(false)
@@ -48,11 +52,25 @@ function AdminPage({ }: Props)
                 </div>
             </div>
 
+            <h1 className='m-8 text-3xl text-center'>
+                <button onClick={() => setShrinkOrders(!shrinkOrders)}>
+                    Orders
+                </button>
+            </h1>
+            <div className={`overflow-clip ${shrinkOrders && 'h-0'}`}>
+                <OrderTable />
+            </div>
+
+            <hr className='w-1/2 mx-auto my-8 border-black' />
 
             <h1 className='m-8 text-3xl text-center'>
-                Products
+                <button onClick={() => setShrinkProducts(!shrinkProducts)}>
+                    Products
+                </button>
             </h1>
-            <ProductTable setShow={setShowProductModal} setEditingProduct={setEditingProduct} />
+            <div className={`overflow-clip ${shrinkProducts && 'h-0'}`}>
+                <ProductTable setShow={setShowProductModal} setEditingProduct={setEditingProduct} />
+            </div>
         </MainLayout>
     )
 }

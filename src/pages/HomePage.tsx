@@ -12,7 +12,7 @@ function HomePage({ }: Props)
                 <img className='h-screen w-full object-cover' src={beef} alt='beef tenderloin' />
 
                 <div className='absolute inset-0 flex flex-col items-center justify-center'>
-                    <h1 className='mt-32 text-8xl text-center text-white'>Jiřího</h1>
+                    <h1 className='text-8xl text-center text-white'>Jiřího</h1>
                     <h1 className='text-8xl text-center text-white'>Dobroty</h1>
 
                     <Link className='mt-32 px-4 py-2 text-white border border-white border-2 hover:bg-white hover:text-stone-600 transition-all duration-400' to='/shop'>

@@ -1,3 +1,4 @@
+import { auth, createOrder } from '../../utils/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { clearCart } from '../../contexts/Actions'
@@ -7,11 +8,12 @@ function ConfirmModal({ setShow }: Props)
 {
     const navigate = useNavigate()
 
-    const { dispatch } = useGlobal()
+    const { state, dispatch } = useGlobal()
+    const { cart } = state
 
     function handleConfirm()
     {
-        // Actually handle the order
+        createOrder(cart, auth.currentUser!.uid)
 
         navigate('/order')
 

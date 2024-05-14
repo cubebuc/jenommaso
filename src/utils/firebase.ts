@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, Timestamp } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -197,4 +197,26 @@ export async function deleteTag(type: string, tag: string)
 {
     const docRef = doc(firestore, 'misc', 'tags')
     await updateDoc(docRef, { [type]: arrayRemove(tag) })
+}
+
+// Create order in Firestore
+export async function createOrder(cart: { [key: string]: number }, user: string)
+{
+    const docRef = doc(collection(firestore, 'orders'))
+    await setDoc(docRef, { cart, user, date: Timestamp.now(), completed: false })
+}
+
+// Get all orders from Firestore
+export async function getOrders(): Promise<{ [key: string]: any }>
+{
+    const querySnapshot = await getDocs(collection(firestore, 'orders'))
+    const orders: { [key: string]: DocumentData } = {}
+    querySnapshot.forEach(doc => orders[doc.id] = doc.data())
+    return orders
+}
+
+// Set complete status of an order in Firestore
+export async function setOrderComplete(id: string, completed: boolean)
+{
+    await updateDoc(doc(collection(firestore, 'orders'), id), { completed })
 }
