@@ -1,28 +1,16 @@
-import { useState, useEffect } from "react"
-import { getOrders, setOrderComplete } from "../../utils/firebase"
-import { useGlobal } from "../../contexts/GlobalContext"
+import { setOrderComplete } from '../../utils/firebase'
+import { useGlobal } from '../../contexts/GlobalContext'
+import { setOrderCompleted } from '../../contexts/Actions'
 
 type Props = {}
 function OrderTable({ }: Props)
 {
-    // orders is a map of order IDs to order objects
-    // each order is a map of product IDs to quantities
-    const [orders, setOrders] = useState<{ [key: string]: any }>({})
-
-    const { usersWithRights, products } = useGlobal().state
-
-    useEffect(() =>
-    {
-        getOrders().then(orders =>
-        {
-            const sortedOrders = Object.entries(orders).sort((a, b) => a[1].completed - b[1].completed || b[1].date - a[1].date)
-            setOrders(Object.fromEntries(sortedOrders))
-        })
-    }, [])
+    const { state, dispatch } = useGlobal()
+    const { usersWithRights, products, orders } = state
 
     function handleSetCompleted(id: string, completed: boolean)
     {
-        setOrderComplete(id, completed).then(() => setOrders({ ...orders, [id]: { ...orders[id], completed } }))
+        setOrderComplete(id, completed).then(() => dispatch(setOrderCompleted(id, completed)))
     }
 
     return (
@@ -40,7 +28,7 @@ function OrderTable({ }: Props)
                 {Object.entries(orders).map(([id, order]) =>
                     <tr key={id}>
                         <td className='align-top border px-4 py-2'>{usersWithRights[order.user]?.name}</td>
-                        <td className='align-top border px-4 py-2'>{order.date.toDate().toLocaleDateString()}</td>
+                        <td className='align-top border px-4 py-2'>{order.date.toDate().toLocaleString()}</td>
                         <td className='border px-4 py-2'>
                             <ul>
                                 {Object.entries(order.cart).map(([productID, quantity]) =>
@@ -60,7 +48,7 @@ function OrderTable({ }: Props)
                         </td>
                         <td className='align-top border px-4 py-2'>
                             <div className='flex justify-center'>
-                                <input className='size-6' type='checkbox' checked={order.completed} onChange={e => handleSetCompleted(id, e.target.checked)} />
+                                <input className='size-6' type='checkbox' defaultChecked={order.completed} onChange={e => handleSetCompleted(id, e.target.checked)} />
                             </div>
                         </td>
                     </tr>

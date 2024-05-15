@@ -70,3 +70,19 @@ export function clearCart()
         type: ActionTypes.CLEAR_CART
     }
 }
+
+export function setOrders(orders: { [key: string]: any })
+{
+    return {
+        type: ActionTypes.SET_ORDERS,
+        payload: orders
+    }
+}
+
+export function setOrderCompleted(id: string, completed: boolean)
+{
+    return {
+        type: ActionTypes.SET_ORDER_COMPLETED,
+        payload: { id, completed }
+    }
+}

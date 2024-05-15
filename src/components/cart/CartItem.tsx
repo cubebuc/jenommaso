@@ -1,5 +1,5 @@
-import { useGlobal } from "../../contexts/GlobalContext"
-import { removeFromCart, setCartItem } from "../../contexts/Actions"
+import { useGlobal } from '../../contexts/GlobalContext'
+import { removeFromCart, setCartItem } from '../../contexts/Actions'
 
 type Props = { id: string }
 function CartItem({ id }: Props)

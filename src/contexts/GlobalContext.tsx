@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer, useContext } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import ActionTypes from './ActionTypes'
-import { auth, isVerified, isAdmin, getProducts, getTags, getUsersWithRights } from '../utils/firebase'
+import { auth, isVerified, isAdmin, getProducts, getTags, getUsersWithRights, getOrders } from '../utils/firebase'
 
 type State = {
     loading: boolean,
@@ -10,7 +10,8 @@ type State = {
     products: { [key: string]: any },
     tags: { [key: string]: string[] },
     usersWithRights: { [key: string]: any },
-    cart: { [key: string]: number }
+    cart: { [key: string]: number },
+    orders: { [key: string]: any }
 }
 
 const initialState: State =
@@ -21,7 +22,8 @@ const initialState: State =
     products: {},
     tags: {},
     usersWithRights: {},
-    cart: {}
+    cart: {},
+    orders: {}
 }
 
 const reducer = (state: State, action: { type: string, payload?: any }): State =>
@@ -74,6 +76,11 @@ const reducer = (state: State, action: { type: string, payload?: any }): State =
         case ActionTypes.SET_CART_ITEM:
             const updatedCart2 = { ...state.cart, [action.payload.id]: action.payload.amount }
             return { ...state, cart: updatedCart2 }
+        case ActionTypes.SET_ORDERS:
+            return { ...state, orders: action.payload }
+        case ActionTypes.SET_ORDER_COMPLETED:
+            const updatedOrders = { ...state.orders, [action.payload.id]: { ...state.orders[action.payload.id], completed: action.payload.completed } }
+            return { ...state, orders: updatedOrders }
         default:
             return state
     }
@@ -109,16 +116,26 @@ export default function GlobalContext({ children }: Props)
                     dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
                 }
 
-                if (cart)
-                {
-                    const parsedCart = JSON.parse(cart)
-                    dispatch({ type: ActionTypes.SET_CART, payload: parsedCart })
-                }
-
                 if (admin)
                 {
                     const usersWithRights = await getUsersWithRights()
                     dispatch({ type: ActionTypes.SET_USERS_WITH_RIGHTS, payload: usersWithRights })
+
+                    const orders = await getOrders()
+                    // sort orders by completion status and date
+                    const sortedOrders = Object.fromEntries(Object.entries(orders).sort((a, b) =>
+                    {
+                        if (a[1].completed && !b[1].completed) return 1
+                        if (!a[1].completed && b[1].completed) return -1
+                        return a[1].date - b[1].date
+                    }))
+                    dispatch({ type: ActionTypes.SET_ORDERS, payload: sortedOrders })
+                }
+
+                if (cart)
+                {
+                    const parsedCart = JSON.parse(cart)
+                    dispatch({ type: ActionTypes.SET_CART, payload: parsedCart })
                 }
             }
             else

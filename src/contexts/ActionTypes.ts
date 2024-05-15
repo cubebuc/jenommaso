@@ -17,6 +17,8 @@ const ActionTypes =
     REMOVE_FROM_CART: 'REMOVE_FROM_CART',
     CLEAR_CART: 'CLEAR_CART',
     SET_CART_ITEM: 'SET_CART_ITEM',
+    SET_ORDERS: 'SET_ORDERS',
+    SET_ORDER_COMPLETED: 'SET_ORDER_COMPLETED'
 }
 
 export default ActionTypes
