@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer, useContext } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import ActionTypes from './ActionTypes'
-import { auth, isVerified, isAdmin, getProducts, getTags, getUsersWithRights, getOrders } from '../utils/firebase'
+import { auth, isVerified, isAdmin, getProducts, getTags, getUsersWithRights, getAllOrders, getMyOrders } from '../utils/firebase'
 
 type State = {
     loading: boolean,
@@ -112,23 +112,31 @@ export default function GlobalContext({ children }: Props)
                 {
                     const products = await getProducts()
                     const tags = await getTags()
+                    const myOrders = await getMyOrders()
+                    const sortedMyOrders = Object.fromEntries(Object.entries(myOrders).sort((a, b) =>
+                    {
+                        if (a[1].completed && !b[1].completed) return 1
+                        if (!a[1].completed && b[1].completed) return -1
+                        return a[1].date - b[1].date
+                    }))
+
                     dispatch({ type: ActionTypes.SET_PRODUCTS, payload: products })
                     dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
+                    dispatch({ type: ActionTypes.SET_ORDERS, payload: sortedMyOrders })
                 }
 
                 if (admin)
                 {
                     const usersWithRights = await getUsersWithRights()
-                    dispatch({ type: ActionTypes.SET_USERS_WITH_RIGHTS, payload: usersWithRights })
-
-                    const orders = await getOrders()
-                    // sort orders by completion status and date
+                    const orders = await getAllOrders()
                     const sortedOrders = Object.fromEntries(Object.entries(orders).sort((a, b) =>
                     {
                         if (a[1].completed && !b[1].completed) return 1
                         if (!a[1].completed && b[1].completed) return -1
                         return a[1].date - b[1].date
                     }))
+
+                    dispatch({ type: ActionTypes.SET_USERS_WITH_RIGHTS, payload: usersWithRights })
                     dispatch({ type: ActionTypes.SET_ORDERS, payload: sortedOrders })
                 }
 

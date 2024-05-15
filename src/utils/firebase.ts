@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, Timestamp } from 'firebase/firestore/lite'
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, query, where, Timestamp } from 'firebase/firestore/lite'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -199,13 +199,24 @@ export async function createOrder(cart: { [key: string]: number }, user: string)
 }
 
 // Get all orders from Firestore
-export async function getOrders(): Promise<{ [key: string]: any }>
+export async function getAllOrders(): Promise<{ [key: string]: any }>
 {
     const querySnapshot = await getDocs(collection(firestore, 'orders'))
     const orders: { [key: string]: DocumentData } = {}
     querySnapshot.forEach(doc => orders[doc.id] = doc.data())
     return orders
 }
+
+// Get all orders for the current user from Firestore
+export async function getMyOrders(): Promise<{ [key: string]: any }>
+{
+    const user = auth.currentUser as User
+    const querySnapshot = await getDocs(query(collection(firestore, 'orders'), where('user', '==', user.uid)))
+    const orders: { [key: string]: DocumentData } = {}
+    querySnapshot.forEach(doc => orders[doc.id] = doc.data())
+    return orders
+}
+
 
 // Set complete status of an order in Firestore
 export async function setOrderComplete(id: string, completed: boolean)
