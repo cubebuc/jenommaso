@@ -20,6 +20,7 @@ function Navbar({ }: Props)
                         stroke='currentColor' />
                 </svg>
             </button>
+
             <header className={`transition-all ${!showMenu && 'invisible opacity-0'} md:visible md:opacity-100 fixed top-0 w-full z-30 flex flex-col md:flex-row justify-between items-center p-3 bg-stone-600 text-white gap-2 md:gap-0`}>
                 <Link className='hidden md:block invisible md:visible w-full md:w-1/3 md:ps-20 text-xl text-center md:text-left' to='/home'>Jiřího Dobroty</Link>
 
@@ -32,7 +33,7 @@ function Navbar({ }: Props)
 
                 <hr className='w-full md:hidden' />
 
-                <div className='w-full md:w-1/3 my-3 md:my-0 md:pe-20 flex flex-col md:flex-row justify-center items-center justify-end gap-6 text-2xl md:text-base'>
+                <div className='w-full md:w-1/3 my-3 md:my-0 md:pe-20 flex flex-col md:flex-row justify-center md:justify-end items-center justify-end gap-6 text-2xl md:text-base'>
                     {admin && <Link className='text-blue-400' to='/admin'>Admin</Link>}
                     <Link to='/profile'>Profil</Link>
                     <Link to='/cart'>Košík</Link>

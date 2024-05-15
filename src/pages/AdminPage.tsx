@@ -25,7 +25,7 @@ function AdminPage({ }: Props)
 
     return (
         <MainLayout>
-            <div className='w-fit m-3'>
+            <div className='w-fit px-3 mx-auto'>
                 <h1 className='mt-24 mb-8 text-3xl text-center'>
                     Admin Page
                 </h1>
