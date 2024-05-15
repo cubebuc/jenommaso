@@ -23,8 +23,7 @@ export async function signUp(email: string, password: string, name: string, phon
 {
     await createUserWithEmailAndPassword(auth, email, password)
     const user = auth.currentUser as User
-    await setDoc(doc(firestore, 'users', user.uid), { name, email, phone, address })
-    await setDoc(doc(firestore, 'users', user.uid, 'private', 'rights'), { verified: false, admin: false })
+    await setDoc(doc(firestore, 'users', user.uid), { name, email, phone, address, admin: false, verified: false })
 }
 
 // Try to sign in with an email and password - allow only verified
@@ -34,7 +33,7 @@ export async function signIn(email: string, password: string): Promise<boolean>
     {
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
         const user = userCredential.user
-        const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
+        const docRef = doc(firestore, 'users', user.uid)
         const docSnap = await getDoc(docRef)
         if (!docSnap.exists() || !docSnap.data().verified)
         {
@@ -61,7 +60,7 @@ export async function isVerified(): Promise<boolean>
     try
     {
         const user = auth.currentUser as User
-        const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
+        const docRef = doc(firestore, 'users', user.uid)
         const docSnap = await getDoc(docRef)
         return docSnap.exists() && docSnap.data().verified
     }
@@ -77,7 +76,7 @@ export async function isAdmin(): Promise<boolean>
     try
     {
         const user = auth.currentUser as User
-        const docRef = doc(firestore, 'users', user.uid, 'private', 'rights')
+        const docRef = doc(firestore, 'users', user.uid)
         const docSnap = await getDoc(docRef)
         return docSnap.exists() && docSnap.data().admin
     }
@@ -92,14 +91,7 @@ export async function getUsersWithRights(): Promise<{ [key: string]: any }>
 {
     const querySnapshotUsers = await getDocs(collection(firestore, 'users'))
     const users: { [key: string]: DocumentData } = {}
-    querySnapshotUsers.forEach(async document =>
-    {
-        const docRef = doc(firestore, 'users', document.id, 'private', 'rights')
-        const docSnap = await getDoc(docRef)
-
-        users[document.id] = { ...document.data(), ...docSnap.data() }
-    })
-
+    querySnapshotUsers.forEach(doc => users[doc.id] = doc.data())
     return users
 }
 
@@ -108,7 +100,7 @@ export async function setUserVerified(id: string, verified: boolean): Promise<bo
 {
     try
     {
-        await updateDoc(doc(firestore, 'users', id, 'private', 'rights'), { verified })
+        await updateDoc(doc(firestore, 'users', id), { verified })
     }
     catch
     {
