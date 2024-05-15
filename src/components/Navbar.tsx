@@ -15,8 +15,8 @@ function Navbar({ }: Props)
             <button className='md:invisible fixed top-0 right-0 z-40 p-3 m-2 text-white bg-stone-600 rounded' onClick={() => setShowMenu(!showMenu)}>
                 <svg viewBox='0 0 10 8' width='50'>
                     <path d='M1 1h8M1 4h 8M1 7h8'
-                        stroke-width='1'
-                        stroke-linecap='round'
+                        strokeWidth='1'
+                        strokeLinecap='round'
                         stroke='currentColor' />
                 </svg>
             </button>
