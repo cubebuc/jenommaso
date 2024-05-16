@@ -128,8 +128,14 @@ export async function addProduct(name: string, description: string, category: st
         await uploadBytes(imageRef, image)
         return await getDownloadURL(imageRef)
     }))
-    await setDoc(docRef, { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs })
+    await setDoc(docRef, { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs, hidden: false })
     return docRef.id
+}
+
+// Hide or unhide a product in Firestore
+export async function hideProduct(id: string)
+{
+    await updateDoc(doc(collection(firestore, 'products'), id), { hidden: true })
 }
 
 // Edit an existing product in Firestore - if images are provided, delete the old images and upload the new ones, otherwise just update the product details

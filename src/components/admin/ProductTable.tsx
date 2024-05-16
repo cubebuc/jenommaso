@@ -1,21 +1,56 @@
-import { deleteProduct } from '../../utils/firebase'
+import { deleteProduct, hideProduct as hideProductFirebase } from '../../utils/firebase'
 import { useGlobal } from '../../contexts/GlobalContext'
-import { removeProduct } from '../../contexts/Actions'
+import { removeProduct, hideProduct as hideProductAction } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, setEditingProduct: React.Dispatch<React.SetStateAction<{ [key: string]: any }>> }
 function ProductTable({ setShow, setEditingProduct }: Props)
 {
     const { state, dispatch } = useGlobal()
-    const { products } = state
+    const { products, orders } = state
+
+    function isProductInActiveOrder(id: string)
+    {
+        for (const order of Object.values(orders))
+            if (!order.completed && id in order.cart)
+                return true
+        return false
+    }
+
+    function isProductInOrder(id: string)
+    {
+        for (const order of Object.values(orders))
+            if (id in order.cart)
+                return true
+        return false
+    }
 
     function handleEditProduct(id: string)
     {
+        if (isProductInActiveOrder(id))
+        {
+            alert('Cannot edit product in an active order')
+            return
+        }
+
         setEditingProduct({ ...products[id], id })
         setShow(true)
     }
 
     async function handleDeleteProduct(id: string)
     {
+        if (isProductInActiveOrder(id))
+        {
+            alert('Cannot delete product in an active order')
+            return
+        }
+
+        if (isProductInOrder(id))
+        {
+            await hideProductFirebase(id)
+            dispatch(hideProductAction(id))
+            return
+        }
+
         await deleteProduct(id, products[id].images.length)
         dispatch(removeProduct(id))
     }
@@ -38,6 +73,7 @@ function ProductTable({ setShow, setEditingProduct }: Props)
             </thead>
             <tbody>
                 {Object.entries(products).map(([id, product]) =>
+                    !product.hidden &&
                     <tr key={id}>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.name}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.description}</td>

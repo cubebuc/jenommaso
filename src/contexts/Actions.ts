@@ -16,6 +16,14 @@ export function removeProduct(id: string)
     }
 }
 
+export function hideProduct(id: string)
+{
+    return {
+        type: ActionTypes.HIDE_PRODUCT,
+        payload: id
+    }
+}
+
 export function addTag(type: string, tag: string)
 {
     return {

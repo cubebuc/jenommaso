@@ -43,7 +43,7 @@ function OrderTable({ }: Props)
                         </td>
                         <td className='align-top border px-4 py-2'>
                             <div className='flex justify-end'>
-                                {Object.entries(order.cart).reduce((total, [productID, quantity]) => total + (products[productID]?.pricePerUnit * (quantity as number)), 0).toFixed(2)}
+                                {Object.entries(order.cart).reduce((total, [productID, quantity]) => total + (products[productID]?.packagePrice * (quantity as number)), 0).toFixed(2)}
                             </div>
                         </td>
                         <td className='align-top border px-4 py-2'>

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
-import { addProduct, editProduct } from '../../utils/firebase'
+import { addProduct, editProduct, hideProduct as hideProductFirebase } from '../../utils/firebase'
 import { useGlobal } from '../../contexts/GlobalContext'
-import { setProduct } from '../../contexts/Actions'
+import { setProduct, hideProduct as hideProductAction } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>>, editingProduct: { [key: string]: any } }
 function ProductModal({ setShow, editingProduct }: Props)
 {
     const { state, dispatch } = useGlobal()
-    const { tags } = state
+    const { tags, orders } = state
 
     const [unit, setUnit] = useState('kg')
     const [packageSize, setPackageSize] = useState('')
@@ -17,6 +17,14 @@ function ProductModal({ setShow, editingProduct }: Props)
     function editing(): boolean
     {
         return Object.keys(editingProduct).length > 0
+    }
+
+    function isProductInOrder(id: string)
+    {
+        for (const order of Object.values(orders))
+            if (id in order.cart)
+                return true
+        return false
     }
 
     useEffect(() =>
@@ -72,7 +80,6 @@ function ProductModal({ setShow, editingProduct }: Props)
         const form = e.currentTarget
         const name = (form.name as any).value
         const description = form.description.value
-        // array or empty
         const category = form.category ? Array.from(form.category).filter((tag: any) => tag.checked).map((tag: any) => tag.value) : []
         const treatment = form.treatment ? Array.from(form.treatment).filter((tag: any) => tag.checked).map((tag: any) => tag.value) : []
         const usage = form.usage ? Array.from(form.usage).filter((tag: any) => tag.checked).map((tag: any) => tag.value) : []
@@ -83,7 +90,13 @@ function ProductModal({ setShow, editingProduct }: Props)
         const stock = parseInt(form.stock.value)
         const images = form.image.files
 
-        if (editing())
+        if (editing() && isProductInOrder(editingProduct.id))
+        {
+            await hideProductFirebase(editingProduct.id)
+            dispatch(hideProductAction(editingProduct.id))
+        }
+
+        if (editing() && !isProductInOrder(editingProduct.id))
             var id = await editProduct(editingProduct.id, name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images, editingProduct.images.length)
         else
             var id = await addProduct(name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images)

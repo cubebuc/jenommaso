@@ -46,6 +46,9 @@ const reducer = (state: State, action: { type: string, payload?: any }): State =
             const newProducts = { ...state.products }
             delete newProducts[action.payload]
             return { ...state, products: newProducts }
+        case ActionTypes.HIDE_PRODUCT:
+            const updatedProducts = { ...state.products, [action.payload]: { ...state.products[action.payload], hidden: true } }
+            return { ...state, products: updatedProducts }
         case ActionTypes.SET_TAGS:
             return { ...state, tags: action.payload }
         case ActionTypes.ADD_TAG:
