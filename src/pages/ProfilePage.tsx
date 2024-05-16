@@ -13,7 +13,10 @@ function ProfilePage({ }: Props)
                 Profile Page
             </h1>
             <div className='flex flex-col items-center'>
-                {Object.entries(orders).map(([id, order]) =>
+                {Object.entries(orders).sort((a, b) =>
+                {
+                    return a[1].date - b[1].date
+                }).map(([id, order]) =>
                     order.user === auth.currentUser?.uid &&
                     <div key={id} className='border p-4 m-4 w-96'>
                         <h2 className='text-xl font-semibold'>Order</h2>

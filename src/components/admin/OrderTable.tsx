@@ -25,7 +25,12 @@ function OrderTable({ }: Props)
                 </tr>
             </thead>
             <tbody>
-                {Object.entries(orders).map(([id, order]) =>
+                {Object.entries(orders).sort((a, b) =>
+                {
+                    if (a[1].completed && !b[1].completed) return 1
+                    if (!a[1].completed && b[1].completed) return -1
+                    return a[1].date - b[1].date
+                }).map(([id, order]) =>
                     <tr key={id}>
                         <td className='align-top border px-4 py-2'>{usersWithRights[order.user]?.name}</td>
                         <td className='align-top border px-4 py-2'>{order.date.toDate().toLocaleString()}</td>

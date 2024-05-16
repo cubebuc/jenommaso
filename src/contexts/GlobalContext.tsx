@@ -119,31 +119,19 @@ export default function GlobalContext({ children }: Props)
                     const products = await getProducts()
                     const tags = await getTags()
                     const myOrders = await getMyOrders()
-                    const sortedMyOrders = Object.fromEntries(Object.entries(myOrders).sort((a, b) =>
-                    {
-                        if (a[1].completed && !b[1].completed) return 1
-                        if (!a[1].completed && b[1].completed) return -1
-                        return a[1].date - b[1].date
-                    }))
 
                     dispatch({ type: ActionTypes.SET_PRODUCTS, payload: products })
                     dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
-                    dispatch({ type: ActionTypes.SET_ORDERS, payload: sortedMyOrders })
+                    dispatch({ type: ActionTypes.SET_ORDERS, payload: myOrders })
                 }
 
                 if (admin)
                 {
                     const usersWithRights = await getUsersWithRights()
                     const orders = await getAllOrders()
-                    const sortedOrders = Object.fromEntries(Object.entries(orders).sort((a, b) =>
-                    {
-                        if (a[1].completed && !b[1].completed) return 1
-                        if (!a[1].completed && b[1].completed) return -1
-                        return a[1].date - b[1].date
-                    }))
 
                     dispatch({ type: ActionTypes.SET_USERS_WITH_RIGHTS, payload: usersWithRights })
-                    dispatch({ type: ActionTypes.SET_ORDERS, payload: sortedOrders })
+                    dispatch({ type: ActionTypes.SET_ORDERS, payload: orders })
                 }
 
                 if (cart)
