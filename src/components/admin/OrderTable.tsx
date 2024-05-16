@@ -17,7 +17,10 @@ function OrderTable({ }: Props)
         <table className='table-auto m-auto'>
             <thead>
                 <tr>
-                    <th className='border px-4 py-2'>Customer</th>
+                    <th className='border px-4 py-2'>Name</th>
+                    <th className='border px-4 py-2'>Email</th>
+                    <th className='border px-4 py-2'>Phone</th>
+                    <th className='border px-4 py-2'>Address</th>
                     <th className='border px-4 py-2'>Date</th>
                     <th className='border px-4 py-2'>Cart</th>
                     <th className='border px-4 py-2'>Total</th>
@@ -32,9 +35,12 @@ function OrderTable({ }: Props)
                     return a[1].date - b[1].date
                 }).map(([id, order]) =>
                     <tr key={id}>
-                        <td className='align-top border px-4 py-2'>{usersWithRights[order.user]?.name}</td>
-                        <td className='align-top border px-4 py-2'>{order.date.toDate().toLocaleString()}</td>
-                        <td className='border px-4 py-2'>
+                        <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.name}</td>
+                        <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.email}</td>
+                        <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.phone}</td>
+                        <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.address}{usersWithRights[order.user]?.address}{usersWithRights[order.user]?.address}</td>
+                        <td className='align-top border px-4 py-2 max-w-60'>{order.date.toDate().toLocaleDateString()}</td>
+                        <td className='align-top border px-4 py-2'>
                             <ul>
                                 {Object.entries(order.cart).map(([productID, quantity]) =>
                                     <li key={productID}>

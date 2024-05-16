@@ -16,16 +16,31 @@ function UserModal({ setShow }: Props)
     }
 
     return (
-        <div className='w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
+        <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
             <h1 className='ml-2 mb-3 text-3xl font-bold underline'>
                 Manage Users
             </h1>
 
             <div className='overflow-y-auto'>
                 {Object.entries(users).filter(([, user]) => !user.admin).map(([id, user]) =>
-                    <div key={id} className='flex justify-between p-2 odd:bg-gray-100 even:bg-gray-200'>
-                        <p className='ml-1'>{user.name}</p>
-                        <div className='flex pl-2 mr-1'>
+                    <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200 gap-4'>
+                        <p>{user.name}</p>
+                        <p>{user.email}</p>
+                        <p>{user.phone}</p>
+                        <p>Praha 6, Potoční 101/5, Česká Republika</p>
+                        <div className='flex'>
+                            <p className='mr-2'>Verified:</p>
+                            <input className='w-5' type='checkbox' defaultChecked={user.verified} onChange={e => handleSetVerified(id, e.target.checked)} />
+                        </div>
+                    </div>
+                )}
+                {Object.entries(users).filter(([, user]) => !user.admin).map(([id, user]) =>
+                    <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200 gap-4'>
+                        <p>{user.name}</p>
+                        <p>{user.email}</p>
+                        <p>{user.phone}</p>
+                        <p>Praha 6, Potoční 101/5, Česká Republika</p>
+                        <div className='flex'>
                             <p className='mr-2'>Verified:</p>
                             <input className='w-5' type='checkbox' defaultChecked={user.verified} onChange={e => handleSetVerified(id, e.target.checked)} />
                         </div>
