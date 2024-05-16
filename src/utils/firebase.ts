@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, query, where, Timestamp } from 'firebase/firestore/lite'
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, getBlob } from 'firebase/storage'
 
 const firebaseConfig = {
     apiKey: 'AIzaSyB_KWZi8mf1IdvDWsNg286_X6SzzDOIuiY',
@@ -109,6 +109,20 @@ export async function setUserVerified(id: string, verified: boolean): Promise<bo
     return true
 }
 
+// Get images from Firebase Storage for a product and creates a copy of them for the target product. Also add the images to the target product in Firestore
+export async function cloneImages(sourceID: string, targetID: string, imageCount: number)
+{
+    const docRef = doc(collection(firestore, 'products'), targetID)
+    const imageURLs = await Promise.all(Array.from({ length: imageCount }).map(async (_, index) =>
+    {
+        const sourceRef = ref(storage, `images/${sourceID}-${index}`)
+        const targetRef = ref(storage, `images/${targetID}-${index}`)
+        await uploadBytes(targetRef, await getBlob(sourceRef))
+        return await getDownloadURL(targetRef)
+    }))
+    await updateDoc(docRef, { images: imageURLs })
+}
+
 // Get all products from Firestore
 export async function getProducts(): Promise<{ [key: string]: any }>
 {
@@ -159,7 +173,6 @@ export async function editProduct(id: string, name: string, description: string,
         await uploadBytes(imageRef, image)
         return await getDownloadURL(imageRef)
     }))
-    console.log(id)
     await updateDoc(doc(collection(firestore, 'products'), id), { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: imageURLs })
     return id
 }
@@ -197,11 +210,13 @@ export async function deleteTag(type: string, tag: string)
     await updateDoc(docRef, { [type]: arrayRemove(tag) })
 }
 
-// Create order in Firestore
-export async function createOrder(cart: { [key: string]: number }, user: string)
+// Create order in Firestore - returns the order ID and the order object
+export async function createOrder(cart: { [key: string]: number }, user: string): Promise<{ id: string, order: { [key: string]: any } }>
 {
     const docRef = doc(collection(firestore, 'orders'))
-    await setDoc(docRef, { cart, user, date: Timestamp.now(), completed: false })
+    const order = { cart, user, date: Timestamp.now(), completed: false }
+    await setDoc(docRef, order)
+    return { id: docRef.id, order }
 }
 
 // Get all orders from Firestore

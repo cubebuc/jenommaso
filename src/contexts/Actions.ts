@@ -87,6 +87,14 @@ export function setOrders(orders: { [key: string]: any })
     }
 }
 
+export function addOrder(id: string, order: { [key: string]: any })
+{
+    return {
+        type: ActionTypes.ADD_ORDER,
+        payload: { id, order }
+    }
+}
+
 export function setOrderCompleted(id: string, completed: boolean)
 {
     return {

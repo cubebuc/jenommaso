@@ -81,6 +81,9 @@ const reducer = (state: State, action: { type: string, payload?: any }): State =
             return { ...state, cart: updatedCart2 }
         case ActionTypes.SET_ORDERS:
             return { ...state, orders: action.payload }
+        case ActionTypes.ADD_ORDER:
+            const newOrders = { ...state.orders, [action.payload.id]: action.payload.order }
+            return { ...state, orders: newOrders }
         case ActionTypes.SET_ORDER_COMPLETED:
             const updatedOrders = { ...state.orders, [action.payload.id]: { ...state.orders[action.payload.id], completed: action.payload.completed } }
             return { ...state, orders: updatedOrders }

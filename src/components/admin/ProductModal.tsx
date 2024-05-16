@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { addProduct, editProduct, hideProduct as hideProductFirebase } from '../../utils/firebase'
+import { addProduct, editProduct, hideProduct as hideProductFirebase, cloneImages } from '../../utils/firebase'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { setProduct, hideProduct as hideProductAction } from '../../contexts/Actions'
 
@@ -13,6 +13,7 @@ function ProductModal({ setShow, editingProduct }: Props)
     const [packageSize, setPackageSize] = useState('')
     const [pricePerUnit, setPricePerUnit] = useState('')
     const [packagePrice, setPackagePrice] = useState('')
+    const [loading, setLoading] = useState(false)
 
     function editing(): boolean
     {
@@ -31,6 +32,10 @@ function ProductModal({ setShow, editingProduct }: Props)
     {
         const form = document.querySelector('form')
         form?.reset()
+        setPackageSize('')
+        setPricePerUnit('')
+        setPackagePrice('')
+
         if (editing())
         {
             setPackageSize(editingProduct.size.toString())
@@ -77,6 +82,8 @@ function ProductModal({ setShow, editingProduct }: Props)
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>)
     {
         e.preventDefault()
+        setLoading(true)
+
         const form = e.currentTarget
         const name = (form.name as any).value
         const description = form.description.value
@@ -90,12 +97,6 @@ function ProductModal({ setShow, editingProduct }: Props)
         const stock = parseInt(form.stock.value)
         const images = form.image.files
 
-        if (editing() && isProductInOrder(editingProduct.id))
-        {
-            await hideProductFirebase(editingProduct.id)
-            dispatch(hideProductAction(editingProduct.id))
-        }
-
         if (editing() && !isProductInOrder(editingProduct.id))
             var id = await editProduct(editingProduct.id, name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images, editingProduct.images.length)
         else
@@ -108,6 +109,16 @@ function ProductModal({ setShow, editingProduct }: Props)
         }
         else
             dispatch(setProduct({ [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
+
+        if (editing() && isProductInOrder(editingProduct.id))
+        {
+            if (images.length === 0)
+                await cloneImages(editingProduct.id, id, editingProduct.images.length)
+            await hideProductFirebase(editingProduct.id)
+            dispatch(hideProductAction(editingProduct.id))
+        }
+
+        setLoading(false)
         setShow(false)
     }
 
@@ -189,7 +200,7 @@ function ProductModal({ setShow, editingProduct }: Props)
                     <label className='w-24 shrink-0 mr-3' htmlFor='image'>Image</label>
                     <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple {...(!editing() && { required: true })} />
                 </div>
-                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit'>
+                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit' disabled={loading}>
                     {editing() ? 'Edit' : 'Add'}
                 </button>
                 <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='button' onClick={() => setShow(false)}>

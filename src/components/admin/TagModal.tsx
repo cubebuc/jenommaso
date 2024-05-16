@@ -15,7 +15,7 @@ function TagModal({ setShow }: Props)
         const tag = (form[0] as any).value
         form.reset()
 
-        if (tags[type].includes(tag)) return
+        if (tags[type].includes(tag) || tag === '') return
 
         await addTagFirebase(type, tag)
         dispatch(addTagAction(type, tag))

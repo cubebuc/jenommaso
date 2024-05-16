@@ -1,24 +1,31 @@
+import { useState } from 'react'
 import { auth, createOrder } from '../../utils/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useGlobal } from '../../contexts/GlobalContext'
-import { clearCart } from '../../contexts/Actions'
+import { addOrder, clearCart } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
 function ConfirmModal({ setShow }: Props)
 {
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const { state, dispatch } = useGlobal()
     const { cart } = state
 
-    function handleConfirm()
+    async function handleConfirm()
     {
-        createOrder(cart, auth.currentUser!.uid)
+        setLoading(true)
+
+        const { id, order } = await createOrder(cart, auth.currentUser!.uid)
 
         navigate('/order')
 
+        dispatch(addOrder(id, order))
         dispatch(clearCart())
         localStorage.removeItem('cart')
+
+        setLoading(false)
     }
 
     return (
@@ -30,7 +37,7 @@ function ConfirmModal({ setShow }: Props)
                 <button className='w-2/5 py-2 my-5 text-amber-500 border-2 border-amber-500 rounded-lg' onClick={() => setShow(false)}>
                     Zrušit
                 </button>
-                <button className='w-2/5 py-2 my-5 text-white bg-amber-500 rounded-lg' onClick={handleConfirm}>
+                <button className='w-2/5 py-2 my-5 text-white bg-amber-500 rounded-lg' disabled={loading} onClick={handleConfirm}>
                     Potvrdit
                 </button>
             </div>
