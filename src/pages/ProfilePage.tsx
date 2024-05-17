@@ -9,8 +9,8 @@ function ProfilePage({ }: Props)
 
     return (
         <MainLayout>
-            <h1 className='mt-24 mb-8 text-4xl text-center font-playfair'>
-                Profile Page
+            <h1 className='mt-24 mb-8 text-4xl text-center font-playfair uppercase'>
+                Profil
             </h1>
             <div className='flex flex-col items-center'>
                 {Object.entries(orders).sort((a, b) =>

@@ -23,15 +23,15 @@ function Navbar({ }: Props)
 
             <header className={`transition-all ${!showMenu && 'invisible opacity-0'} md:visible md:opacity-100 fixed top-0 w-full z-30 flex flex-col md:flex-row justify-between items-center p-3 bg-stone-600 text-white gap-2 md:gap-0`}>
                 <Link className='hidden md:block invisible md:visible w-full md:w-1/3 md:ps-20 text-xl' to='/home'>
-                    <h1 className='w-fit h-fit hover:scale-105 transition-transform translate-y-0.5'>
-                        JIŘÍHO DOBROTY
+                    <h1 className='w-fit h-fit hover:scale-105 transition-transform translate-y-0.5 uppercase'>
+                        Jiřího Dobroty
                     </h1>
                 </Link>
 
                 <nav className='w-full md:w-1/3 my-3 md:my-0 '>
-                    <ul className='flex flex-col md:flex-row items-center justify-center gap-6 text-2xl md:text-base'>
-                        <li className='hover:scale-105 transition-transform'><Link to='/home'>Úvod</Link></li>
-                        <li className='hover:scale-105 transition-transform'><Link to='/shop'>Nabídka</Link></li>
+                    <ul className='flex flex-col md:flex-row items-center justify-center gap-8 text-2xl md:text-base'>
+                        <li className='hover:scale-105 transition-transform translate-y-0.5 uppercase'><Link to='/home'>Úvod</Link></li>
+                        <li className='hover:scale-105 transition-transform translate-y-0.5 uppercase'><Link to='/shop'>Jiřího Nabídka</Link></li>
                     </ul>
                 </nav>
 

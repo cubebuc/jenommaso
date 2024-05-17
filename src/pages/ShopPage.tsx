@@ -15,7 +15,7 @@ function ShopPage({ }: Props)
 
     return (
         <MainLayout>
-            <h1 className='mt-24 mb-10 text-4xl text-center font-playfair'>
+            <h1 className='mt-24 mb-10 text-4xl text-center font-playfair uppercase'>
                 Nabídka
             </h1>
             <div className='flex justify-center'>

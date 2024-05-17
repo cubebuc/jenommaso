@@ -13,7 +13,7 @@ function CartPage({ }: Props)
 
     return (
         <MainLayout>
-            <h1 className='mt-24 mb-8 text-4xl text-center font-playfair'>
+            <h1 className='mt-24 mb-8 text-4xl text-center font-playfair uppercase'>
                 Košík
             </h1>
             <div className='mx-3 flex flex-col md:flex-row justify-center'>
