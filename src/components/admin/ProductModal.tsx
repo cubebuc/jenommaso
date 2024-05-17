@@ -158,7 +158,7 @@ function ProductModal({ setShow, editingProduct }: Props)
 
     return (
         <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
-            <h1 className='ml-2 pb-1 text-3xl font-bold underline'>
+            <h1 className='ml-2 pb-1 text-3xl underline font-playfair'>
                 {editing() ? 'Upravit' : 'Přidat'} Produkt
             </h1>
             <form onSubmit={handleSubmit}>

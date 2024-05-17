@@ -99,7 +99,7 @@ function CartItem({ id }: Props)
                     </button>
                 </div>
                 <p className='w-36 py-1 text-center text-stone-600'>{product.packagePrice * quantity} Kč</p>
-                <button className='text-2xl text-red-500' onClick={() => handleRemoveFromCart(id)}>
+                <button className='text-2xl text-red-500 hover:scale-105 transition-transform' onClick={() => handleRemoveFromCart(id)}>
                     ✕
                 </button>
             </div>

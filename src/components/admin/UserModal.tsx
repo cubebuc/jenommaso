@@ -17,7 +17,7 @@ function UserModal({ setShow }: Props)
 
     return (
         <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
-            <h1 className='ml-2 mb-3 text-3xl font-bold underline'>
+            <h1 className='ml-2 mb-3 text-3xl underline font-playfair'>
                 Uživatelé
             </h1>
 

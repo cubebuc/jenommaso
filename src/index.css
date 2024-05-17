@@ -17,4 +17,9 @@
         font-family: 'Avenir Light';
         src: url('./assets/fonts/Avenir-Light.ttf')
     }
+
+    html {
+        font-family: 'Avenir Light', sans-serif;
+        line-height: 1.5;
+    }
 }

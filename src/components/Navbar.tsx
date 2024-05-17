@@ -22,25 +22,29 @@ function Navbar({ }: Props)
             </button>
 
             <header className={`transition-all ${!showMenu && 'invisible opacity-0'} md:visible md:opacity-100 fixed top-0 w-full z-30 flex flex-col md:flex-row justify-between items-center p-3 bg-stone-600 text-white gap-2 md:gap-0`}>
-                <Link className='hidden md:block invisible md:visible w-full md:w-1/3 md:ps-20 text-xl text-center md:text-left' to='/home'>Jiřího Dobroty</Link>
+                <Link className='hidden md:block invisible md:visible w-full md:w-1/3 md:ps-20 text-xl' to='/home'>
+                    <h1 className='w-fit h-fit hover:scale-105 transition-transform translate-y-0.5'>
+                        JIŘÍHO DOBROTY
+                    </h1>
+                </Link>
 
                 <nav className='w-full md:w-1/3 my-3 md:my-0 '>
                     <ul className='flex flex-col md:flex-row items-center justify-center gap-6 text-2xl md:text-base'>
-                        <li><Link to='/home'>Úvod</Link></li>
-                        <li><Link to='/shop'>Nabídka</Link></li>
+                        <li className='hover:scale-105 transition-transform'><Link to='/home'>Úvod</Link></li>
+                        <li className='hover:scale-105 transition-transform'><Link to='/shop'>Nabídka</Link></li>
                     </ul>
                 </nav>
 
                 <hr className='w-full md:hidden' />
 
                 <div className='w-full md:w-1/3 my-3 md:my-0 md:pe-20 flex flex-col md:flex-row justify-center md:justify-end items-center justify-end gap-6 text-2xl md:text-base'>
-                    {admin && <Link className='text-blue-400' to='/admin'>Admin</Link>}
-                    <Link to='/profile'>Profil</Link>
-                    <Link to='/cart'>Košík</Link>
-                    <button onClick={signOut}>Odhlásit</button>
+                    {admin && <Link className='text-blue-400 hover:scale-105 transition-transform' to='/admin'>Admin</Link>}
+                    <Link className='hover:scale-105 transition-transform' to='/profile'>Profil</Link>
+                    <Link className='hover:scale-105 transition-transform' to='/cart'>Košík</Link>
+                    <button className='hover:scale-105 transition-transform' onClick={signOut}>Odhlásit</button>
                 </div>
             </header>
-        </div>
+        </div >
     )
 }
 export default Navbar

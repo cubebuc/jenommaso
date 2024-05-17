@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
 import HomePage from './pages/HomePage.tsx'
 import ShopPage from './pages/ShopPage.tsx'
+import ProductPage from './pages/ProductPage.tsx'
 import ProfilePage from './pages/ProfilePage.tsx'
 import CartPage from './pages/CartPage.tsx'
 import OrderPage from './pages/OrderPage.tsx'
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     {
         path: '/shop',
         element: <Protected verifiedRequired><ShopPage /></Protected>
+    },
+    {
+        path: '/product/:id',
+        element: <Protected verifiedRequired><ProductPage /></Protected>
     },
     {
         path: '/profile',

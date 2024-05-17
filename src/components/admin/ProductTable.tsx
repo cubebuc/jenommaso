@@ -80,12 +80,12 @@ function ProductTable({ setShow, setEditingProduct }: Props)
                         <td className='border px-4 py-1 text-right max-w-40 truncate'>{product.stock}</td>
                         <td className='border w-20 h-20'><img src={product.images[0]} alt={product.name} className='object-contain' /></td>
                         <td className='pl-4 py-2'>
-                            <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => handleEditProduct(id)}>
+                            <button className='px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform' onClick={() => handleEditProduct(id)}>
                                 Upravit
                             </button>
                         </td>
                         <td className='pl-4 py-2'>
-                            <button className='px-4 py-2 bg-red-500 text-white rounded' onClick={() => handleDeleteProduct(id)}>
+                            <button className='px-4 py-2 bg-red-500 text-white rounded hover:scale-105 transition-transform' onClick={() => handleDeleteProduct(id)}>
                                 Smazat
                             </button>
                         </td>

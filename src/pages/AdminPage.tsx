@@ -26,26 +26,26 @@ function AdminPage({ }: Props)
     return (
         <MainLayout>
             <div className='w-fit px-3 pb-3 mx-auto'>
-                <h1 className='mt-24 mb-8 text-3xl text-center'>
+                <h1 className='mt-24 mb-8 text-4xl text-center font-playfair'>
                     Admin
                 </h1>
 
                 <div className='flex justify-center gap-10'>
-                    <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={handleAddProduct}>
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform' onClick={handleAddProduct}>
                         Přidat produkt
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showProductModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowProductModal(false)}>
                         <ProductModal setShow={setShowProductModal} editingProduct={editingProduct} />
                     </div>
 
-                    <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShowTagModal(true)}>
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform' onClick={() => setShowTagModal(true)}>
                         Štítky
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showTagModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowTagModal(false)}>
                         <TagModal setShow={setShowTagModal} />
                     </div>
 
-                    <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShowUserModal(true)}>
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform' onClick={() => setShowUserModal(true)}>
                         Uživatelé
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showUserModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowUserModal(false)}>
@@ -53,7 +53,7 @@ function AdminPage({ }: Props)
                     </div>
                 </div>
 
-                <h1 className='m-8 text-3xl text-center'>
+                <h1 className='m-8 text-4xl text-center hover:scale-105 transition-transform font-playfair'>
                     <button onClick={() => setShrinkOrders(!shrinkOrders)}>
                         Objednávky
                     </button>
@@ -64,7 +64,7 @@ function AdminPage({ }: Props)
 
                 <hr className='w-1/2 mx-auto my-8 border-black' />
 
-                <h1 className='m-8 text-3xl text-center'>
+                <h1 className='m-8 text-4xl text-center hover:scale-105 transition-transform font-playfair'>
                     <button onClick={() => setShrinkProducts(!shrinkProducts)}>
                         Produkty
                     </button>

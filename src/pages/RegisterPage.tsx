@@ -38,7 +38,7 @@ function RegisterPage({ }: Props)
 
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
-            <h1 className='mb-5 text-5xl'>Registrace</h1>
+            <h1 className='mb-5 text-5xl font-playfair'>Registrace</h1>
             <form className='flex flex-col items-centers justify-center' onSubmit={handleSubmit}>
                 <label htmlFor='name'>Jméno:</label>
                 <input className='mb-3 p-2 border border-gray-400' id='name' type='text' placeholder='Jméno' required />
@@ -52,7 +52,7 @@ function RegisterPage({ }: Props)
                 <input className='mb-4 p-2 border border-gray-400' id='phone' type='tel' placeholder='Telefon' pattern='[0-9]{3} [0-9]{3} [0-9]{3}' required />
                 <label htmlFor='address'>Adresa:</label>
                 <input className='mb-4 p-2 border border-gray-400' id='address' type='text' placeholder='Adresa' required />
-                <button type='submit' className='p-2 bg-blue-500 text-white rounded'>Registrovat</button>
+                <button type='submit' className='p-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform'>Registrovat</button>
             </form>
         </div>
     )
