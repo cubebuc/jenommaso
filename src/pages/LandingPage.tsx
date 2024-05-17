@@ -14,12 +14,16 @@ function LandingPage({ }: Props)
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>)
     {
         e.preventDefault()
+
         const email = (document.getElementById('email') as HTMLInputElement).value
         const password = (document.getElementById('password') as HTMLInputElement).value
         if (!await signIn(email, password))
             setLoginFailed(true)
         else
+        {
+            setLoginFailed(false)
             navigate('/home')
+        }
     }
 
     if (verified || admin)

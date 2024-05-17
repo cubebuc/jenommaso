@@ -2,13 +2,22 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { signOut } from '../utils/firebase'
 import { useGlobal } from '../contexts/GlobalContext'
+import { clearCart } from '../contexts/Actions'
 
 type Props = {}
 function Navbar({ }: Props)
 {
     const [showMenu, setShowMenu] = useState(false)
 
-    const { admin } = useGlobal().state
+    const { state, dispatch } = useGlobal()
+    const { admin } = state
+
+    function handleSignOut()
+    {
+        dispatch(clearCart())
+        localStorage.removeItem('cart')
+        signOut()
+    }
 
     return (
         <div>
@@ -41,7 +50,7 @@ function Navbar({ }: Props)
                     {admin && <Link className='text-blue-400 hover:scale-105 transition-transform' to='/admin'>Admin</Link>}
                     <Link className='hover:scale-105 transition-transform' to='/profile'>Profil</Link>
                     <Link className='hover:scale-105 transition-transform' to='/cart'>Košík</Link>
-                    <button className='hover:scale-105 transition-transform' onClick={signOut}>Odhlásit</button>
+                    <button className='hover:scale-105 transition-transform' onClick={handleSignOut}>Odhlásit</button>
                 </div>
             </header>
         </div >
