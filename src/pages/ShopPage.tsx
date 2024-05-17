@@ -34,18 +34,20 @@ function ShopPage({ }: Props)
                         <div className='flex flex-wrap'>
                             {tags.category.map(category =>
                                 <div key={category} className='mr-4 flex items-center'>
-                                    <input
-                                        type='checkbox'
-                                        checked={selectedCategories.includes(category)}
-                                        onChange={e =>
-                                        {
-                                            if (e.target.checked)
-                                                setSelectedCategories([...selectedCategories, category])
-                                            else
-                                                setSelectedCategories(selectedCategories.filter(t => t !== category))
-                                        }}
-                                    />
-                                    <label className='ml-1'>{category}</label>
+                                    <label>
+                                        <input
+                                            type='checkbox'
+                                            checked={selectedCategories.includes(category)}
+                                            onChange={e =>
+                                            {
+                                                if (e.target.checked)
+                                                    setSelectedCategories([...selectedCategories, category])
+                                                else
+                                                    setSelectedCategories(selectedCategories.filter(t => t !== category))
+                                            }}
+                                        />
+                                        <span className='ml-1'>{category}</span>
+                                    </label>
                                 </div>
                             )}
                         </div>
@@ -56,18 +58,20 @@ function ShopPage({ }: Props)
                         <div className='flex flex-wrap'>
                             {tags.treatment.map(treatment =>
                                 <div key={treatment} className='mr-4 flex items-center'>
-                                    <input
-                                        type='checkbox'
-                                        checked={selectedTreatments.includes(treatment)}
-                                        onChange={e =>
-                                        {
-                                            if (e.target.checked)
-                                                setSelectedTreatments([...selectedTreatments, treatment])
-                                            else
-                                                setSelectedTreatments(selectedTreatments.filter(t => t !== treatment))
-                                        }}
-                                    />
-                                    <label className='ml-1'>{treatment}</label>
+                                    <label>
+                                        <input
+                                            type='checkbox'
+                                            checked={selectedTreatments.includes(treatment)}
+                                            onChange={e =>
+                                            {
+                                                if (e.target.checked)
+                                                    setSelectedTreatments([...selectedTreatments, treatment])
+                                                else
+                                                    setSelectedTreatments(selectedTreatments.filter(t => t !== treatment))
+                                            }}
+                                        />
+                                        <span className='ml-1'>{treatment}</span>
+                                    </label>
                                 </div>
                             )}
                         </div>
@@ -78,18 +82,20 @@ function ShopPage({ }: Props)
                         <div className='flex flex-wrap'>
                             {tags.usage.map(usage =>
                                 <div key={usage} className='mr-4 flex items-center'>
-                                    <input
-                                        type='checkbox'
-                                        checked={selectedUsages.includes(usage)}
-                                        onChange={e =>
-                                        {
-                                            if (e.target.checked)
-                                                setSelectedUsages([...selectedUsages, usage])
-                                            else
-                                                setSelectedUsages(selectedUsages.filter(t => t !== usage))
-                                        }}
-                                    />
-                                    <label className='ml-1'>{usage}</label>
+                                    <label>
+                                        <input
+                                            type='checkbox'
+                                            checked={selectedUsages.includes(usage)}
+                                            onChange={e =>
+                                            {
+                                                if (e.target.checked)
+                                                    setSelectedUsages([...selectedUsages, usage])
+                                                else
+                                                    setSelectedUsages(selectedUsages.filter(t => t !== usage))
+                                            }}
+                                        />
+                                        <span className='ml-1'>{usage}</span>
+                                    </label>
                                 </div>
                             )}
                         </div>
