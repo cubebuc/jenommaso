@@ -126,7 +126,7 @@ function ProductModal({ setShow, editingProduct }: Props)
         if (productInActiveOrder && !onlyStock)
         {
             console.log(onlyStock)
-            alert('Cannot edit product in an active order')
+            alert('Nelze upravit produkt v aktivní objednávce')
             setLoading(false)
             return
         }
@@ -159,11 +159,11 @@ function ProductModal({ setShow, editingProduct }: Props)
     return (
         <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
             <h1 className='ml-2 pb-1 text-3xl font-bold underline'>
-                {editing() ? 'Edit' : 'Add'} Product
+                {editing() ? 'Upravit' : 'Přidat'} Produkt
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3'>Category</label>
+                    <label className='w-24 shrink-0 mr-3'>Kategorie</label>
                     <div className='grow flex flex-wrap px-3 py-2 border'>
                         {
                             tags?.category?.map((category, index) => (
@@ -176,7 +176,7 @@ function ProductModal({ setShow, editingProduct }: Props)
                     </div>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3'>Treatment</label>
+                    <label className='w-24 shrink-0 mr-3'>Úprava</label>
                     <div className='grow flex flex-wrap px-3 py-2 border'>
                         {
                             tags?.treatment?.map((treatment, index) => (
@@ -189,15 +189,15 @@ function ProductModal({ setShow, editingProduct }: Props)
                     </div>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='name'>Name</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='name'>Název</label>
                     <input className='grow border px-4 py-2' type='text' id='name' name='name' placeholder='Good Product' required />
                 </div>
                 <div className='flex m-4'>
-                    <label className='w-24 shrink-0 mr-3 mt-2' htmlFor='description'>Description</label>
+                    <label className='w-24 shrink-0 mr-3 mt-2' htmlFor='description'>Popis</label>
                     <textarea className='grow border px-4 py-2 h-24' id='description' name='description' placeholder='This is a good product' required />
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3'>Usage</label>
+                    <label className='w-24 shrink-0 mr-3'>Využití</label>
                     <div className='grow flex flex-wrap px-3 py-2 border'>
                         {
                             tags?.usage?.map((usage, index) => (
@@ -210,35 +210,35 @@ function ProductModal({ setShow, editingProduct }: Props)
                     </div>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='size'>Package size</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='size'>Velikost</label>
                     <input className='grow border px-4 py-2' type='number' id='size' name='size' placeholder='9.99' value={packageSize} required onChange={handlePackageSizeChange} />
                     <select className='border px-3 py-2' id='unit' name='unit' required onChange={e => setUnit(e.currentTarget.value)}>
                         <option value='kg'>kg</option>
                         <option value='l'>l</option>
-                        <option value='pcs'>pcs</option>
+                        <option value='pcs'>ks</option>
                     </select>
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='pricePerUnit'>Price / {unit}</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='pricePerUnit'>Cena / {unit}</label>
                     <input className='grow border px-4 py-2' type='number' id='pricePerUnit' name='pricePerUnit' placeholder='9.99' value={pricePerUnit} required onChange={handlePricePerUnitChange} />
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='packagePrice'>Package price</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='packagePrice'>Cena balení</label>
                     <input className='grow border px-4 py-2' type='number' id='packagePrice' name='packagePrice' placeholder='9.99' value={packagePrice} required onChange={handlePackagePriceChange} />
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='stock'>Stock</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='stock'>Sklad</label>
                     <input className='grow border px-4 py-2' type='number' id='stock' name='stock' placeholder='100' required />
                 </div>
                 <div className='flex items-center m-4'>
-                    <label className='w-24 shrink-0 mr-3' htmlFor='image'>Image</label>
+                    <label className='w-24 shrink-0 mr-3' htmlFor='image'>Obrázky</label>
                     <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple {...(!editing() && { required: true })} />
                 </div>
                 <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit' disabled={loading}>
-                    {editing() ? 'Edit' : 'Add'}
+                    {editing() ? 'Upravit' : 'Přidat'}
                 </button>
                 <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='button' onClick={() => setShow(false)}>
-                    Close
+                    Zavřít
                 </button>
             </form>
         </div >

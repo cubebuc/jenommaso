@@ -17,14 +17,14 @@ function OrderTable({ }: Props)
         <table className='table-auto m-auto'>
             <thead>
                 <tr>
-                    <th className='border px-4 py-2'>Name</th>
+                    <th className='border px-4 py-2'>Jméno</th>
                     <th className='border px-4 py-2'>Email</th>
-                    <th className='border px-4 py-2'>Phone</th>
-                    <th className='border px-4 py-2'>Address</th>
-                    <th className='border px-4 py-2'>Date</th>
-                    <th className='border px-4 py-2'>Cart</th>
-                    <th className='border px-4 py-2'>Total</th>
-                    <th className='border px-4 py-2'>Completed</th>
+                    <th className='border px-4 py-2'>Telefon</th>
+                    <th className='border px-4 py-2'>Adresa</th>
+                    <th className='border px-4 py-2'>Datum</th>
+                    <th className='border px-4 py-2'>Košík</th>
+                    <th className='border px-4 py-2'>Celkem</th>
+                    <th className='border px-4 py-2'>Hotovo</th>
                 </tr>
             </thead>
             <tbody>

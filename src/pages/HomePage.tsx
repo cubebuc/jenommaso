@@ -15,7 +15,7 @@ function HomePage({ }: Props)
                     <h1 className='text-8xl text-center text-white'>Jiřího</h1>
                     <h1 className='text-8xl text-center text-white'>Dobroty</h1>
 
-                    <Link className='mt-32 px-4 py-2 text-white border border-white border-2 hover:bg-white hover:text-stone-600 transition-all duration-400' to='/shop'>
+                    <Link className='mt-32 px-4 py-2 text-white border border-white border-2 text-xl hover:bg-white hover:text-stone-600 transition-all duration-400' to='/shop'>
                         Nabídka
                     </Link>
                 </div>

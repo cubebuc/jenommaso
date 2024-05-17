@@ -16,7 +16,7 @@ function ShopPage({ }: Props)
     return (
         <MainLayout>
             <h1 className='mt-24 mb-8 text-3xl text-center'>
-                Shop Page
+                Nabídka
             </h1>
             <div className='flex justify-center'>
                 <input
@@ -28,9 +28,9 @@ function ShopPage({ }: Props)
                 />
             </div>
             <div className='flex flex-col justify-center items-center'>
-                <div className='w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2'>
-                    <div className='mr-4 mt-2'>
-                        <h2 className='text-xl'>Categories</h2>
+                <div className='w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 p-2 pt-1 mt-2 border'>
+                    <div className='mr-4'>
+                        <h2 className='text-xl'>Kategorie</h2>
                         <div className='flex flex-wrap'>
                             {tags.category.map(category =>
                                 <div key={category} className='mr-4 flex items-center'>
@@ -50,8 +50,9 @@ function ShopPage({ }: Props)
                             )}
                         </div>
                     </div>
-                    <div className='mr-4 mt-2'>
-                        <h2 className='text-xl'>Treatments</h2>
+                    <hr className='w-full my-1' />
+                    <div className='mr-4'>
+                        <h2 className='text-xl'>Úprava</h2>
                         <div className='flex flex-wrap'>
                             {tags.treatment.map(treatment =>
                                 <div key={treatment} className='mr-4 flex items-center'>
@@ -71,8 +72,9 @@ function ShopPage({ }: Props)
                             )}
                         </div>
                     </div>
-                    <div className='mr-4 mt-2'>
-                        <h2 className='text-xl'>Usages</h2>
+                    <hr className='w-full my-1' />
+                    <div className='mr-4'>
+                        <h2 className='text-xl'>Využití</h2>
                         <div className='flex flex-wrap'>
                             {tags.usage.map(usage =>
                                 <div key={usage} className='mr-4 flex items-center'>

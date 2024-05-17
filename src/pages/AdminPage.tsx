@@ -27,26 +27,26 @@ function AdminPage({ }: Props)
         <MainLayout>
             <div className='w-fit px-3 pb-3 mx-auto'>
                 <h1 className='mt-24 mb-8 text-3xl text-center'>
-                    Admin Page
+                    Admin
                 </h1>
 
                 <div className='flex justify-center gap-10'>
                     <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={handleAddProduct}>
-                        Add Product
+                        Přidat produkt
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showProductModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowProductModal(false)}>
                         <ProductModal setShow={setShowProductModal} editingProduct={editingProduct} />
                     </div>
 
                     <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShowTagModal(true)}>
-                        Edit Tags
+                        Štítky
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showTagModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowTagModal(false)}>
                         <TagModal setShow={setShowTagModal} />
                     </div>
 
                     <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShowUserModal(true)}>
-                        Manage Users
+                        Uživatelé
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showUserModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowUserModal(false)}>
                         <UserModal setShow={setShowUserModal} />
@@ -55,7 +55,7 @@ function AdminPage({ }: Props)
 
                 <h1 className='m-8 text-3xl text-center'>
                     <button onClick={() => setShrinkOrders(!shrinkOrders)}>
-                        Orders
+                        Objednávky
                     </button>
                 </h1>
                 <div className={`overflow-clip ${shrinkOrders && 'h-0'}`}>
@@ -66,7 +66,7 @@ function AdminPage({ }: Props)
 
                 <h1 className='m-8 text-3xl text-center'>
                     <button onClick={() => setShrinkProducts(!shrinkProducts)}>
-                        Products
+                        Produkty
                     </button>
                 </h1>
                 <div className={`overflow-clip ${shrinkProducts && 'h-0'}`}>

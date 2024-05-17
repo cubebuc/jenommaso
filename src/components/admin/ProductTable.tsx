@@ -34,7 +34,7 @@ function ProductTable({ setShow, setEditingProduct }: Props)
     {
         if (isProductInActiveOrder(id))
         {
-            alert('Cannot delete product in an active order')
+            alert('Nelze smazat produkt v aktivní objednávce')
             return
         }
 
@@ -53,16 +53,16 @@ function ProductTable({ setShow, setEditingProduct }: Props)
         <table className='table-auto m-auto'>
             <thead>
                 <tr>
-                    <th className='border px-4 py-2'>Name</th>
-                    <th className='border px-4 py-2'>Description</th>
-                    <th className='border px-4 py-2'>Category</th>
-                    <th className='border px-4 py-2'>Treatment</th>
-                    <th className='border px-4 py-2'>Usage</th>
-                    <th className='border px-4 py-2'>Size</th>
-                    <th className='border px-4 py-2'>Price/unit</th>
-                    <th className='border px-4 py-2'>Package Price</th>
-                    <th className='border px-4 py-2'>Stock</th>
-                    <th className='border px-4 py-2'>Image</th>
+                    <th className='border px-4 py-2'>Název</th>
+                    <th className='border px-4 py-2'>Popis</th>
+                    <th className='border px-4 py-2'>Kategorie</th>
+                    <th className='border px-4 py-2'>Úprava</th>
+                    <th className='border px-4 py-2'>Využití</th>
+                    <th className='border px-4 py-2'>Velikost</th>
+                    <th className='border px-4 py-2'>Cena/jednotku</th>
+                    <th className='border px-4 py-2'>Cena balení</th>
+                    <th className='border px-4 py-2'>Sklad</th>
+                    <th className='border px-4 py-2'>Obrázek</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,12 +81,12 @@ function ProductTable({ setShow, setEditingProduct }: Props)
                         <td className='border w-20 h-20'><img src={product.images[0]} alt={product.name} className='object-contain' /></td>
                         <td className='pl-4 py-2'>
                             <button className='px-4 py-2 bg-blue-500 text-white rounded' onClick={() => handleEditProduct(id)}>
-                                Edit
+                                Upravit
                             </button>
                         </td>
                         <td className='pl-4 py-2'>
                             <button className='px-4 py-2 bg-red-500 text-white rounded' onClick={() => handleDeleteProduct(id)}>
-                                Delete
+                                Smazat
                             </button>
                         </td>
                     </tr>

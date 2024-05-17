@@ -38,21 +38,21 @@ function RegisterPage({ }: Props)
 
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
-            <h1 className='mb-5 text-5xl'>Register</h1>
+            <h1 className='mb-5 text-5xl'>Registrace</h1>
             <form className='flex flex-col items-centers justify-center' onSubmit={handleSubmit}>
-                <label htmlFor='name'>Name:</label>
-                <input className='mb-3 p-2 border border-gray-400' id='name' type='text' placeholder='Name' required />
+                <label htmlFor='name'>Jméno:</label>
+                <input className='mb-3 p-2 border border-gray-400' id='name' type='text' placeholder='Jméno' required />
                 <label htmlFor='email'>Email:</label>
                 <input className='mb-3 p-2 border border-gray-400' id='email' type='email' placeholder='Email' required />
-                <label htmlFor='password'>Password: {passwordTooShort() && <span className='absolute ml-1 text-red-500'>too short</span>}</label>
-                <input className={`mb-3 p-2 border border-gray-400 ${passwordTooShort() && 'bg-red-100'}`} id='password' type='password' placeholder='Password' required onChange={e => setPassword(e.target.value)} />
-                <label htmlFor='confirm-password'>Confirm Password:{!passwordsMatch() && <span className='absolute ml-1 text-red-500'>does not match</span>}</label>
-                <input className={`mb-3 p-2 border border-gray-400 ${!passwordsMatch() && 'bg-red-100'}`} id='confirm-password' type='password' placeholder='Confirm Password' required onChange={e => setConfirmPassword(e.target.value)} />
-                <label htmlFor='phone'>Phone: (123 456 789)</label>
-                <input className='mb-4 p-2 border border-gray-400' id='phone' type='tel' placeholder='Phone' pattern='[0-9]{3} [0-9]{3} [0-9]{3}' required />
-                <label htmlFor='address'>Address:</label>
-                <input className='mb-4 p-2 border border-gray-400' id='address' type='text' placeholder='Address' required />
-                <button type='submit' className='p-2 bg-blue-500 text-white rounded'>Register</button>
+                <label htmlFor='password'>Heslo: {passwordTooShort() && <span className='absolute ml-1 text-red-500'>too short</span>}</label>
+                <input className={`mb-3 p-2 border border-gray-400 ${passwordTooShort() && 'bg-red-100'}`} id='password' type='password' placeholder='Heslo' required onChange={e => setPassword(e.target.value)} />
+                <label htmlFor='confirm-password'>Heslo znovu:{!passwordsMatch() && <span className='absolute ml-1 text-red-500'>does not match</span>}</label>
+                <input className={`mb-3 p-2 border border-gray-400 ${!passwordsMatch() && 'bg-red-100'}`} id='confirm-password' type='password' placeholder='Heslo znovu' required onChange={e => setConfirmPassword(e.target.value)} />
+                <label htmlFor='phone'>Telefon: (formát: 123 456 789)</label>
+                <input className='mb-4 p-2 border border-gray-400' id='phone' type='tel' placeholder='Telefon' pattern='[0-9]{3} [0-9]{3} [0-9]{3}' required />
+                <label htmlFor='address'>Adresa:</label>
+                <input className='mb-4 p-2 border border-gray-400' id='address' type='text' placeholder='Adresa' required />
+                <button type='submit' className='p-2 bg-blue-500 text-white rounded'>Registrovat</button>
             </form>
         </div>
     )

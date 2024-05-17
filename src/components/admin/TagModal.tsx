@@ -32,16 +32,16 @@ function TagModal({ setShow }: Props)
     return (
         <div className='w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
             <h1 className='ml-2 mb-3 text-3xl font-bold underline'>
-                Tags
+                Štítky
             </h1>
             <div className='mt-2'>
                 <h2 className='mb-3 text-xl'>
-                    Category
+                    Kategorie
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'category')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Category' />
                     <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
-                        Add
+                        Přidat
                     </button>
                 </form>
                 <div className='flex flex-wrap gap-1'>
@@ -59,12 +59,12 @@ function TagModal({ setShow }: Props)
             </div>
             <div className='mt-4'>
                 <h2 className='mb-2 text-xl'>
-                    Treatment
+                    Úprava
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'treatment')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Treatment' />
                     <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
-                        Add
+                        Přidat
                     </button>
                 </form>
                 <div className='flex flex-wrap gap-1'>
@@ -82,12 +82,12 @@ function TagModal({ setShow }: Props)
             </div>
             <div className='mt-4'>
                 <h2 className='mb-2 text-xl'>
-                    Usage
+                    Využití
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'usage')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Usage' />
                     <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
-                        Add
+                        Přidat
                     </button>
                 </form>
                 <div className='flex flex-wrap gap-1'>
@@ -104,7 +104,7 @@ function TagModal({ setShow }: Props)
                 </div>
             </div>
             <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShow(false)}>
-                Close
+                Zavřit
             </button>
         </div>
     )
