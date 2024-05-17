@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { signUp } from '../utils/firebase'
 
 type Props = {}
 function RegisterPage({ }: Props)
 {
+    const navigate = useNavigate()
+
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -29,6 +32,8 @@ function RegisterPage({ }: Props)
             return
 
         await signUp(email, password, name, phone, address)
+
+        navigate('/')
     }
 
     return (
@@ -43,8 +48,8 @@ function RegisterPage({ }: Props)
                 <input className={`mb-3 p-2 border border-gray-400 ${passwordTooShort() && 'bg-red-100'}`} id='password' type='password' placeholder='Password' required onChange={e => setPassword(e.target.value)} />
                 <label htmlFor='confirm-password'>Confirm Password:{!passwordsMatch() && <span className='absolute ml-1 text-red-500'>does not match</span>}</label>
                 <input className={`mb-3 p-2 border border-gray-400 ${!passwordsMatch() && 'bg-red-100'}`} id='confirm-password' type='password' placeholder='Confirm Password' required onChange={e => setConfirmPassword(e.target.value)} />
-                <label htmlFor='phone'>Phone:</label>
-                <input className='mb-4 p-2 border border-gray-400' id='phone' type='tel' placeholder='Phone' required />
+                <label htmlFor='phone'>Phone: (123 456 789)</label>
+                <input className='mb-4 p-2 border border-gray-400' id='phone' type='tel' placeholder='Phone' pattern='[0-9]{3} [0-9]{3} [0-9]{3}' required />
                 <label htmlFor='address'>Address:</label>
                 <input className='mb-4 p-2 border border-gray-400' id='address' type='text' placeholder='Address' required />
                 <button type='submit' className='p-2 bg-blue-500 text-white rounded'>Register</button>

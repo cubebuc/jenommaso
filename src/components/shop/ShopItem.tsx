@@ -23,7 +23,7 @@ function ShopItem({ id, product }: Props)
     }
 
     return (
-        <div className='w-fit m-1 p-3 text-sm flex flex-col items-center justify-center transition-all hover:shadow-xl'>
+        <div className='w-64 m-1 p-3 text-sm flex flex-col items-center justify-center transition-all hover:shadow-xl'>
             <img className='w-60 h-60 object-contain' src={product.images[0]} alt={product.name} />
             <div className='my-5 text-center'>
                 <h3>{product.name}</h3>

@@ -15,7 +15,7 @@ function ProfilePage({ }: Props)
             <div className='flex flex-col items-center'>
                 {Object.entries(orders).sort((a, b) =>
                 {
-                    return a[1].date - b[1].date
+                    return b[1].date - a[1].date
                 }).map(([id, order]) =>
                     order.user === auth.currentUser?.uid &&
                     <div key={id} className='border p-4 m-4 w-96'>

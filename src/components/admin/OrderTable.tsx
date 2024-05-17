@@ -38,7 +38,7 @@ function OrderTable({ }: Props)
                         <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.name}</td>
                         <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.email}</td>
                         <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.phone}</td>
-                        <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.address}{usersWithRights[order.user]?.address}{usersWithRights[order.user]?.address}</td>
+                        <td className='align-top border px-4 py-2 max-w-60'>{usersWithRights[order.user]?.address}</td>
                         <td className='align-top border px-4 py-2 max-w-60'>{order.date.toDate().toLocaleDateString()}</td>
                         <td className='align-top border px-4 py-2'>
                             <ul>

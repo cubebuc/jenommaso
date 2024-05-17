@@ -72,10 +72,10 @@ function ProductTable({ setShow, setEditingProduct }: Props)
                 </tr>
             </thead>
             <tbody>
-                {Object.entries(products).map(([id, product]) =>
+                {Object.entries(products).sort((a, b) => a[1].name.localeCompare(b[1].name)).map(([id, product]) =>
                     !product.hidden &&
                     <tr key={id}>
-                        <td className='border px-4 py-1 max-w-40 truncate'>{product.name}</td>
+                        <td className='border px-4 py-1 max-w-60'>{product.name}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.description}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.category.join(', ')}</td>
                         <td className='border px-4 py-1 max-w-40 truncate'>{product.treatment.join(', ')}</td>

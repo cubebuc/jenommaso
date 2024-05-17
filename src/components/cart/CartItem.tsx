@@ -74,7 +74,7 @@ function CartItem({ id }: Props)
 
     return (
         <div className='py-1 flex flex-col md:flex-row items-center justify-center'>
-            <div className='h-full flex'>
+            <div className='h-full me-5 flex'>
                 <img className='w-20 h-20 md:w-32 md:h-32 me-5 object-contain border border-stone-300' src={product.images[0]} alt={product.name} />
                 <div className='w-60 md:w-56 h-full py-1 md:py-2 flex flex-col'>
                     <h3 className='mb-1 md:mb-2'>{product.name}</h3>
