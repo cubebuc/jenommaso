@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { auth, createOrder } from '../../utils/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useGlobal } from '../../contexts/GlobalContext'
-import { addOrder, clearCart } from '../../contexts/Actions'
+import { addOrder, clearCart, updateStock } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
 function ConfirmModal({ setShow }: Props)
@@ -19,13 +19,17 @@ function ConfirmModal({ setShow }: Props)
 
         const { id, order } = await createOrder(cart, auth.currentUser!.uid)
 
-        navigate('/order')
-
+        for (const product of Object.keys(cart))
+        {
+            dispatch(updateStock(product, -cart[product]))
+        }
         dispatch(addOrder(id, order))
         dispatch(clearCart())
         localStorage.removeItem('cart')
 
         setLoading(false)
+
+        navigate('/order')
     }
 
     return (

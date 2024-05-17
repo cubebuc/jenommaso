@@ -4,16 +4,20 @@ import { addToCart } from "../../contexts/Actions"
 type Props = { id: string, product: { [key: string]: any } }
 function ShopItem({ id, product }: Props)
 {
-    const { dispatch } = useGlobal()
+    const { state, dispatch } = useGlobal()
+    const { products, cart } = state
 
     function handleAddToCart()
     {
+        if (products[id].stock <= cart[id])
+            return
+
         dispatch(addToCart(id))
 
-        const cart = localStorage.getItem('cart')
-        if (cart)
+        const storageCart = localStorage.getItem('cart')
+        if (storageCart)
         {
-            const parsedCart = JSON.parse(cart)
+            const parsedCart = JSON.parse(storageCart)
             localStorage.setItem('cart', JSON.stringify({ ...parsedCart, [id]: parsedCart[id] ? parsedCart[id] + 1 : 1 }))
         }
         else

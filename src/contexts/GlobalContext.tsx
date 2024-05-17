@@ -43,12 +43,15 @@ const reducer = (state: State, action: { type: string, payload?: any }): State =
         case ActionTypes.SET_PRODUCT:
             return { ...state, products: { ...state.products, ...action.payload } }
         case ActionTypes.REMOVE_PRODUCT:
-            const newProducts = { ...state.products }
-            delete newProducts[action.payload]
-            return { ...state, products: newProducts }
+            const newProducts1 = { ...state.products }
+            delete newProducts1[action.payload]
+            return { ...state, products: newProducts1 }
         case ActionTypes.HIDE_PRODUCT:
             const updatedProducts = { ...state.products, [action.payload]: { ...state.products[action.payload], hidden: true } }
             return { ...state, products: updatedProducts }
+        case ActionTypes.UPDATE_STOCK:
+            const updatedProducts2 = { ...state.products, [action.payload.id]: { ...state.products[action.payload.id], stock: state.products[action.payload.id].stock + action.payload.amount } }
+            return { ...state, products: updatedProducts2 }
         case ActionTypes.SET_TAGS:
             return { ...state, tags: action.payload }
         case ActionTypes.ADD_TAG:

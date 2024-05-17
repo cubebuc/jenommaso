@@ -24,6 +24,14 @@ export function hideProduct(id: string)
     }
 }
 
+export function updateStock(id: string, amount: number)
+{
+    return {
+        type: ActionTypes.UPDATE_STOCK,
+        payload: { id, amount }
+    }
+}
+
 export function addTag(type: string, tag: string)
 {
     return {

@@ -113,7 +113,7 @@ function ShopPage({ }: Props)
 
                         return true
                     }).map(([id, product]) =>
-                        !product.hidden &&
+                        !product.hidden && product.stock > 0 &&
                         <ShopItem key={id} id={id} product={product} />
                     )}
                 </div>

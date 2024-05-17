@@ -28,6 +28,9 @@ function CartItem({ id }: Props)
 
     function handlePlus(id: string)
     {
+        if (cart[id] === product.stock)
+            return
+
         dispatch(setCartItem(id, cart[id] + 1))
 
         const _cart = localStorage.getItem('cart')
@@ -42,7 +45,7 @@ function CartItem({ id }: Props)
     function handleOnChange(e: React.ChangeEvent<HTMLInputElement>, id: string)
     {
         const value = e.target.value.length > 0 ? parseInt(e.target.value) : 0
-        if (isNaN(value))
+        if (isNaN(value) || value < 0 || value > product.stock)
         {
             return
         }

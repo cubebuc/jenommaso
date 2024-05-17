@@ -210,9 +210,19 @@ export async function deleteTag(type: string, tag: string)
     await updateDoc(docRef, { [type]: arrayRemove(tag) })
 }
 
-// Create order in Firestore - returns the order ID and the order object
+// Create order in Firestore and updates the stock - returns the order ID and the order object
 export async function createOrder(cart: { [key: string]: number }, user: string): Promise<{ id: string, order: { [key: string]: any } }>
 {
+    for (const [id, quantity] of Object.entries(cart))
+    {
+        const docRef = doc(collection(firestore, 'products'), id)
+        const docSnap = await getDoc(docRef)
+        const stock = docSnap.data()!.stock
+        if (stock < quantity)
+            throw new Error('Not enough stock')
+        await updateDoc(docRef, { stock: stock - quantity })
+    }
+
     const docRef = doc(collection(firestore, 'orders'))
     const order = { cart, user, date: Timestamp.now(), completed: false }
     await setDoc(docRef, order)
