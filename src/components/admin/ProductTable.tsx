@@ -26,12 +26,6 @@ function ProductTable({ setShow, setEditingProduct }: Props)
 
     function handleEditProduct(id: string)
     {
-        if (isProductInActiveOrder(id))
-        {
-            alert('Cannot edit product in an active order')
-            return
-        }
-
         setEditingProduct({ ...products[id], id })
         setShow(true)
     }

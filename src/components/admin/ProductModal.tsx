@@ -20,12 +20,34 @@ function ProductModal({ setShow, editingProduct }: Props)
         return Object.keys(editingProduct).length > 0
     }
 
+    function isProductInActiveOrder(id: string)
+    {
+        for (const order of Object.values(orders))
+            if (!order.completed && id in order.cart)
+                return true
+        return false
+    }
+
     function isProductInOrder(id: string)
     {
         for (const order of Object.values(orders))
             if (id in order.cart)
                 return true
         return false
+    }
+
+    function onlyStockChanged(name: string, description: string, category: string[], treatment: string[], usage: string[], size: number, unit: string, pricePerUnit: number, packagePrice: number, images: string[])
+    {
+        return name === editingProduct.name &&
+            description === editingProduct.description &&
+            JSON.stringify(category) === JSON.stringify(editingProduct.category) &&
+            JSON.stringify(treatment) === JSON.stringify(editingProduct.treatment) &&
+            JSON.stringify(usage) === JSON.stringify(editingProduct.usage) &&
+            size === editingProduct.size &&
+            unit === editingProduct.unit &&
+            pricePerUnit === editingProduct.pricePerUnit &&
+            packagePrice === editingProduct.packagePrice &&
+            images.length === 0
     }
 
     useEffect(() =>
@@ -97,7 +119,19 @@ function ProductModal({ setShow, editingProduct }: Props)
         const stock = parseInt(form.stock.value)
         const images = form.image.files
 
-        if (editing() && !isProductInOrder(editingProduct.id))
+        const productInActiveOrder = isProductInActiveOrder(editingProduct.id)
+        const productInOrder = isProductInOrder(editingProduct.id)
+        const onlyStock = onlyStockChanged(name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, images)
+
+        if (productInActiveOrder && !onlyStock)
+        {
+            console.log(onlyStock)
+            alert('Cannot edit product in an active order')
+            setLoading(false)
+            return
+        }
+
+        if (editing() && (!productInOrder || onlyStock))
             var id = await editProduct(editingProduct.id, name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images, editingProduct.images.length)
         else
             var id = await addProduct(name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images)
@@ -110,7 +144,7 @@ function ProductModal({ setShow, editingProduct }: Props)
         else
             dispatch(setProduct({ [id]: { name, description, category, treatment, usage, size, unit, pricePerUnit, packagePrice, stock, images: editingProduct.images } }))
 
-        if (editing() && isProductInOrder(editingProduct.id))
+        if (editing() && productInOrder && !onlyStock)
         {
             if (images.length === 0)
                 await cloneImages(editingProduct.id, id, editingProduct.images.length)

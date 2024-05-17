@@ -218,8 +218,6 @@ export async function createOrder(cart: { [key: string]: number }, user: string)
         const docRef = doc(collection(firestore, 'products'), id)
         const docSnap = await getDoc(docRef)
         const stock = docSnap.data()!.stock
-        if (stock < quantity)
-            throw new Error('Not enough stock')
         await updateDoc(docRef, { stock: stock - quantity })
     }
 

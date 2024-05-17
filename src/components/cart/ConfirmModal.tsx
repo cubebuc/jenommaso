@@ -17,19 +17,29 @@ function ConfirmModal({ setShow }: Props)
     {
         setLoading(true)
 
-        const { id, order } = await createOrder(cart, auth.currentUser!.uid)
-
-        for (const product of Object.keys(cart))
+        try
         {
-            dispatch(updateStock(product, -cart[product]))
+            const { id, order } = await createOrder(cart, auth.currentUser!.uid)
+
+            for (const product of Object.keys(cart))
+            {
+                dispatch(updateStock(product, -cart[product]))
+            }
+            dispatch(addOrder(id, order))
+            dispatch(clearCart())
+            localStorage.removeItem('cart')
+
+            navigate('/order')
         }
-        dispatch(addOrder(id, order))
-        dispatch(clearCart())
-        localStorage.removeItem('cart')
-
-        setLoading(false)
-
-        navigate('/order')
+        catch
+        {
+            alert('Něco se pokazilo, objednávku nelze dokončit.')
+        }
+        finally
+        {
+            setShow(false)
+            setLoading(false)
+        }
     }
 
     return (
