@@ -1,4 +1,5 @@
 import Header from "../components/Header"
+import Footer from "../components/Footer"
 
 type Props = { children: React.ReactNode }
 function MainLayout({ children }: Props)
@@ -7,6 +8,7 @@ function MainLayout({ children }: Props)
         <div>
             <Header />
             {children}
+            <Footer />
         </div>
     )
 }

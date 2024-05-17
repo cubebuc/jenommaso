@@ -21,7 +21,18 @@ function HomePage({ }: Props)
                     </Link>
                 </div>
             </div>
-            <img className='h-screen w-full object-cover' src={chicken} alt='roasted chicken' />
+            <div className='relative'>
+                <img className='h-96 w-full object-cover' src={chicken} alt='roasted chicken' />
+
+                <div className='absolute inset-0 flex flex-col items-center justify-center'>
+                    <h1 className='w-11/12 lg:w-2/3 text-3xl lg:text-6xl text-center text-white font-cinzel'>
+                        “objev nového jídla
+                        znamená pro štěstí lidské rasy
+                        víc než objev hvězdy.”
+                    </h1>
+                    <p className='mt-5 text-xl text-white'>- Anthelme Brillat-Savarin -</p>
+                </div>
+            </div>
         </MainLayout>
     )
 }
