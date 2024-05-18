@@ -8,7 +8,7 @@ function LandingPage({ }: Props)
 {
     const { verified, admin } = useGlobal().state
 
-    const [loginFailed, setLoginFailed] = useState(false)
+    const [loginFailed, setLoginFailed] = useState(<></>)
     const navigate = useNavigate()
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>)
@@ -17,11 +17,15 @@ function LandingPage({ }: Props)
 
         const email = (document.getElementById('email') as HTMLInputElement).value
         const password = (document.getElementById('password') as HTMLInputElement).value
-        if (!await signIn(email, password))
-            setLoginFailed(true)
+
+        const result = await signIn(email, password)
+        if (result === 2)
+            setLoginFailed(<>Špatné přihlašovací údaje</>)
+        else if (result === 1)
+            setLoginFailed(<>Účet není ověřen<br />Požádejte o ověření administrátora</>)
         else
         {
-            setLoginFailed(false)
+            setLoginFailed(<></>)
             navigate('/home')
         }
     }
@@ -39,7 +43,7 @@ function LandingPage({ }: Props)
                     <Link className='border border-gray-400 p-2 hover:scale-105 transition-transform' to='/register'>Registrovat</Link>
                 </div>
             </form>
-            {loginFailed && <p className='mt-3 text-red-500'>Přihlášení se nezdařilo</p>}
+            {loginFailed && <p className='mt-3 text-red-500 text-center'>{loginFailed}</p>}
         </div>
     )
 }

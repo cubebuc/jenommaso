@@ -27,7 +27,7 @@ export async function signUp(email: string, password: string, name: string, phon
 }
 
 // Try to sign in with an email and password - allow only verified
-export async function signIn(email: string, password: string): Promise<boolean>
+export async function signIn(email: string, password: string): Promise<number>
 {
     try
     {
@@ -38,14 +38,17 @@ export async function signIn(email: string, password: string): Promise<boolean>
         if (!docSnap.exists() || !docSnap.data().verified)
         {
             await auth.signOut()
-            return false
+            // Not verified
+            return 1
         }
     }
     catch
     {
-        return false
+        // Invalid credentials (or other error)
+        return 2
     }
-    return true
+    // Success
+    return 0
 }
 
 // Sign out the current user
