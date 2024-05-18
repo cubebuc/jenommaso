@@ -42,7 +42,7 @@ function CartPage({ }: Props)
                         Objednat
                     </button>
 
-                    <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showConfirmModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setShowConfirmModal(false)}>
+                    <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showConfirmModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                         <ConfirmModal setShow={setShowConfirmModal} />
                     </div>
                 </div>
