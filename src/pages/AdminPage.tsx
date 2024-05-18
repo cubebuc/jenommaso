@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import MainLayout from '../layouts/MainLayout'
+import Navbar from '../components/Navbar'
 import ProductModal from '../components/admin/ProductModal'
 import TagModal from '../components/admin/TagModal'
 import UserModal from '../components/admin/UserModal'
@@ -24,7 +24,8 @@ function AdminPage({ }: Props)
     }
 
     return (
-        <MainLayout>
+        <>
+            <Navbar />
             <div className='w-fit px-3 pb-3 mx-auto'>
                 <h1 className='mt-24 mb-8 text-4xl text-center font-playfair uppercase'>
                     Admin
@@ -73,7 +74,7 @@ function AdminPage({ }: Props)
                     <ProductTable setShow={setShowProductModal} setEditingProduct={setEditingProduct} />
                 </div>
             </div>
-        </MainLayout>
+        </>
     )
 }
 export default AdminPage
