@@ -232,7 +232,7 @@ function ProductModal({ setShow, editingProduct }: Props)
                 </div>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3' htmlFor='image'>Obrázky</label>
-                    <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple {...(!editing() && { required: true })} />
+                    <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple accept='image/*' {...(!editing() && { required: true })} />
                 </div>
                 <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit' disabled={loading}>
                     {editing() ? 'Upravit' : 'Přidat'}
