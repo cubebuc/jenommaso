@@ -36,7 +36,7 @@ function UserModal({ setShow }: Props)
                 )}
             </div>
 
-            <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShow(false)}>
+            <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShow(false)}>
                 Close
             </button>
         </div>

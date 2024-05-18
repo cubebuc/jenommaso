@@ -234,10 +234,10 @@ function ProductModal({ setShow, editingProduct }: Props)
                     <label className='w-24 shrink-0 mr-3' htmlFor='image'>Obrázky</label>
                     <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple accept='image/*' {...(!editing() && { required: true })} />
                 </div>
-                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='submit' disabled={loading}>
+                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='submit' disabled={loading}>
                     {editing() ? 'Upravit' : 'Přidat'}
                 </button>
-                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' type='button' onClick={() => setShow(false)}>
+                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='button' onClick={() => setShow(false)}>
                     Zavřít
                 </button>
             </form>

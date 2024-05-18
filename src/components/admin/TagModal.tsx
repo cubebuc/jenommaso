@@ -40,7 +40,7 @@ function TagModal({ setShow }: Props)
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'category')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Category' />
-                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2 hover:scale-105 active:scale-95 transition-transform'>
                         Přidat
                     </button>
                 </form>
@@ -63,7 +63,7 @@ function TagModal({ setShow }: Props)
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'treatment')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Treatment' />
-                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2 hover:scale-105 active:scale-95 transition-transform'>
                         Přidat
                     </button>
                 </form>
@@ -86,7 +86,7 @@ function TagModal({ setShow }: Props)
                 </h2>
                 <form className='flex items-center mb-3' onSubmit={e => handleAddTag(e, 'usage')}>
                     <input className='border px-4 py-2' type='text' placeholder='Add Usage' />
-                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2'>
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded ml-2 hover:scale-105 active:scale-95 transition-transform'>
                         Přidat
                     </button>
                 </form>
@@ -103,7 +103,7 @@ function TagModal({ setShow }: Props)
                     }
                 </div>
             </div>
-            <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded' onClick={() => setShow(false)}>
+            <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShow(false)}>
                 Zavřit
             </button>
         </div>

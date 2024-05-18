@@ -48,10 +48,10 @@ function ConfirmModal({ setShow }: Props)
                 Potvrzení objednávky
             </h1>
             <div className='flex justify-around'>
-                <button className='w-2/5 py-2 my-5 text-amber-500 border-2 border-amber-500 rounded-lg' onClick={() => setShow(false)}>
+                <button className='w-2/5 py-2 my-5 text-amber-500 border-2 border-amber-500 rounded-lg hover:scale-105 active:scale-95 transition-transform' onClick={() => setShow(false)}>
                     Zrušit
                 </button>
-                <button className='w-2/5 py-2 my-5 text-white bg-amber-500 rounded-lg' disabled={loading} onClick={handleConfirm}>
+                <button className='w-2/5 py-2 my-5 text-white bg-amber-500 rounded-lg hover:scale-105 active:scale-95 transition-transform' disabled={loading} onClick={handleConfirm}>
                     Potvrdit
                 </button>
             </div>
