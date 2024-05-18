@@ -140,6 +140,14 @@ export default function GlobalContext({ children }: Props)
                 if (cart)
                 {
                     const parsedCart = JSON.parse(cart)
+                    for (const id in parsedCart)
+                    {
+                        if (!state.products[id])
+                        {
+                            delete parsedCart[id]
+                        }
+                    }
+
                     dispatch({ type: ActionTypes.SET_CART, payload: parsedCart })
                 }
             }
