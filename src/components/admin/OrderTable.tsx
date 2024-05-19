@@ -43,12 +43,17 @@ function OrderTable({ }: Props)
                         <td className='align-top border px-4 py-2'>
                             <ul>
                                 {Object.entries(order.cart).map(([productID, quantity]) =>
-                                    <li key={productID}>
-                                        <span className='flex justify-between'>
-                                            <p className='me-5'>{products[productID]?.name}</p>
-                                            <p>{quantity as number}x</p>
-                                        </span>
-                                    </li>
+                                {
+                                    const product = products[productID]
+                                    return (
+                                        <li key={productID}>
+                                            <span className='flex justify-between'>
+                                                <p className='me-5'>{product.name}</p>
+                                                <p>{quantity as number}x ({product.packagePrice.toFixed(2)}/{product.unit})</p>
+                                            </span>
+                                        </li>
+                                    )
+                                }
                                 )}
                             </ul>
                         </td>

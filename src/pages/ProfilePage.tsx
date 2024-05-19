@@ -47,13 +47,13 @@ function ProfilePage({ }: Props)
                                 <li key={productID}>
                                     <span className='flex justify-between'>
                                         <p>{products[productID]?.name}</p>
-                                        <p>{quantity as number}x</p>
+                                        <p>{quantity as number} x {products[productID]?.packagePrice.toFixed(2)},- Kč</p>
                                     </span>
                                 </li>
                             )}
                         </ul>
                         <hr className='my-2' />
-                        <p>Total: {Object.entries(order.cart).reduce((total, [productID, quantity]) => total + (products[productID]?.packagePrice * (quantity as number)), 0).toFixed(2)}</p>
+                        <p>Total: {Object.entries(order.cart).reduce((total, [productID, quantity]) => total + (products[productID]?.packagePrice * (quantity as number)), 0).toFixed(2)},- Kč</p>
                         <p>Completed: {order.completed ? 'Yes' : 'No'}</p>
                     </div>
                 )}

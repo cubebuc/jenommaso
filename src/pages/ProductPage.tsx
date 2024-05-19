@@ -65,7 +65,7 @@ function ProductPage({ }: Props)
                     <p>Úprava: {products[id].treatment.join(', ')}</p>
                     <p>Využití: {products[id].usage.join(', ')}</p>
                     <p className='text-lg mt-5'>Skladem: <span className='text-green-600'>{products[id].stock} ks</span></p>
-                    <p className='text-xl'>Cena za balení: {products[id].packagePrice} Kč</p>
+                    <p className='text-xl'>Cena za balení: {products[id].packagePrice},- Kč</p>
                     <button
                         className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 active:scale-95 transition-transform mt-5' onClick={handleAddToCart}>
                         Do košíku
