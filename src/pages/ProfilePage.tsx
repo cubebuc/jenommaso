@@ -1,16 +1,36 @@
-import { auth } from '../utils/firebase'
+import { useEffect, useState } from 'react'
+import { auth, getMyUserDetails } from '../utils/firebase'
 import { useGlobal } from '../contexts/GlobalContext'
 import MainLayout from '../layouts/MainLayout'
 
 type Props = {}
 function ProfilePage({ }: Props)
 {
+    const [myUserDetails, setMyUserDetails] = useState<{ [key: string]: any }>()
+
     const { orders, products } = useGlobal().state
+
+    useEffect(() =>
+    {
+        getMyUserDetails().then(setMyUserDetails)
+    }, [])
 
     return (
         <MainLayout>
-            <h1 className='mt-24 mb-8 text-4xl text-center font-playfair uppercase'>
+            <h1 className='mt-24 mb-3 text-4xl text-center font-playfair uppercase'>
                 Profil
+            </h1>
+            <div className='flex flex-col items-center'>
+                <div className='border p-4 m-4 w-96'>
+                    <h2 className='text-xl font-semibold'>Moje údaje</h2>
+                    <p>Jméno: {myUserDetails?.name}</p>
+                    <p>Email: {myUserDetails?.email}</p>
+                    <p>Telefon: {myUserDetails?.phone}</p>
+                    <p>Adresa: {myUserDetails?.address}</p>
+                </div>
+            </div>
+            <h1 className='mt-10 mb-3 text-4xl text-center font-playfair uppercase'>
+                Historie objednávek
             </h1>
             <div className='flex flex-col items-center'>
                 {Object.entries(orders).sort((a, b) =>

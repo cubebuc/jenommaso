@@ -89,6 +89,15 @@ export async function isAdmin(): Promise<boolean>
     }
 }
 
+// Get the current user's details from Firestore
+export async function getMyUserDetails(): Promise<{ [key: string]: any }>
+{
+    const user = auth.currentUser as User
+    const docRef = doc(firestore, 'users', user.uid)
+    const docSnap = await getDoc(docRef)
+    return docSnap.data()!
+}
+
 // Get all users with their rights from Firestore
 export async function getUsersWithRights(): Promise<{ [key: string]: any }>
 {
