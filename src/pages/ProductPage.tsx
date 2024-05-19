@@ -43,8 +43,8 @@ function ProductPage({ }: Props)
 
     return (
         <MainLayout>
-            <div className='mt-32 px-3 flex flex-col md:flex-row justify-center items-center md:items-start'>
-                <div className='w-96 mr-10'>
+            <div className='mt-32 px-3 pb-10 flex flex-col md:flex-row justify-center items-center md:items-start'>
+                <div className='w-96 md:mr-10'>
                     <img className='w-96 h-96 p-1 object-contain border' src={products[id].images[selectedImage]} alt={products[id].name} />
                     <div className='flex flex-wrap justify-center mt-2'>
                         {products[id].images.map((image: string, index: number) =>
@@ -58,7 +58,7 @@ function ProductPage({ }: Props)
                         )}
                     </div>
                 </div>
-                <div className='w-96'>
+                <div className='w-5/6 md:w-96'>
                     <h1 className='text-3xl mt-5'>{products[id].name}</h1>
                     <p className='text-lg mt-2'>{products[id].description}</p>
                     <p className='mt-4'>Kategorie: {products[id].category.join(', ')}</p>
@@ -67,7 +67,7 @@ function ProductPage({ }: Props)
                     <p className='text-lg mt-5'>Skladem: <span className='text-green-600'>{products[id].stock} ks</span></p>
                     <p className='text-xl'>Cena za balení: {products[id].packagePrice} Kč</p>
                     <button
-                        className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 transition-transform mt-5' onClick={handleAddToCart}>
+                        className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 active:scale-95 transition-transform mt-5' onClick={handleAddToCart}>
                         Do košíku
                     </button>
                 </div>
