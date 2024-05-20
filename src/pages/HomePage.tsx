@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
+import ContactSection from '../components/ContactSection'
 import beef from '../assets/beef-tenderloin.jpg'
 import chicken from '../assets/roasted-chicken.jpg'
 
@@ -33,6 +34,7 @@ function HomePage({ }: Props)
                     <p className='mt-5 text-xl text-white'>- Anthelme Brillat-Savarin -</p>
                 </div>
             </div>
+            <ContactSection />
         </MainLayout>
     )
 }
