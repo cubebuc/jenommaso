@@ -47,16 +47,16 @@ function Navbar({ }: Props)
             </button>
 
             <header className={`transition-all ${!showMenu && 'invisible opacity-0'} md:visible md:opacity-100 fixed top-0 w-full z-30 flex flex-col md:flex-row justify-between items-center p-3 bg-stone-600 text-white gap-2 md:gap-0`}>
-                <Link className='hidden md:block invisible md:visible w-full md:w-fit lg:w-1/3 md:ps-[5%] text-xl' to='/home'>
+                <Link className='hidden md:block invisible md:visible w-full md:w-fit lg:w-1/3 lg:ps-[3%] text-xl' to='/home'>
                     <h1 className='w-fit h-fit hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase'>
                         Jiřího Dobroty
                     </h1>
                 </Link>
 
-                <nav className='w-full md:w-1/3 my-3 md:my-0 '>
+                <nav className='w-full lg:w-1/3 my-3 md:my-0 '>
                     <ul className='flex flex-col md:flex-row items-center justify-center gap-8 text-2xl md:text-base'>
                         <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#'>Úvod</Link></li>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/shop'>Jiřího Nabídka</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase text-nowrap' onClick={() => setShowMenu(false)}><Link smooth to='/shop'>Jiřího Nabídka</Link></li>
                         <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#news' scroll={scrollWithOffset}>Novinky</Link></li>
                         <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#contact' scroll={scrollWithOffset}>Kontakt</Link></li>
                     </ul>
@@ -64,7 +64,7 @@ function Navbar({ }: Props)
 
                 <hr className='w-full md:hidden' />
 
-                <div className='w-full md:w-fit lg:w-1/3 my-3 md:my-0 md:pe-[5%] flex flex-col md:flex-row justify-center md:justify-end items-center justify-end gap-6 text-2xl md:text-base translate-y-0.5'>
+                <div className='w-full md:w-fit lg:w-1/3 my-3 md:my-0 lg:pe-[3%] flex flex-col md:flex-row md:justify-end items-center justify-end gap-6 text-2xl md:text-base translate-y-0.5'>
                     {admin && <Link className='text-blue-400 hover:scale-105 active:scale-95 transition-transform' to='/admin'>Admin</Link>}
                     <Link className='hover:scale-105 active:scale-95 transition-transform' to='/profile'>Profil</Link>
                     <Link className='hover:scale-105 active:scale-95 transition-transform flex justify-center' to='/cart'>
