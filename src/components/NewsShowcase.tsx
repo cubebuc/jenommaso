@@ -7,7 +7,7 @@ function NewsShowcase({ }: Props)
 
     return (
         <div className='py-8 flex flex-col items-center bg-orange-100' id='news'>
-            {Object.entries(news).map(([id, news], i) =>
+            {Object.entries(news).map(([id, news]) =>
                 <div key={id} className={`w-4/5 lg:w-1/3 px-5 pb-5 mb-5 last:mb-0 last:border-none last:pb-0 text-center border-b border-stone-400`}>
                     <h1 className='text-2xl font-playfair'>{news.title}</h1>
                     <p className='mt-3 whitespace-pre-line'>{news.content}</p>
