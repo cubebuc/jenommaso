@@ -21,7 +21,7 @@ function UserModal({ setShow }: Props)
                 Uživatelé
             </h1>
 
-            <div className='overflow-y-auto'>
+            <div>
                 {Object.entries(users).filter(([, user]) => !user.admin).map(([id, user]) =>
                     <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200 gap-4'>
                         <p>{user.name}</p>

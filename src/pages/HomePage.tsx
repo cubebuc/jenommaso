@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
+import NewsShowcase from '../components/NewsShowcase'
 import ContactSection from '../components/ContactSection'
 import beef from '../assets/beef-tenderloin.jpg'
 import chicken from '../assets/roasted-chicken.jpg'
@@ -22,6 +23,7 @@ function HomePage({ }: Props)
                     </Link>
                 </div>
             </div>
+            <NewsShowcase />
             <div className='relative'>
                 <img className='h-96 w-full object-cover' src={chicken} alt='roasted chicken' />
 

@@ -264,3 +264,26 @@ export async function setOrderComplete(id: string, completed: boolean)
 {
     await updateDoc(doc(collection(firestore, 'orders'), id), { completed })
 }
+
+// Get all news from Firestore
+export async function getNews(): Promise<{ [key: string]: any }>
+{
+    const querySnapshot = await getDocs(collection(firestore, 'news'))
+    const news: { [key: string]: DocumentData } = {}
+    querySnapshot.forEach(doc => news[doc.id] = doc.data())
+    return news
+}
+
+// Add a new news to Firestore
+export async function addNews(title: string, content: string): Promise<string>
+{
+    const docRef = doc(collection(firestore, 'news'))
+    await setDoc(docRef, { title, content })
+    return docRef.id
+}
+
+// Remove a news from Firestore
+export async function removeNews(id: string)
+{
+    await deleteDoc(doc(collection(firestore, 'news'), id))
+}

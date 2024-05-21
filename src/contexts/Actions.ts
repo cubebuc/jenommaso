@@ -110,3 +110,19 @@ export function setOrderCompleted(id: string, completed: boolean)
         payload: { id, completed }
     }
 }
+
+export function addNews(id: string, news: { [key: string]: any })
+{
+    return {
+        type: ActionTypes.ADD_NEWS,
+        payload: { id, news }
+    }
+}
+
+export function removeNews(id: string)
+{
+    return {
+        type: ActionTypes.REMOVE_NEWS,
+        payload: id
+    }
+}

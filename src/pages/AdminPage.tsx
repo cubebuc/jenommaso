@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import ProductModal from '../components/admin/ProductModal'
 import TagModal from '../components/admin/TagModal'
 import UserModal from '../components/admin/UserModal'
+import NewsModal from '../components/admin/NewsModal'
 import OrderTable from '../components/admin/OrderTable'
 import ProductTable from '../components/admin/ProductTable'
 
@@ -15,6 +16,7 @@ function AdminPage({ }: Props)
     const [showProductModal, setShowProductModal] = useState(false)
     const [showTagModal, setShowTagModal] = useState(false)
     const [showUserModal, setShowUserModal] = useState(false)
+    const [showNewsModal, setShowNewsModal] = useState(false)
     const [editingProduct, setEditingProduct] = useState<{ [key: string]: any }>({})
 
     function handleAddProduct()
@@ -51,6 +53,13 @@ function AdminPage({ }: Props)
                     </button>
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showUserModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                         <UserModal setShow={setShowUserModal} />
+                    </div>
+
+                    <button className='px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShowNewsModal(true)}>
+                        Novinky
+                    </button>
+                    <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showNewsModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                        <NewsModal setShow={setShowNewsModal} />
                     </div>
                 </div>
 

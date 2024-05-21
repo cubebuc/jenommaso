@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer, useContext } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import ActionTypes from './ActionTypes'
-import { auth, isVerified, isAdmin, getProducts, getTags, getUsersWithRights, getAllOrders, getMyOrders } from '../utils/firebase'
+import { auth, isVerified, isAdmin, getProducts, getTags, getUsersWithRights, getAllOrders, getMyOrders, getNews } from '../utils/firebase'
 
 type State = {
     loading: boolean,
@@ -11,7 +11,8 @@ type State = {
     tags: { [key: string]: string[] },
     usersWithRights: { [key: string]: any },
     cart: { [key: string]: number },
-    orders: { [key: string]: any }
+    orders: { [key: string]: any },
+    news: { [key: string]: any }
 }
 
 const initialState: State =
@@ -23,7 +24,8 @@ const initialState: State =
     tags: {},
     usersWithRights: {},
     cart: {},
-    orders: {}
+    orders: {},
+    news: {}
 }
 
 const reducer = (state: State, action: { type: string, payload?: any }): State =>
@@ -90,6 +92,15 @@ const reducer = (state: State, action: { type: string, payload?: any }): State =
         case ActionTypes.SET_ORDER_COMPLETED:
             const updatedOrders = { ...state.orders, [action.payload.id]: { ...state.orders[action.payload.id], completed: action.payload.completed } }
             return { ...state, orders: updatedOrders }
+        case ActionTypes.SET_NEWS:
+            return { ...state, news: action.payload }
+        case ActionTypes.ADD_NEWS:
+            const newNews = { ...state.news, [action.payload.id]: action.payload.news }
+            return { ...state, news: newNews }
+        case ActionTypes.REMOVE_NEWS:
+            const updatedNews = { ...state.news }
+            delete updatedNews[action.payload]
+            return { ...state, news: updatedNews }
         default:
             return state
     }
@@ -122,10 +133,12 @@ export default function GlobalContext({ children }: Props)
                     const products = await getProducts()
                     const tags = await getTags()
                     const myOrders = await getMyOrders()
+                    const news = await getNews()
 
                     dispatch({ type: ActionTypes.SET_PRODUCTS, payload: products })
                     dispatch({ type: ActionTypes.SET_TAGS, payload: tags })
                     dispatch({ type: ActionTypes.SET_ORDERS, payload: myOrders })
+                    dispatch({ type: ActionTypes.SET_NEWS, payload: news })
                 }
 
                 if (admin)
