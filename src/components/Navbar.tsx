@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { HashLink as Link } from 'react-router-hash-link'
 import { signOut } from '../utils/firebase'
 import { useGlobal } from '../contexts/GlobalContext'
 import { clearCart } from '../contexts/Actions'
@@ -24,6 +24,16 @@ function Navbar({ }: Props)
         signOut()
     }
 
+    function scrollWithOffset(el: HTMLElement)
+    {
+        const yCoordinate = el.getBoundingClientRect().top + window.scrollY;
+        let yOffset = -50;
+        // if on phone, scroll to the top of the element
+        if (window.innerWidth < 768)
+            yOffset = 0
+        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+    }
+
     return (
         <div>
             <button className='md:invisible fixed top-0 right-0 z-40 p-3 m-2 text-white bg-stone-600 rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShowMenu(!showMenu)}>
@@ -45,8 +55,10 @@ function Navbar({ }: Props)
 
                 <nav className='w-full md:w-1/3 my-3 md:my-0 '>
                     <ul className='flex flex-col md:flex-row items-center justify-center gap-8 text-2xl md:text-base'>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase'><Link to='/home'>Úvod</Link></li>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase'><Link to='/shop'>Jiřího Nabídka</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#'>Úvod</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/shop'>Jiřího Nabídka</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#news' scroll={scrollWithOffset}>Novinky</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#contact' scroll={scrollWithOffset}>Kontakt</Link></li>
                     </ul>
                 </nav>
 
