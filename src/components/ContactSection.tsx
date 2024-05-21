@@ -8,9 +8,12 @@ function ContactSection({ }: Props)
             <h2 className='text-lg mt-1'>JIŘÍHO DOBROTY</h2>
             <div className='mt-8 flex flex-col gap-1'>
                 <p>Jméno: Jiří Vybíral</p>
-                <p>Telefon: +420 736 726 806</p>
-                <p>Email: mujemail@gmail.com</p>
-                <p>Učet: ...</p>
+                <div>
+                    <p>Telefon: +420 736 726 806</p>
+                    <p className='-mt-0.5 text-green-600'>(Preferuji WhatsApp)</p>
+                </div>
+                <p>Email: jvybik@seznam.cz</p>
+                <p>Učet: 273860866/0300</p>
             </div>
         </div>
     )
