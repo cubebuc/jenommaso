@@ -56,7 +56,7 @@ function Navbar({ }: Props)
                 <nav className='w-full lg:w-1/3 my-3 md:my-0 '>
                     <ul className='flex flex-col md:flex-row items-center justify-center gap-8 text-2xl md:text-base'>
                         <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#'>Úvod</Link></li>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase text-nowrap' onClick={() => setShowMenu(false)}><Link smooth to='/shop'>Jiřího Nabídka</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase text-nowrap' onClick={() => setShowMenu(false)}><Link smooth to='/shop#'>Jiřího Nabídka</Link></li>
                         <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#news' scroll={scrollWithOffset}>Novinky</Link></li>
                         <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#contact' scroll={scrollWithOffset}>Kontakt</Link></li>
                     </ul>
@@ -65,9 +65,9 @@ function Navbar({ }: Props)
                 <hr className='w-full md:hidden' />
 
                 <div className='w-full md:w-fit lg:w-1/3 my-3 md:my-0 lg:pe-[3%] flex flex-col md:flex-row md:justify-end items-center justify-end gap-6 text-2xl md:text-base translate-y-0.5'>
-                    {admin && <Link className='text-blue-400 hover:scale-105 active:scale-95 transition-transform' to='/admin'>Admin</Link>}
-                    <Link className='hover:scale-105 active:scale-95 transition-transform' to='/profile'>Profil</Link>
-                    <Link className='hover:scale-105 active:scale-95 transition-transform flex justify-center' to='/cart'>
+                    {admin && <Link className='text-blue-400 hover:scale-105 active:scale-95 transition-transform' to='/admin#'>Admin</Link>}
+                    <Link className='hover:scale-105 active:scale-95 transition-transform' to='/profile#'>Profil</Link>
+                    <Link className='hover:scale-105 active:scale-95 transition-transform flex justify-center' to='/cart#'>
                         Košík
                         <span className='invisible md:visible absolute size-7 mt-6 flex justify-center items-center bg-amber-600 rounded-full'>{cartSize()}</span>
                     </Link>
