@@ -29,9 +29,14 @@ function NewsModal({ setShow }: Props)
 
     return (
         <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
-            <h1 className='ml-2 mb-3 text-3xl underline font-playfair'>
-                Novinky
-            </h1>
+            <div className='ml-2 mb-5 flex justify-between'>
+                <h1 className='text-3xl underline font-playfair'>
+                    Novinky
+                </h1>
+                <button className='px-4 py-2 bg-red-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShow(false)}>
+                    Zavřít
+                </button>
+            </div>
 
             <form className='mb-2 flex flex-col' onSubmit={addNews}>
                 <input className='m-2 px-2 py-1 border border-gray-400 rounded' type='text' placeholder='Název' required />
@@ -54,8 +59,8 @@ function NewsModal({ setShow }: Props)
                 )}
             </div>
 
-            <button className='m-2 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShow(false)}>
-                Close
+            <button className='m-4 mb-2 px-4 py-2 bg-red-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => setShow(false)}>
+                Zavřít
             </button>
         </div>
     )

@@ -158,9 +158,14 @@ function ProductModal({ setShow, editingProduct }: Props)
 
     return (
         <div className='overflow-auto max-h-screen w-11/12 sm:w-5/6 md:w-2/3 lg:w-1/2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded shadow-lg' onClick={e => e.stopPropagation()}>
-            <h1 className='ml-2 pb-1 text-3xl underline font-playfair'>
-                {editing() ? 'Upravit' : 'Přidat'} Produkt
-            </h1>
+            <div className='ml-2 mb-5 flex justify-between items-center'>
+                <h1 className='text-3xl underline font-playfair'>
+                    {editing() ? 'Upravit' : 'Přidat'} Produkt
+                </h1>
+                <button className='px-4 py-2 bg-red-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='button' onClick={() => setShow(false)}>
+                    Zavřít
+                </button>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className='flex items-center m-4'>
                     <label className='w-24 shrink-0 mr-3'>Kategorie</label>
@@ -234,10 +239,10 @@ function ProductModal({ setShow, editingProduct }: Props)
                     <label className='w-24 shrink-0 mr-3' htmlFor='image'>Obrázky</label>
                     <input className='grow border py-2 file:mx-4 file:rounded-full file:border-0 file:px-3' type='file' id='image' name='image' multiple accept='image/*' {...(!editing() && { required: true })} />
                 </div>
-                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='submit' disabled={loading}>
+                <button className='m-4 mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='submit' disabled={loading}>
                     {editing() ? 'Upravit' : 'Přidat'}
                 </button>
-                <button className='m-4 px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='button' onClick={() => setShow(false)}>
+                <button className='m-4 mb-2 px-4 py-2 bg-red-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' type='button' onClick={() => setShow(false)}>
                     Zavřít
                 </button>
             </form>
