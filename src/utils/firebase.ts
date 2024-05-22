@@ -2,6 +2,13 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, query, where, Timestamp } from 'firebase/firestore/lite'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, getBlob } from 'firebase/storage'
+import imageCompression from 'browser-image-compression'
+
+const compressionOptions = {
+    maxSizeMB: 0.1,
+    maxWidthOrHeight: 1000,
+    useWebWorker: true
+}
 
 const firebaseConfig = {
     apiKey: 'AIzaSyB_KWZi8mf1IdvDWsNg286_X6SzzDOIuiY',
@@ -151,6 +158,7 @@ export async function addProduct(name: string, description: string, category: st
     const imageURLs = await Promise.all(Array.from(images).map(async (image, index) =>
     {
         const imageRef = ref(storage, `images/${docRef.id}-${index}`)
+        image = await imageCompression(image, compressionOptions)
         await uploadBytes(imageRef, image)
         return await getDownloadURL(imageRef)
     }))
@@ -182,6 +190,7 @@ export async function editProduct(id: string, name: string, description: string,
     const imageURLs = await Promise.all(Array.from(images).map(async (image, index) =>
     {
         const imageRef = ref(storage, `images/${id}-${index}`)
+        image = await imageCompression(image, compressionOptions)
         await uploadBytes(imageRef, image)
         return await getDownloadURL(imageRef)
     }))
