@@ -47,9 +47,10 @@ function NewsModal({ setShow }: Props)
             </form>
             <div className='mb-2'>
                 {Object.entries(news).sort((a, b) => b[1].date - a[1].date).map(([id, news]) =>
-                    <div key={id} className='relative flex flex-col justify-between items-center p-3 odd:bg-gray-100 even:bg-gray-200 gap-3'>
+                    <div key={id} className='relative flex flex-col justify-between items-center p-3 odd:bg-gray-100 even:bg-gray-200'>
+                        <p className='-mb-1 text-sm text-stone-500'>{news.date.toDate().toLocaleDateString()}</p>
                         <h1 className='text-center text-xl font-playfair'>{news.title}</h1>
-                        <p className='whitespace-pre-line text-center'>
+                        <p className='mt-2 whitespace-pre-line text-center'>
                             {news.content}
                         </p>
                         <button className='top-3 right-3 absolute px-2 py-1 bg-red-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => removeNews(id)}>
