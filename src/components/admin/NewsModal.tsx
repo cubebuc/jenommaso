@@ -18,7 +18,7 @@ function NewsModal({ setShow }: Props)
         if (title && content)
         {
             const id = await addNewsFirebase(title, content)
-            dispatch(addNewsAction(id, { title, content }))
+            dispatch(addNewsAction(id, { title, content, date: Date.now() }))
         }
     }
 
@@ -41,7 +41,7 @@ function NewsModal({ setShow }: Props)
                 </button>
             </form>
             <div className='mb-2'>
-                {Object.entries(news).map(([id, news]) =>
+                {Object.entries(news).sort((a, b) => b[1].date - a[1].date).map(([id, news]) =>
                     <div key={id} className='relative flex flex-col justify-between items-center p-3 odd:bg-gray-100 even:bg-gray-200 gap-3'>
                         <h1 className='text-xl font-playfair'>{news.title}</h1>
                         <p className='whitespace-pre-line text-center'>

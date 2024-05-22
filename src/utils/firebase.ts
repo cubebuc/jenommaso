@@ -278,7 +278,7 @@ export async function getNews(): Promise<{ [key: string]: any }>
 export async function addNews(title: string, content: string): Promise<string>
 {
     const docRef = doc(collection(firestore, 'news'))
-    await setDoc(docRef, { title, content })
+    await setDoc(docRef, { title, content, date: Timestamp.now() })
     return docRef.id
 }
 
