@@ -81,7 +81,7 @@ function CartItem({ id }: Props)
                 <img className='w-20 h-20 md:w-32 md:h-32 me-5 object-contain border border-stone-300' src={product.images[0]} alt={product.name} />
                 <div className='w-60 md:w-56 h-full py-1 md:py-2 flex flex-col'>
                     <h3 className='mb-1 md:mb-2'>{product.name}</h3>
-                    <p>{product.packagePrice},- Kč</p>
+                    <p>{product.packagePrice.toFixed(2)},- Kč</p>
                 </div>
             </div>
             <div className='w-full md:w-auto h-full py-2 md:mt-0 flex justify-between items-start'>
@@ -98,7 +98,7 @@ function CartItem({ id }: Props)
                         </svg>
                     </button>
                 </div>
-                <p className='w-36 py-1 text-center text-stone-600'>{product.packagePrice * quantity},- Kč</p>
+                <p className='w-36 py-1 text-center text-stone-600'>{(product.packagePrice * quantity).toFixed(2)},- Kč</p>
                 <button className='text-2xl text-red-500 hover:scale-105 transition-transform' onClick={() => handleRemoveFromCart(id)}>
                     ✕
                 </button>

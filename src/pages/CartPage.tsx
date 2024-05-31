@@ -41,7 +41,7 @@ function CartPage({ }: Props)
                     </h2>
                     <p className='w-full py-3 flex justify-between border-y border-stone-400'>
                         <span className='text-xl'>Celkem</span>
-                        <span className='text-xl'>{Object.entries(cart).reduce((acc, [id, quantity]) => acc + products[id].packagePrice * quantity, 0)},- Kč</span>
+                        <span className='text-xl'>{(Object.entries(cart).reduce((acc, [id, quantity]) => acc + products[id].packagePrice * quantity, 0)).toFixed(2)},- Kč</span>
                     </p>
                     <button className='w-full py-2 my-5 text-white bg-amber-500 rounded-lg hover:scale-105 active:scale-95 transition-transform' onClick={() => cartSize() > 0 && setShowConfirmModal(true)}>
                         Objednat

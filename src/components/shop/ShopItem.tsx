@@ -36,7 +36,7 @@ function ShopItem({ id, product }: Props)
             <img className='w-60 h-60 object-contain' src={product.images[0]} alt={product.name} />
             <div className='my-5 text-center'>
                 <h3>{product.name}</h3>
-                <p>{product.packagePrice},- Kč</p>
+                <p>{product.packagePrice.toFixed(2)},- Kč</p>
             </div>
             <button className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 active:scale-95 transition-transform' onClick={handleAddToCart}>
                 Do košíku

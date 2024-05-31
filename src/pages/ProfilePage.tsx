@@ -53,7 +53,7 @@ function ProfilePage({ }: Props)
                             )}
                         </ul>
                         <hr className='my-2' />
-                        <p>Total: {Object.entries(order.cart).reduce((total, [productID, quantity]) => total + (products[productID]?.packagePrice * (quantity as number)), 0).toFixed(2)},- Kč</p>
+                        <p>Total: {(Object.entries(order.cart).reduce((total, [productID, quantity]) => total + (products[productID]?.packagePrice * (quantity as number)), 0)).toFixed(2)},- Kč</p>
                         <p>Completed: {order.completed ? 'Yes' : 'No'}</p>
                     </div>
                 )}
