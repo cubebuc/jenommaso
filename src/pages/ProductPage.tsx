@@ -38,6 +38,8 @@ function ProductPage({ }: Props)
         }
     }
 
+    console.log(products[id as any])
+
     if (id === undefined || !products[id])
         return <Navigate to='/shop' />
 
@@ -61,11 +63,20 @@ function ProductPage({ }: Props)
                 <div className='w-5/6 md:w-96'>
                     <h1 className='text-3xl mt-5'>{products[id].name}</h1>
                     <p className='text-lg mt-2'>{products[id].description}</p>
-                    <p className='mt-4'>Kategorie: {products[id].category.join(', ')}</p>
-                    <p>Úprava: {products[id].treatment.join(', ')}</p>
-                    <p>Využití: {products[id].usage.join(', ')}</p>
+                    {
+                        products[id].category.length > 0 &&
+                        <p className='mt-4'>Kategorie: {products[id].category.join(', ')}</p>
+                    }
+                    {
+                        products[id].treatment.length > 0 &&
+                        <p>Úprava: {products[id].treatment.join(', ')}</p>
+                    }
+                    {
+                        products[id].usage.length > 0 &&
+                        <p>Využití: {products[id].usage.join(', ')}</p>
+                    }
                     <p className='text-lg mt-5'>Skladem: <span className='text-green-600'>{products[id].stock} ks</span></p>
-                    <p className='text-xl'>Cena za balení: {products[id].packagePrice},- Kč</p>
+                    <p className='text-xl'>Cena za balení: {products[id].packagePrice.toFixed(2)},- Kč</p>
                     <button
                         className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 active:scale-95 transition-transform mt-5' onClick={handleAddToCart}>
                         Do košíku
