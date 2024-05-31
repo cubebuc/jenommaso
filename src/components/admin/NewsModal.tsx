@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore/lite"
 import { addNews as addNewsFirebase, removeNews as removeNewsFirebase } from "../../utils/firebase"
 import { useGlobal } from "../../contexts/GlobalContext"
 import { addNews as addNewsAction, removeNews as removeNewsAction } from "../../contexts/Actions"
@@ -18,7 +19,7 @@ function NewsModal({ setShow }: Props)
         if (title && content)
         {
             const id = await addNewsFirebase(title, content)
-            dispatch(addNewsAction(id, { title, content, date: Date.now() }))
+            dispatch(addNewsAction(id, { title, content, date: Timestamp.now() }))
         }
     }
 
