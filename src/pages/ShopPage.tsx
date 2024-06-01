@@ -32,7 +32,13 @@ function ShopPage({ }: Props)
                     <div className='mr-4'>
                         <h2 className='text-xl'>Kategorie</h2>
                         <div className='flex flex-wrap'>
-                            {tags.category.map(category =>
+                            {tags.category.filter(category =>
+                            {
+                                for (const product of Object.values(products))
+                                    if (product.category.includes(category))
+                                        return true
+                                return false
+                            }).map(category =>
                                 <div key={category} className='mr-4 flex items-center'>
                                     <label>
                                         <input
@@ -56,7 +62,13 @@ function ShopPage({ }: Props)
                     <div className='mr-4'>
                         <h2 className='text-xl'>Úprava</h2>
                         <div className='flex flex-wrap'>
-                            {tags.treatment.map(treatment =>
+                            {tags.treatment.filter(treatment =>
+                            {
+                                for (const product of Object.values(products))
+                                    if (product.treatment.includes(treatment))
+                                        return true
+                                return false
+                            }).map(treatment =>
                                 <div key={treatment} className='mr-4 flex items-center'>
                                     <label>
                                         <input
@@ -80,7 +92,13 @@ function ShopPage({ }: Props)
                     <div className='mr-4'>
                         <h2 className='text-xl'>Využití</h2>
                         <div className='flex flex-wrap'>
-                            {tags.usage.map(usage =>
+                            {tags.usage.filter(usage =>
+                            {
+                                for (const product of Object.values(products))
+                                    if (product.usage.includes(usage))
+                                        return true
+                                return false
+                            }).map(usage =>
                                 <div key={usage} className='mr-4 flex items-center'>
                                     <label>
                                         <input
@@ -109,17 +127,21 @@ function ShopPage({ }: Props)
                         if (search.length > 0 && !product.name.toLowerCase().includes(search.toLowerCase()))
                             return false
 
-                        for (const category of selectedCategories)
-                            if (!product.category.includes(category))
-                                return false
-                        for (const treatment of selectedTreatments)
-                            if (!product.treatment.includes(treatment))
-                                return false
-                        for (const usage of selectedUsages)
-                            if (!product.usage.includes(usage))
-                                return false
+                        let cat = selectedCategories.length === 0
+                        let treat = selectedTreatments.length === 0
+                        let use = selectedUsages.length === 0
 
-                        return true
+                        for (const category of selectedCategories)
+                            if (product.category.includes(category))
+                                cat = true
+                        for (const treatment of selectedTreatments)
+                            if (product.treatment.includes(treatment))
+                                treat = true
+                        for (const usage of selectedUsages)
+                            if (product.usage.includes(usage))
+                                use = true
+
+                        return cat && treat && use
                     }).map(([id, product]) =>
                         !product.hidden && product.stock > 0 &&
                         <ShopItem key={id} id={id} product={product} />
