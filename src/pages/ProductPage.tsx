@@ -62,6 +62,7 @@ function ProductPage({ }: Props)
                 </div>
                 <div className='w-5/6 md:w-96'>
                     <h1 className='text-3xl mt-5'>{products[id].name}</h1>
+                    <p>Balení: {products[id].size} {products[id].unit}</p>
                     <p className='text-lg mt-2'>{products[id].description}</p>
                     {
                         products[id].category.length > 0 &&
@@ -77,6 +78,7 @@ function ProductPage({ }: Props)
                     }
                     <p className='text-lg mt-5'>Skladem: <span className='text-green-600'>{products[id].stock} ks</span></p>
                     <p className='text-xl'>Cena za balení: {products[id].packagePrice.toFixed(2)},- Kč</p>
+                    <p className='text-stone-500'>({products[id].pricePerUnit.toFixed(2)},- Kč/{products[id].unit})</p>
                     <button
                         className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 active:scale-95 transition-transform mt-5' onClick={handleAddToCart}>
                         Do košíku

@@ -37,6 +37,7 @@ function ShopItem({ id, product }: Props)
             <div className='my-5 text-center'>
                 <h3>{product.name}</h3>
                 <p>{product.packagePrice.toFixed(2)},- Kč</p>
+                <p className='-mt-1 text-stone-500'>({product.pricePerUnit.toFixed(2)},- Kč/{product.unit})</p>
             </div>
             <button className='bg-stone-600 text-white px-2 py-1 rounded-lg hover:scale-105 active:scale-95 transition-transform' onClick={handleAddToCart}>
                 Do košíku
