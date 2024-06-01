@@ -28,11 +28,13 @@ function UserModal({ setShow }: Props)
 
             <div>
                 {Object.entries(users).filter(([, user]) => !user.admin).map(([id, user]) =>
-                    <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200 gap-4'>
-                        <p>{user.name}</p>
-                        <p>{user.email}</p>
-                        <p>{user.phone}</p>
-                        <p>{user.address}</p>
+                    <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200'>
+                        <div className='w-full flex justify-between items-center flex-wrap'>
+                            <p className='w-1/4 min-w-fit pe-4'>{user.name}</p>
+                            <p className='w-1/4 min-w-fit pe-4'>{user.email}</p>
+                            <p className='w-1/4 min-w-fit pe-4'>{user.phone}</p>
+                            <p className='w-1/4 min-w-fit pe-4'>{user.address}</p>
+                        </div>
                         <div className='flex'>
                             <p className='mr-2'>Ověřen:</p>
                             <input className='w-5' type='checkbox' defaultChecked={user.verified} onChange={e => handleSetVerified(id, e.target.checked)} />
