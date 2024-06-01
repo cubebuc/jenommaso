@@ -25,13 +25,15 @@ function RegisterPage({ }: Props)
         e.preventDefault()
         const name = (document.getElementById('name') as HTMLInputElement).value
         const email = (document.getElementById('email') as HTMLInputElement).value
+        const prefix = (document.getElementById('phone-prefix') as HTMLSelectElement).value
         const phone = (document.getElementById('phone') as HTMLInputElement).value
         const address = (document.getElementById('address') as HTMLInputElement).value
 
         if (passwordTooShort() || !passwordsMatch())
             return
 
-        await signUp(email, password, name, phone, address)
+        const fullPhone = prefix + ' ' + phone.replace(/\s+/g, '').match(/.{1,3}/g)?.join(' ')
+        await signUp(email, password, name, fullPhone, address)
 
         navigate('/')
     }
@@ -48,8 +50,16 @@ function RegisterPage({ }: Props)
                 <input className={`mb-3 p-2 border border-gray-400 ${passwordTooShort() && 'bg-red-100'}`} id='password' type='password' placeholder='Heslo' required onChange={e => setPassword(e.target.value)} />
                 <label htmlFor='confirm-password'>Heslo znovu:{!passwordsMatch() && <span className='absolute ml-1 text-red-500'>does not match</span>}</label>
                 <input className={`mb-3 p-2 border border-gray-400 ${!passwordsMatch() && 'bg-red-100'}`} id='confirm-password' type='password' placeholder='Heslo znovu' required onChange={e => setConfirmPassword(e.target.value)} />
-                <label htmlFor='phone'>Telefon: (formát: 123 456 789)</label>
-                <input className='mb-4 p-2 border border-gray-400' id='phone' type='tel' placeholder='Telefon' pattern='[0-9]{3} [0-9]{3} [0-9]{3}' required />
+                <label htmlFor='phone'>Telefon: (bez mezer)</label>
+                <div className='mb-3 flex'>
+                    <select className='me-2 p-2 border border-gray-400' id='phone-prefix' required>
+                        <option value='+420'>+420</option>
+                        <option value='+421'>+421</option>
+                        <option value='+43'>+43</option>
+                        <option value='+48'>+48</option>
+                    </select>
+                    <input className='p-2 border border-gray-400' id='phone' type='tel' placeholder='Telefon' required />
+                </div>
                 <label htmlFor='address'>Adresa:</label>
                 <input className='mb-4 p-2 border border-gray-400' id='address' type='text' placeholder='Adresa' required />
                 <button type='submit' className='p-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform'>Registrovat</button>
