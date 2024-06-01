@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { setOrderComplete } from '../../utils/firebase'
 import { useGlobal } from '../../contexts/GlobalContext'
 import { setOrderCompleted } from '../../contexts/Actions'
@@ -5,6 +6,8 @@ import { setOrderCompleted } from '../../contexts/Actions'
 type Props = {}
 function OrderTable({ }: Props)
 {
+    const navigate = useNavigate()
+
     const { state, dispatch } = useGlobal()
     const { usersWithRights, products, orders } = state
 
@@ -46,7 +49,7 @@ function OrderTable({ }: Props)
                                 {
                                     const product = products[productID]
                                     return (
-                                        <li key={productID}>
+                                        <li key={productID} className='cursor-pointer' onClick={() => navigate(`/product/${productID}`)}>
                                             <span className='flex justify-between'>
                                                 <p className='me-5'>{product.name}</p>
                                                 <p>{quantity as number}x ({product.packagePrice.toFixed(2)}/{product.unit})</p>

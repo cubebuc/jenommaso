@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { auth, getMyUserDetails } from '../utils/firebase'
 import { useGlobal } from '../contexts/GlobalContext'
 import MainLayout from '../layouts/MainLayout'
@@ -6,6 +7,8 @@ import MainLayout from '../layouts/MainLayout'
 type Props = {}
 function ProfilePage({ }: Props)
 {
+    const navigate = useNavigate()
+
     const [myUserDetails, setMyUserDetails] = useState<{ [key: string]: any }>()
 
     const { orders, products } = useGlobal().state
@@ -44,7 +47,7 @@ function ProfilePage({ }: Props)
                         <hr className='my-2' />
                         <ul>
                             {Object.entries(order.cart).map(([productID, quantity]) =>
-                                <li key={productID}>
+                                <li key={productID} className='cursor-pointer' onClick={() => navigate(`/product/${productID}`)}>
                                     <span className='flex justify-between'>
                                         <p>{products[productID]?.name}</p>
                                         <p>{quantity as number} x {products[productID]?.packagePrice.toFixed(2)},- Kč</p>
