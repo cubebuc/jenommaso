@@ -20,6 +20,8 @@ function ProfilePage({ }: Props)
 
     return (
         <MainLayout>
+            <title>Jiřího Dobroty | Profil</title>
+            <title>Profil</title>
             <h1 className='mt-24 mb-3 text-4xl text-center font-playfair uppercase'>
                 Profil
             </h1>

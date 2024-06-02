@@ -18,6 +18,7 @@ function CartPage({ }: Props)
 
     return (
         <MainLayout>
+            <title>Jiřího Dobroty | Košík</title>
             <h1 className='mt-24 mb-8 text-4xl text-center font-playfair uppercase'>
                 Košík
             </h1>

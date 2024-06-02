@@ -38,13 +38,12 @@ function ProductPage({ }: Props)
         }
     }
 
-    console.log(products[id as any])
-
     if (id === undefined || !products[id])
         return <Navigate to='/shop' />
 
     return (
         <MainLayout>
+            <title>{`Jiřího Dobroty | ${products[id].name}`}</title>
             <div className='mt-32 px-3 pb-10 flex flex-col md:flex-row justify-center items-center md:items-start'>
                 <div className='w-96 md:mr-10'>
                     <img className='w-96 h-96 p-1 object-contain border' src={products[id].images[selectedImage]} alt={products[id].name} />

@@ -34,6 +34,7 @@ function LandingPage({ }: Props)
         return <Navigate to='/home' replace />
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
+            <title>Jiřího Dobroty | Přihlášení</title>
             <h1 className='mb-5 text-5xl font-playfair'>Vítej</h1>
             <form className='flex flex-col items-center justify-center gap-3' onSubmit={handleSubmit}>
                 <input className='border border-gray-400 p-2' id='email' type='text' placeholder='Email' />

@@ -27,6 +27,7 @@ function AdminPage({ }: Props)
 
     return (
         <>
+            <title>Jiřího Dobroty | Admin</title>
             <Navbar />
             <div className='w-fit pt-24 px-3 pb-3 mx-auto'>
                 <h1 className='mb-8 text-4xl text-center font-playfair uppercase'>

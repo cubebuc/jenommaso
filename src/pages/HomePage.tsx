@@ -10,6 +10,7 @@ function HomePage({ }: Props)
 {
     return (
         <MainLayout>
+            <title>Jiřího Dobroty | Domů</title>
             <div>
                 <img className='h-screen w-full object-cover' src={beef} alt='beef tenderloin' />
 

@@ -40,6 +40,7 @@ function RegisterPage({ }: Props)
 
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
+            <title>Jiřího Dobroty | Registrace</title>
             <h1 className='mb-5 text-5xl font-playfair'>Registrace</h1>
             <form className='flex flex-col items-centers justify-center' onSubmit={handleSubmit}>
                 <label htmlFor='name'>Jméno:</label>

@@ -15,6 +15,7 @@ function ShopPage({ }: Props)
 
     return (
         <MainLayout>
+            <title>Jiřího Dobroty | Nabídka</title>
             <h1 className='mt-24 mb-10 text-4xl text-center font-playfair uppercase'>
                 Nabídka
             </h1>
