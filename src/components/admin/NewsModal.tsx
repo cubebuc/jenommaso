@@ -1,4 +1,3 @@
-import { Timestamp } from "firebase/firestore/lite"
 import { addNews as addNewsFirebase, removeNews as removeNewsFirebase } from "../../utils/firebase"
 import { useGlobal } from "../../contexts/GlobalContext"
 import { addNews as addNewsAction, removeNews as removeNewsAction } from "../../contexts/Actions"
