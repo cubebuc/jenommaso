@@ -284,11 +284,12 @@ export async function getNews(): Promise<{ [key: string]: any }>
 }
 
 // Add a new news to Firestore
-export async function addNews(title: string, content: string): Promise<string>
+export async function addNews(title: string, content: string): Promise<{ id: string, news: { [key: string]: any } }>
 {
     const docRef = doc(collection(firestore, 'news'))
+    const news = { title, content, date: Timestamp.now() }
     await setDoc(docRef, { title, content, date: Timestamp.now() })
-    return docRef.id
+    return { id: docRef.id, news }
 }
 
 // Remove a news from Firestore

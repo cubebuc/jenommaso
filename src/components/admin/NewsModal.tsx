@@ -18,8 +18,8 @@ function NewsModal({ setShow }: Props)
 
         if (title && content)
         {
-            const id = await addNewsFirebase(title, content)
-            dispatch(addNewsAction(id, { title, content, date: Timestamp.now() }))
+            const { id, news } = await addNewsFirebase(title, content)
+            dispatch(addNewsAction(id, news))
         }
     }
 
