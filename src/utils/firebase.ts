@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getAnalytics } from 'firebase/analytics'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth'
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, DocumentData, arrayUnion, arrayRemove, query, where, Timestamp } from 'firebase/firestore/lite'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, getBlob } from 'firebase/storage'
@@ -16,7 +17,8 @@ const firebaseConfig = {
     projectId: 'maso-62fa1',
     storageBucket: 'maso-62fa1.appspot.com',
     messagingSenderId: '1005137198174',
-    appId: '1:1005137198174:web:39ab06d672c94fdde1c8cf'
+    appId: '1:1005137198174:web:39ab06d672c94fdde1c8cf',
+    measurementId: "G-9XC2BVQRKJ"
 }
 
 const app = initializeApp(firebaseConfig)
