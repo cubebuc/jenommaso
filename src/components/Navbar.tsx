@@ -55,10 +55,18 @@ function Navbar({ }: Props)
 
                 <nav className='w-full lg:w-1/3 my-3 md:my-0 '>
                     <ul className='flex flex-col md:flex-row items-center justify-center gap-8 text-2xl md:text-base'>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#'>Úvod</Link></li>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase text-nowrap' onClick={() => setShowMenu(false)}><Link smooth to='/shop#'>Jiřího Nabídka</Link></li>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#news' scroll={scrollWithOffset}>Novinky</Link></li>
-                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}><Link smooth to='/home#contact' scroll={scrollWithOffset}>Kontakt</Link></li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}>
+                            <Link smooth to='/home#'>Úvod</Link>
+                        </li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase text-nowrap' onClick={() => setShowMenu(false)}>
+                            <Link smooth to='/shop#'>Jiřího Nabídka</Link>
+                        </li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}>
+                            <Link smooth to='/home#news' scroll={scrollWithOffset}>Novinky</Link>
+                        </li>
+                        <li className='hover:scale-105 active:scale-95 transition-transform translate-y-0.5 uppercase' onClick={() => setShowMenu(false)}>
+                            <Link smooth to='/home#contact' scroll={scrollWithOffset}>Kontakt</Link>
+                        </li>
                     </ul>
                 </nav>
 
