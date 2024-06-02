@@ -30,10 +30,10 @@ function UserModal({ setShow }: Props)
                 {Object.entries(users).filter(([, user]) => !user.admin).map(([id, user]) =>
                     <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200'>
                         <div className='w-full flex justify-between items-center flex-wrap'>
-                            <p className='w-1/4 min-w-fit pe-4'>{user.name}</p>
-                            <p className='w-1/4 min-w-fit pe-4'>{user.email}</p>
-                            <p className='w-1/4 min-w-fit pe-4'>{user.phone}</p>
-                            <p className='w-1/4 min-w-fit pe-4'>{user.address}</p>
+                            <p className='w-1/4 min-w-44 pe-4'>{user.name}</p>
+                            <p className='w-1/4 min-w-60 pe-4'>{user.email}</p>
+                            <p className='w-1/4 min-w-44 pe-4'>{user.phone}</p>
+                            <p className='w-1/4 min-w-60 pe-4'>{user.address}</p>
                         </div>
                         <div className='flex'>
                             <p className='mr-2'>Ověřen:</p>
