@@ -27,7 +27,12 @@ function UserModal({ setShow }: Props)
             </div>
 
             <div>
-                {Object.entries(users).filter(([, user]) => !user.admin).map(([id, user]) =>
+                {Object.entries(users).filter(([, user]) => !user.admin).sort((a, b) =>
+                {
+                    if (a[1].verified && !b[1].verified) return 1
+                    if (!a[1].verified && b[1].verified) return -1
+                    return a[1].name.localeCompare(b[1].name)
+                }).map(([id, user]) =>
                     <div key={id} className='flex justify-between items-center p-2 px-3 odd:bg-gray-100 even:bg-gray-200'>
                         <div className='w-full flex justify-between items-center flex-wrap'>
                             <p className='w-1/4 min-w-44 pe-4'>{user.name}</p>
