@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import CartItem from '../components/cart/CartItem'
-import ConfirmModal from '../components/cart/ConfirmModal'
+import ConfirmOrderModal from '../components/cart/ConfirmOrderModal'
 import { useGlobal } from '../contexts/GlobalContext'
 
 type Props = {}
@@ -49,7 +49,7 @@ function CartPage({ }: Props)
                     </button>
 
                     <div className={`fixed top-0 left-0 w-full h-full z-40 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-all ${showConfirmModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                        <ConfirmModal setShow={setShowConfirmModal} />
+                        <ConfirmOrderModal setShow={setShowConfirmModal} />
                     </div>
                 </div>
             </div>

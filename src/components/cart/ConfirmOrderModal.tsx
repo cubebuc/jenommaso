@@ -5,7 +5,7 @@ import { useGlobal } from '../../contexts/GlobalContext'
 import { addOrder, clearCart, updateStock } from '../../contexts/Actions'
 
 type Props = { setShow: React.Dispatch<React.SetStateAction<boolean>> }
-function ConfirmModal({ setShow }: Props)
+function ConfirmOrderModal({ setShow }: Props)
 {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
@@ -58,4 +58,4 @@ function ConfirmModal({ setShow }: Props)
         </div>
     )
 }
-export default ConfirmModal
+export default ConfirmOrderModal

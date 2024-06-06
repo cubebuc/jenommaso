@@ -81,7 +81,7 @@ function AdminPage({ }: Props)
                     </button>
                 </h1>
                 <div className={`overflow-clip ${shrinkProducts && 'h-0'}`}>
-                    <ProductTable setShow={setShowProductModal} setEditingProduct={setEditingProduct} />
+                    <ProductTable setShowEdit={setShowProductModal} setEditingProduct={setEditingProduct} />
                 </div>
             </div>
         </>
