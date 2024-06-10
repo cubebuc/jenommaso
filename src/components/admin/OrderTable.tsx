@@ -35,6 +35,7 @@ function OrderTable({ }: Props)
                 {
                     if (a[1].completed && !b[1].completed) return 1
                     if (!a[1].completed && b[1].completed) return -1
+                    if (a[1].completed) return b[1].date - a[1].date
                     return a[1].date - b[1].date
                 }).map(([id, order]) =>
                     <tr key={id}>
