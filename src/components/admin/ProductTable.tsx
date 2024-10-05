@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ConfirmRemoveModal from './ConfirmRemoveModal'
 import { useGlobal } from '../../contexts/GlobalContext'
+import { WhatsappShareButton } from 'react-share'
 
 type Props = { setShowEdit: React.Dispatch<React.SetStateAction<boolean>>, setEditingProduct: React.Dispatch<React.SetStateAction<{ [key: string]: any }>> }
 function ProductTable({ setShowEdit, setEditingProduct }: Props)
@@ -34,6 +35,11 @@ function ProductTable({ setShowEdit, setEditingProduct }: Props)
 
         setRemovingProduct(id)
         setShowProductModal(true)
+    }
+
+    async function handleShareProduct(id: string)
+    {
+        console.log("Share product", id)
     }
 
     return (
@@ -79,6 +85,13 @@ function ProductTable({ setShowEdit, setEditingProduct }: Props)
                                 <button className='px-4 py-2 bg-red-500 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => handleDeleteProduct(id)}>
                                     Smazat
                                 </button>
+                            </td>
+                            <td className='pl-4 py-2'>
+                                <div className='px-4 py-2 bg-green-600 text-white rounded hover:scale-105 active:scale-95 transition-transform' onClick={() => handleShareProduct(id)}>
+                                    <WhatsappShareButton url={`https://${window.location.host}/product/${id}`} title={product.name}>
+                                        Sdílet
+                                    </WhatsappShareButton>
+                                </div>
                             </td>
                         </tr>
                     )}
