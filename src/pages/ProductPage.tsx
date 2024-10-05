@@ -18,11 +18,10 @@ function ProductPage({ }: Props)
     {
         e.stopPropagation()
 
-        if (id === undefined || !products[id])
+        if (id === undefined || !products[id] || products[id].stock <= 0 || products[id].stock <= cart[id])
             return
 
-        if (products[id].stock <= cart[id])
-            return
+        console.log(products[id].stock, cart[id], id, products[id])
 
         dispatch(addToCart(id))
 
