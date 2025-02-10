@@ -14,6 +14,8 @@ import Protected from './components/Protected.tsx'
 import GlobalContext from './contexts/GlobalContext.tsx'
 import './index.css'
 
+const WIP = true
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -55,8 +57,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <GlobalContext>
-            <RouterProvider router={router} />
-        </GlobalContext>
+        {
+            WIP
+                ?
+                <div className='flex flex-col items-center justify-center h-screen gap-4 text-4xl'>
+                    <h1>🚧 Stránka je dočasně nedostupná 🚧</h1>
+                </div>
+                :
+                <GlobalContext>
+                    <RouterProvider router={router} />
+                </GlobalContext>
+        }
     </React.StrictMode>
 )
