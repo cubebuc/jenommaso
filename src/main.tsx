@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import LandingPage from './pages/LandingPage.tsx'
+/*import LandingPage from './pages/LandingPage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
 import HomePage from './pages/HomePage.tsx'
 import ShopPage from './pages/ShopPage.tsx'
@@ -11,8 +11,20 @@ import CartPage from './pages/CartPage.tsx'
 import OrderPage from './pages/OrderPage.tsx'
 import AdminPage from './pages/AdminPage.tsx'
 import Protected from './components/Protected.tsx'
-import GlobalContext from './contexts/GlobalContext.tsx'
+import GlobalContext from './contexts/GlobalContext.tsx'*/
 import './index.css'
+
+const LandingPage = React.lazy(() => import('./pages/LandingPage.tsx'))
+const RegisterPage = React.lazy(() => import('./pages/RegisterPage.tsx'))
+const HomePage = React.lazy(() => import('./pages/HomePage.tsx'))
+const ShopPage = React.lazy(() => import('./pages/ShopPage.tsx'))
+const ProductPage = React.lazy(() => import('./pages/ProductPage.tsx'))
+const ProfilePage = React.lazy(() => import('./pages/ProfilePage.tsx'))
+const CartPage = React.lazy(() => import('./pages/CartPage.tsx'))
+const OrderPage = React.lazy(() => import('./pages/OrderPage.tsx'))
+const AdminPage = React.lazy(() => import('./pages/AdminPage.tsx'))
+const Protected = React.lazy(() => import('./components/Protected.tsx'))
+const GlobalContext = React.lazy(() => import('./contexts/GlobalContext.tsx'))
 
 const WIP = true
 
@@ -65,7 +77,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 </div>
                 :
                 <GlobalContext>
-                    <RouterProvider router={router} />
+                    <Suspense fallback={<div className='flex flex-col items-center justify-center h-screen gap-4 text-4xl'>Načítání...</div>}>
+                        <RouterProvider router={router} />
+                    </Suspense>
                 </GlobalContext>
         }
     </React.StrictMode>
