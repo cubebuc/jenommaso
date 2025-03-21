@@ -1,17 +1,7 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-/*import LandingPage from './pages/LandingPage.tsx'
-import RegisterPage from './pages/RegisterPage.tsx'
-import HomePage from './pages/HomePage.tsx'
-import ShopPage from './pages/ShopPage.tsx'
-import ProductPage from './pages/ProductPage.tsx'
-import ProfilePage from './pages/ProfilePage.tsx'
-import CartPage from './pages/CartPage.tsx'
-import OrderPage from './pages/OrderPage.tsx'
-import AdminPage from './pages/AdminPage.tsx'
-import Protected from './components/Protected.tsx'
-import GlobalContext from './contexts/GlobalContext.tsx'*/
+import { getWip } from './utils/remoteConfig.ts'
 import './index.css'
 
 const LandingPage = React.lazy(() => import('./pages/LandingPage.tsx'))
@@ -25,8 +15,6 @@ const OrderPage = React.lazy(() => import('./pages/OrderPage.tsx'))
 const AdminPage = React.lazy(() => import('./pages/AdminPage.tsx'))
 const Protected = React.lazy(() => import('./components/Protected.tsx'))
 const GlobalContext = React.lazy(() => import('./contexts/GlobalContext.tsx'))
-
-const WIP = true
 
 const router = createBrowserRouter([
     {
@@ -67,20 +55,23 @@ const router = createBrowserRouter([
     }
 ])
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-        {
-            WIP
-                ?
-                <div className='flex flex-col items-center justify-center h-screen gap-4 text-4xl'>
-                    <h1>🚧 Stránka je dočasně nedostupná 🚧</h1>
-                </div>
-                :
-                <GlobalContext>
-                    <Suspense fallback={<div className='flex flex-col items-center justify-center h-screen gap-4 text-4xl'>Načítání...</div>}>
-                        <RouterProvider router={router} />
-                    </Suspense>
-                </GlobalContext>
-        }
-    </React.StrictMode>
-)
+getWip().then((WIP) =>
+{
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+        <React.StrictMode>
+            {
+                WIP
+                    ?
+                    <div className='flex flex-col items-center justify-center h-screen gap-4 text-4xl'>
+                        <h1>🚧 Stránka je dočasně nedostupná 🚧</h1>
+                    </div>
+                    :
+                    <GlobalContext>
+                        <Suspense fallback={<div className='flex flex-col items-center justify-center h-screen gap-4 text-4xl'>Načítání...</div>}>
+                            <RouterProvider router={router} />
+                        </Suspense>
+                    </GlobalContext>
+            }
+        </React.StrictMode>
+    )
+})
